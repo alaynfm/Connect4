@@ -45,6 +45,8 @@ public class GestorUsuarios {
 		try {
 			String update = "INSERT INTO usuarios (usuario, contrasena) VALUES (" + usuario + ", " + contrasena + ")";
 			SGBD.getSGBD().realizarUpdate(conn, update);
+			update = "INSERT INTO ranking (usuario, puntuacion, numpartidas) VALUES (" + usuario + ", 0, 0)";
+			SGBD.getSGBD().realizarUpdate(conn, update);
 		} catch (SQLException e) {
 			System.out.println("Error al registrarte");
 			System.out.println(e.getMessage());
