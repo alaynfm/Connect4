@@ -16,6 +16,8 @@ public class main {
 		x.colocarFicha(3, "A");
 		x.colocarFicha(3, "A");
 		x.colocarFicha(3, "R");
+		x.colocarFicha(4, "R");
+
 	
 		System.out.println("Hay victoria: "+ x.hayGanador());
 		//x.colocarFicha(0, "A");
