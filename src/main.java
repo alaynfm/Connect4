@@ -23,7 +23,6 @@ public class main {
 		//x.colocarFicha(0, "A");
 		System.out.println(x.sePuedeColocar(0));
 		x.imprimirTablero();
-		x.imprimirTablero();
 	}
 
 }
