@@ -1,4 +1,4 @@
-
+package partida;
 public class Jugador {
 	private String nombre;
 	private String color;

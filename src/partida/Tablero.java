@@ -1,3 +1,5 @@
+package partida;
+
 import java.util.Stack;
 
 public class Tablero {
