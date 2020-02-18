@@ -1,3 +1,4 @@
+package partida;
 
 public class main {
 
