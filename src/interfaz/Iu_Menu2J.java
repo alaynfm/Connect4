@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class Menu2J extends JFrame {
+public class Iu_Menu2J extends JFrame {
 
 	private JPanel contentPane;
 
@@ -18,7 +18,7 @@ public class Menu2J extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu2J frame = new Menu2J();
+					Iu_Menu2J frame = new Iu_Menu2J();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -30,7 +30,7 @@ public class Menu2J extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Menu2J() {
+	public Iu_Menu2J() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

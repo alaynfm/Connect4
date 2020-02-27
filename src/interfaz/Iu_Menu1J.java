@@ -21,7 +21,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Menu1J extends JFrame {
+public class Iu_Menu1J extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -45,7 +45,7 @@ public class Menu1J extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu1J frame = new Menu1J();
+					Iu_Menu1J frame = new Iu_Menu1J();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +57,7 @@ public class Menu1J extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Menu1J() {
+	public Iu_Menu1J() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

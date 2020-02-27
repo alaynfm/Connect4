@@ -16,8 +16,9 @@ import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Font;
 
-public class Inicio extends JFrame {
+public class Iu_Inicio extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -30,6 +31,7 @@ public class Inicio extends JFrame {
 	private JButton btnUnJugador;
 	private JButton btnMultijugador;
 	private JButton btnTop;
+	private JLabel lblXabico;
 
 	/**
 	 * Launch the application.
@@ -38,7 +40,7 @@ public class Inicio extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Inicio frame = new Inicio();
+					Iu_Inicio frame = new Iu_Inicio();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,9 +52,9 @@ public class Inicio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Inicio() {
+	public Iu_Inicio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 873, 470);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -76,6 +78,7 @@ public class Inicio extends JFrame {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
 			panel_1.setBackground(Color.DARK_GRAY);
+			panel_1.add(getLblXabico());
 		}
 		return panel_1;
 	}
@@ -106,11 +109,35 @@ public class Inicio extends JFrame {
 		if (panel_4 == null) {
 			panel_4 = new JPanel();
 			panel_4.setBackground(Color.DARK_GRAY);
-			panel_4.setLayout(new GridLayout(0, 1, 0, 0));
-			panel_4.add(getLblConecta());
-			panel_4.add(getBtnUnJugador());
-			panel_4.add(getBtnMultijugador());
-			panel_4.add(getBtnTop());
+			GridBagLayout gbl_panel_4 = new GridBagLayout();
+			gbl_panel_4.columnWidths = new int[] {280, 0};
+			gbl_panel_4.rowHeights = new int[]{57, 37, 37, 10};
+			gbl_panel_4.columnWeights = new double[]{0.0};
+			gbl_panel_4.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+			panel_4.setLayout(gbl_panel_4);
+			GridBagConstraints gbc_lblConecta = new GridBagConstraints();
+			gbc_lblConecta.fill = GridBagConstraints.BOTH;
+			gbc_lblConecta.insets = new Insets(0, 0, 5, 0);
+			gbc_lblConecta.gridx = 0;
+			gbc_lblConecta.gridy = 0;
+			panel_4.add(getLblConecta(), gbc_lblConecta);
+			GridBagConstraints gbc_btnUnJugador = new GridBagConstraints();
+			gbc_btnUnJugador.fill = GridBagConstraints.BOTH;
+			gbc_btnUnJugador.insets = new Insets(0, 0, 5, 0);
+			gbc_btnUnJugador.gridx = 0;
+			gbc_btnUnJugador.gridy = 1;
+			panel_4.add(getBtnUnJugador(), gbc_btnUnJugador);
+			GridBagConstraints gbc_btnMultijugador = new GridBagConstraints();
+			gbc_btnMultijugador.fill = GridBagConstraints.BOTH;
+			gbc_btnMultijugador.insets = new Insets(0, 0, 5, 0);
+			gbc_btnMultijugador.gridx = 0;
+			gbc_btnMultijugador.gridy = 2;
+			panel_4.add(getBtnMultijugador(), gbc_btnMultijugador);
+			GridBagConstraints gbc_btnTop = new GridBagConstraints();
+			gbc_btnTop.fill = GridBagConstraints.BOTH;
+			gbc_btnTop.gridx = 0;
+			gbc_btnTop.gridy = 3;
+			panel_4.add(getBtnTop(), gbc_btnTop);
 			
 		}
 		return panel_4;
@@ -118,6 +145,7 @@ public class Inicio extends JFrame {
 	private JLabel getLblConecta() {
 		if (lblConecta == null) {
 			lblConecta = new JLabel("Conecta4");
+			lblConecta.setFont(new Font("Georgia", Font.BOLD, 64));
 			lblConecta.setForeground(Color.WHITE);
 			lblConecta.setHorizontalAlignment(SwingConstants.CENTER);
 		}
@@ -126,19 +154,33 @@ public class Inicio extends JFrame {
 	private JButton getBtnUnJugador() {
 		if (btnUnJugador == null) {
 			btnUnJugador = new JButton("Un Jugador");
+			btnUnJugador.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			btnUnJugador.setBackground(new Color(135, 206, 250));
 		}
 		return btnUnJugador;
 	}
 	private JButton getBtnMultijugador() {
 		if (btnMultijugador == null) {
 			btnMultijugador = new JButton("Multijugador");
+			btnMultijugador.setForeground(new Color(255, 255, 255));
+			btnMultijugador.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			btnMultijugador.setBackground(new Color(204, 0, 51));
 		}
 		return btnMultijugador;
 	}
 	private JButton getBtnTop() {
 		if (btnTop == null) {
 			btnTop = new JButton("Top 10");
+			btnTop.setBackground(new Color(255, 255, 255));
+			btnTop.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		}
 		return btnTop;
+	}
+	private JLabel getLblXabico() {
+		if (lblXabico == null) {
+			lblXabico = new JLabel("Xabi&Co");
+			lblXabico.setForeground(new Color(204, 204, 204));
+		}
+		return lblXabico;
 	}
 }
