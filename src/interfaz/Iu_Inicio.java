@@ -32,6 +32,7 @@ public class Iu_Inicio extends JFrame {
 	private JButton btnMultijugador;
 	private JButton btnTop;
 	private JLabel lblXabico;
+	private JButton btnRegistrarse;
 
 	/**
 	 * Launch the application.
@@ -111,33 +112,39 @@ public class Iu_Inicio extends JFrame {
 			panel_4.setBackground(Color.DARK_GRAY);
 			GridBagLayout gbl_panel_4 = new GridBagLayout();
 			gbl_panel_4.columnWidths = new int[] {280, 0};
-			gbl_panel_4.rowHeights = new int[]{57, 37, 37, 10};
+			gbl_panel_4.rowHeights = new int[]{57, 37, 37, 10, 0};
 			gbl_panel_4.columnWeights = new double[]{0.0};
-			gbl_panel_4.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+			gbl_panel_4.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 			panel_4.setLayout(gbl_panel_4);
 			GridBagConstraints gbc_lblConecta = new GridBagConstraints();
 			gbc_lblConecta.fill = GridBagConstraints.BOTH;
-			gbc_lblConecta.insets = new Insets(0, 0, 5, 0);
+			gbc_lblConecta.insets = new Insets(0, 0, 5, 5);
 			gbc_lblConecta.gridx = 0;
 			gbc_lblConecta.gridy = 0;
 			panel_4.add(getLblConecta(), gbc_lblConecta);
 			GridBagConstraints gbc_btnUnJugador = new GridBagConstraints();
 			gbc_btnUnJugador.fill = GridBagConstraints.BOTH;
-			gbc_btnUnJugador.insets = new Insets(0, 0, 5, 0);
+			gbc_btnUnJugador.insets = new Insets(0, 0, 5, 5);
 			gbc_btnUnJugador.gridx = 0;
 			gbc_btnUnJugador.gridy = 1;
 			panel_4.add(getBtnUnJugador(), gbc_btnUnJugador);
 			GridBagConstraints gbc_btnMultijugador = new GridBagConstraints();
 			gbc_btnMultijugador.fill = GridBagConstraints.BOTH;
-			gbc_btnMultijugador.insets = new Insets(0, 0, 5, 0);
+			gbc_btnMultijugador.insets = new Insets(0, 0, 5, 5);
 			gbc_btnMultijugador.gridx = 0;
 			gbc_btnMultijugador.gridy = 2;
 			panel_4.add(getBtnMultijugador(), gbc_btnMultijugador);
 			GridBagConstraints gbc_btnTop = new GridBagConstraints();
+			gbc_btnTop.insets = new Insets(0, 0, 5, 5);
 			gbc_btnTop.fill = GridBagConstraints.BOTH;
 			gbc_btnTop.gridx = 0;
 			gbc_btnTop.gridy = 3;
 			panel_4.add(getBtnTop(), gbc_btnTop);
+			GridBagConstraints gbc_btnRegistrarse = new GridBagConstraints();
+			gbc_btnRegistrarse.insets = new Insets(0, 0, 0, 5);
+			gbc_btnRegistrarse.gridx = 0;
+			gbc_btnRegistrarse.gridy = 4;
+			panel_4.add(getBtnRegistrarse(), gbc_btnRegistrarse);
 			
 		}
 		return panel_4;
@@ -182,5 +189,13 @@ public class Iu_Inicio extends JFrame {
 			lblXabico.setForeground(new Color(204, 204, 204));
 		}
 		return lblXabico;
+	}
+	private JButton getBtnRegistrarse() {
+		if (btnRegistrarse == null) {
+			btnRegistrarse = new JButton("Registrarse");
+			btnRegistrarse.setForeground(Color.WHITE);
+			btnRegistrarse.setBackground(Color.DARK_GRAY);
+		}
+		return btnRegistrarse;
 	}
 }
