@@ -20,6 +20,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import net.miginfocom.swing.MigLayout;
+import java.awt.Color;
 
 public class Iu_Menu1J extends JFrame {
 
@@ -37,6 +40,8 @@ public class Iu_Menu1J extends JFrame {
 	private JRadioButton rdbtnFacil;
 	private JRadioButton rdbtnDificil;
 	private JButton btnOk;
+	private JLabel lblNickname;
+	private JButton btnChangeNickname;
 
 	/**
 	 * Launch the application.
@@ -59,8 +64,9 @@ public class Iu_Menu1J extends JFrame {
 	 */
 	public Iu_Menu1J() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 873, 470);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -74,12 +80,14 @@ public class Iu_Menu1J extends JFrame {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
+			panel.setBackground(Color.DARK_GRAY);
 		}
 		return panel;
 	}
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
+			panel_1.setBackground(new Color(240, 240, 240));
 			panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		}
 		return panel_1;
@@ -87,18 +95,21 @@ public class Iu_Menu1J extends JFrame {
 	private JPanel getPanel_2() {
 		if (panel_2 == null) {
 			panel_2 = new JPanel();
+			panel_2.setBackground(Color.DARK_GRAY);
 		}
 		return panel_2;
 	}
 	private JPanel getPanel_3() {
 		if (panel_3 == null) {
 			panel_3 = new JPanel();
+			panel_3.setBackground(Color.DARK_GRAY);
 		}
 		return panel_3;
 	}
 	private JPanel getPanel_4() {
 		if (panel_4 == null) {
 			panel_4 = new JPanel();
+			panel_4.setBackground(Color.DARK_GRAY);
 			panel_4.setLayout(new BorderLayout(0, 0));
 			panel_4.add(getPanel_5(), BorderLayout.WEST);
 			panel_4.add(getPanel_6(), BorderLayout.CENTER);
@@ -108,41 +119,25 @@ public class Iu_Menu1J extends JFrame {
 	private JPanel getPanel_5() {
 		if (panel_5 == null) {
 			panel_5 = new JPanel();
-			GridBagLayout gbl_panel_5 = new GridBagLayout();
-			gbl_panel_5.columnWidths = new int[] {10, 0};
-			gbl_panel_5.rowHeights = new int[] {0, 30, 30, 30, 30, 30, 30, 0};
-			gbl_panel_5.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-			gbl_panel_5.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-			panel_5.setLayout(gbl_panel_5);
-			GridBagConstraints gbc_lblDificultad = new GridBagConstraints();
-			gbc_lblDificultad.insets = new Insets(0, 0, 5, 0);
-			gbc_lblDificultad.gridx = 0;
-			gbc_lblDificultad.gridy = 0;
-			panel_5.add(getLblDificultad(), gbc_lblDificultad);
-			GridBagConstraints gbc_rdbtnFacil = new GridBagConstraints();
-			gbc_rdbtnFacil.insets = new Insets(0, 0, 5, 0);
-			gbc_rdbtnFacil.gridx = 0;
-			gbc_rdbtnFacil.gridy = 1;
-			panel_5.add(getRdbtnFacil(), gbc_rdbtnFacil);
-			GridBagConstraints gbc_rdbtnDificil = new GridBagConstraints();
-			gbc_rdbtnDificil.insets = new Insets(0, 0, 5, 0);
-			gbc_rdbtnDificil.gridx = 0;
-			gbc_rdbtnDificil.gridy = 2;
-			panel_5.add(getRdbtnDificil(), gbc_rdbtnDificil);
+			panel_5.setBackground(Color.DARK_GRAY);
+			panel_5.setLayout(new MigLayout("", "[117px]", "[35px][35px][35px][35px][35px][35px]"));
+			panel_5.add(getLblNickname(), "cell 0 0,grow");
+			panel_5.add(getBtnChangeNickname(), "cell 0 1,grow");
+			panel_5.add(getLblDificultad(), "cell 0 2,grow");
+			panel_5.add(getRdbtnFacil(), "cell 0 3,grow");
+			panel_5.add(getRdbtnDificil(), "cell 0 4,grow");
+			panel_5.add(getBtnOk(), "cell 0 5,grow");
 			
 			ButtonGroup grupo1 = new ButtonGroup();
 			grupo1.add(getRdbtnDificil());
 			grupo1.add(getRdbtnFacil());
-			GridBagConstraints gbc_btnOk = new GridBagConstraints();
-			gbc_btnOk.gridx = 0;
-			gbc_btnOk.gridy = 7;
-			panel_5.add(getBtnOk(), gbc_btnOk);
 		}
 		return panel_5;
 	}
 	private JPanel getPanel_6() {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
+			panel_6.setBackground(Color.DARK_GRAY);
 			panel_6.setLayout(new BorderLayout(0, 0));
 			panel_6.add(getPanel_7(), BorderLayout.NORTH);
 		}
@@ -151,6 +146,7 @@ public class Iu_Menu1J extends JFrame {
 	private JPanel getPanel_7() {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
+			panel_7.setBackground(Color.DARK_GRAY);
 			panel_7.add(getLblNormas());
 		}
 		return panel_7;
@@ -188,5 +184,17 @@ public class Iu_Menu1J extends JFrame {
 			});
 		}
 		return btnOk;
+	}
+	private JLabel getLblNickname() {
+		if (lblNickname == null) {
+			lblNickname = new JLabel("Nickname");
+		}
+		return lblNickname;
+	}
+	private JButton getBtnChangeNickname() {
+		if (btnChangeNickname == null) {
+			btnChangeNickname = new JButton("Change nickname");
+		}
+		return btnChangeNickname;
 	}
 }

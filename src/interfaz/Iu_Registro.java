@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
@@ -32,10 +33,11 @@ public class Iu_Registro extends JFrame {
 	private JPanel panel_5;
 	private JLabel lblCrearUsuario;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JPasswordField textField_1;
 	private JLabel lblNickname;
 	private JLabel lblPassword;
 	private JButton btnRegister;
+	private JButton btnLogin;
 
 	/**
 	 * Launch the application.
@@ -139,45 +141,50 @@ public class Iu_Registro extends JFrame {
 			GridBagConstraints gbc_lblCrearUsuario = new GridBagConstraints();
 			gbc_lblCrearUsuario.insets = new Insets(0, 0, 5, 5);
 			gbc_lblCrearUsuario.gridx = 4;
-			gbc_lblCrearUsuario.gridy = 5;
+			gbc_lblCrearUsuario.gridy = 3;
 			panel_5.add(getLblCrearUsuario(), gbc_lblCrearUsuario);
 			GridBagConstraints gbc_lblNickname = new GridBagConstraints();
 			gbc_lblNickname.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblNickname.insets = new Insets(0, 0, 5, 5);
 			gbc_lblNickname.anchor = GridBagConstraints.EAST;
 			gbc_lblNickname.gridx = 3;
-			gbc_lblNickname.gridy = 7;
+			gbc_lblNickname.gridy = 5;
 			panel_5.add(getLblNickname(), gbc_lblNickname);
 			GridBagConstraints gbc_textField = new GridBagConstraints();
 			gbc_textField.insets = new Insets(0, 0, 5, 5);
 			gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 			gbc_textField.gridx = 4;
-			gbc_textField.gridy = 7;
+			gbc_textField.gridy = 5;
 			panel_5.add(getTextField(), gbc_textField);
 			GridBagConstraints gbc_lblPassword = new GridBagConstraints();
 			gbc_lblPassword.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblPassword.insets = new Insets(0, 0, 5, 5);
 			gbc_lblPassword.anchor = GridBagConstraints.EAST;
 			gbc_lblPassword.gridx = 3;
-			gbc_lblPassword.gridy = 8;
+			gbc_lblPassword.gridy = 6;
 			panel_5.add(getLblPassword(), gbc_lblPassword);
 			GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 			gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 			gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 			gbc_textField_1.gridx = 4;
-			gbc_textField_1.gridy = 8;
+			gbc_textField_1.gridy = 6;
 			panel_5.add(getTextField_1(), gbc_textField_1);
+			GridBagConstraints gbc_btnLogin = new GridBagConstraints();
+			gbc_btnLogin.insets = new Insets(0, 0, 5, 5);
+			gbc_btnLogin.gridx = 4;
+			gbc_btnLogin.gridy = 8;
+			panel_5.add(getBtnLogin(), gbc_btnLogin);
 			GridBagConstraints gbc_btnRegister = new GridBagConstraints();
-			gbc_btnRegister.insets = new Insets(0, 0, 0, 5);
+			gbc_btnRegister.insets = new Insets(0, 0, 5, 5);
 			gbc_btnRegister.gridx = 4;
-			gbc_btnRegister.gridy = 10;
+			gbc_btnRegister.gridy = 9;
 			panel_5.add(getBtnRegister(), gbc_btnRegister);
 		}
 		return panel_5;
 	}
 	private JLabel getLblCrearUsuario() {
 		if (lblCrearUsuario == null) {
-			lblCrearUsuario = new JLabel("Crear Usuario");
+			lblCrearUsuario = new JLabel("Account LogIn");
 			lblCrearUsuario.setFont(new Font("Noto Sans", Font.PLAIN, 28));
 			lblCrearUsuario.setForeground(new Color(255, 255, 255));
 		}
@@ -186,13 +193,15 @@ public class Iu_Registro extends JFrame {
 	private JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
+			textField.setHorizontalAlignment(SwingConstants.CENTER);
 			textField.setColumns(5);
 		}
 		return textField;
 	}
-	private JTextField getTextField_1() {
+	private JPasswordField getTextField_1() {
 		if (textField_1 == null) {
-			textField_1 = new JTextField();
+			textField_1 = new JPasswordField();
+			textField_1.setHorizontalAlignment(SwingConstants.CENTER);
 			textField_1.setColumns(5);
 		}
 		return textField_1;
@@ -222,5 +231,13 @@ public class Iu_Registro extends JFrame {
 			btnRegister.setForeground(new Color(204, 204, 204));
 		}
 		return btnRegister;
+	}
+	private JButton getBtnLogin() {
+		if (btnLogin == null) {
+			btnLogin = new JButton("      Login     ");
+			btnLogin.setBackground(Color.CYAN);
+			btnLogin.setForeground(Color.WHITE);
+		}
+		return btnLogin;
 	}
 }
