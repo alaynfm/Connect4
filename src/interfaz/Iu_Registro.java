@@ -235,7 +235,7 @@ public class Iu_Registro extends JFrame {
 	private JButton getBtnLogin() {
 		if (btnLogin == null) {
 			btnLogin = new JButton("      Login     ");
-			btnLogin.setBackground(Color.CYAN);
+			btnLogin.setBackground(new Color(51, 153, 255));
 			btnLogin.setForeground(Color.WHITE);
 		}
 		return btnLogin;
