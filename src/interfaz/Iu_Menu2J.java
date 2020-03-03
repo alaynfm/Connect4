@@ -19,11 +19,15 @@ import java.awt.Label;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.JTextPane;
+import javax.swing.border.LineBorder;
 
 public class Iu_Menu2J extends JFrame {
 
@@ -47,6 +51,8 @@ public class Iu_Menu2J extends JFrame {
 	private JTextField textField_1;
 	private JLabel lblNicknamep;
 	private JButton btnChangeNickname_1;
+	private JPanel panel_8;
+	private JTextPane txtpnHolaa;
 
 	/**
 	 * Launch the application.
@@ -89,6 +95,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return panel;
 	}
+
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
@@ -97,6 +104,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return panel_1;
 	}
+
 	private JPanel getPanel_2() {
 		if (panel_2 == null) {
 			panel_2 = new JPanel();
@@ -104,6 +112,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return panel_2;
 	}
+
 	private JPanel getPanel_3() {
 		if (panel_3 == null) {
 			panel_3 = new JPanel();
@@ -112,6 +121,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return panel_3;
 	}
+
 	private JPanel getPanel_4() {
 		if (panel_4 == null) {
 			panel_4 = new JPanel();
@@ -122,12 +132,14 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return panel_4;
 	}
+
 	private JPanel getPanel_5() {
 		if (panel_5 == null) {
 			panel_5 = new JPanel();
 			panel_5.setForeground(new Color(255, 255, 255));
 			panel_5.setBackground(Color.DARK_GRAY);
-			panel_5.setLayout(new MigLayout("", "[117px,grow]", "[35px][20px][5px][35px][20px][5px][][][][][5px][35px]"));
+			panel_5.setLayout(
+					new MigLayout("", "[117px,grow]", "[35px][20px][5px][35px][20px][5px][][][][][5px][35px]"));
 			panel_5.add(getLblNickname(), "cell 0 0,grow");
 			panel_5.add(getBtnChangeNickname(), "cell 0 1,grow");
 			panel_5.add(getLblNicknamep(), "cell 0 3");
@@ -137,20 +149,23 @@ public class Iu_Menu2J extends JFrame {
 			panel_5.add(getLblColumns(), "cell 0 8");
 			panel_5.add(getTextField_1(), "cell 0 9,growx");
 			panel_5.add(getBtnOk(), "cell 0 11,grow");
-			
+
 			ButtonGroup grupo1 = new ButtonGroup();
 		}
 		return panel_5;
 	}
+
 	private JPanel getPanel_6() {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
 			panel_6.setBackground(Color.DARK_GRAY);
 			panel_6.setLayout(new BorderLayout(0, 0));
 			panel_6.add(getPanel_7(), BorderLayout.NORTH);
+			panel_6.add(getPanel_8(), BorderLayout.CENTER);
 		}
 		return panel_6;
 	}
+
 	private JPanel getPanel_7() {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
@@ -159,6 +174,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return panel_7;
 	}
+
 	private JLabel getLblNormas() {
 		if (lblNormas == null) {
 			lblNormas = new JLabel("Normas");
@@ -166,6 +182,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return lblNormas;
 	}
+
 	private JButton getBtnOk() {
 		if (btnOk == null) {
 			btnOk = new JButton("Ok");
@@ -173,11 +190,14 @@ public class Iu_Menu2J extends JFrame {
 			btnOk.setBackground(Color.DARK_GRAY);
 			btnOk.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+
+					// hay que comprobar que filas y columnas son numeros
 				}
 			});
 		}
 		return btnOk;
 	}
+
 	private JLabel getLblNickname() {
 		if (lblNickname == null) {
 			lblNickname = new JLabel("Nickname 1p");
@@ -185,6 +205,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return lblNickname;
 	}
+
 	private JButton getBtnChangeNickname() {
 		if (btnChangeNickname == null) {
 			btnChangeNickname = new JButton("Change nickname");
@@ -193,6 +214,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return btnChangeNickname;
 	}
+
 	private JLabel getLblXabico() {
 		if (lblXabico == null) {
 			lblXabico = new JLabel("Xabi&Co");
@@ -200,6 +222,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return lblXabico;
 	}
+
 	private JLabel getLblHeight() {
 		if (lblHeight == null) {
 			lblHeight = new JLabel("Rows");
@@ -207,6 +230,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return lblHeight;
 	}
+
 	private JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
@@ -214,6 +238,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return textField;
 	}
+
 	private JLabel getLblColumns() {
 		if (lblColumns == null) {
 			lblColumns = new JLabel("Columns");
@@ -221,6 +246,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return lblColumns;
 	}
+
 	private JTextField getTextField_1() {
 		if (textField_1 == null) {
 			textField_1 = new JTextField();
@@ -228,6 +254,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return textField_1;
 	}
+
 	private JLabel getLblNicknamep() {
 		if (lblNicknamep == null) {
 			lblNicknamep = new JLabel("Nickname 2p");
@@ -235,6 +262,7 @@ public class Iu_Menu2J extends JFrame {
 		}
 		return lblNicknamep;
 	}
+
 	private JButton getBtnChangeNickname_1() {
 		if (btnChangeNickname_1 == null) {
 			btnChangeNickname_1 = new JButton("Change Nickname");
@@ -242,5 +270,47 @@ public class Iu_Menu2J extends JFrame {
 			btnChangeNickname_1.setBackground(new Color(153, 0, 0));
 		}
 		return btnChangeNickname_1;
+	}
+
+	private JPanel getPanel_8() {
+		if (panel_8 == null) {
+			panel_8 = new JPanel();
+			panel_8.setBorder(new LineBorder(Color.GRAY, 1, true));
+			panel_8.setBackground(Color.DARK_GRAY);
+			panel_8.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+			panel_8.add(getTxtpnHolaa());
+		}
+		return panel_8;
+	}
+
+	private JTextPane getTxtpnHolaa() {
+		if (txtpnHolaa == null) {
+			txtpnHolaa = new JTextPane();
+			txtpnHolaa.setBackground(Color.DARK_GRAY);
+			txtpnHolaa.setForeground(Color.WHITE);
+			txtpnHolaa.setText("");
+			this.leerNormas();
+		}
+		return txtpnHolaa;
+	}
+
+	private void leerNormas() {
+		
+		String norma = "";
+
+		try {
+			Scanner input = new Scanner(new File("normas.txt"));
+			while (input.hasNextLine()) {
+				String line = input.nextLine();
+				norma = norma + line +"\n"; 
+
+			}
+			input.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		System.out.println();
+		getTxtpnHolaa().setText(norma);
+
 	}
 }

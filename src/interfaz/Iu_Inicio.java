@@ -151,7 +151,7 @@ public class Iu_Inicio extends JFrame {
 	}
 	private JLabel getLblConecta() {
 		if (lblConecta == null) {
-			lblConecta = new JLabel("Conecta4");
+			lblConecta = new JLabel("Connect4");
 			lblConecta.setFont(new Font("Georgia", Font.BOLD, 64));
 			lblConecta.setForeground(Color.WHITE);
 			lblConecta.setHorizontalAlignment(SwingConstants.CENTER);

@@ -143,7 +143,7 @@ public class Iu_Menu1J extends JFrame {
 			panel_5.setForeground(new Color(255, 255, 255));
 			panel_5.setBackground(Color.DARK_GRAY);
 			panel_5.setLayout(
-					new MigLayout("", "[117px,grow]", "[35px][20px][20px][][35px][35px][][][][][20px][35px]"));
+					new MigLayout("", "[117px,grow]", "[35px][20px][20px][][25px][25px][][][][][20px][35px]"));
 			panel_5.add(getLblNickname(), "cell 0 0,grow");
 			panel_5.add(getBtnChangeNickname(), "cell 0 1,grow");
 			panel_5.add(getLblDificultad(), "cell 0 3,grow");
