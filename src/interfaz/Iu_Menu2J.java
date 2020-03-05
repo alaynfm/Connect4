@@ -28,6 +28,9 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import java.awt.Font;
 
 public class Iu_Menu2J extends JFrame {
 
@@ -51,8 +54,8 @@ public class Iu_Menu2J extends JFrame {
 	private JTextField textField_1;
 	private JLabel lblNicknamep;
 	private JButton btnChangeNickname_1;
-	private JPanel panel_8;
-	private JTextPane txtpnHolaa;
+	private JScrollPane scrollPane;
+	private JTextArea area;
 
 	/**
 	 * Launch the application.
@@ -161,7 +164,7 @@ public class Iu_Menu2J extends JFrame {
 			panel_6.setBackground(Color.DARK_GRAY);
 			panel_6.setLayout(new BorderLayout(0, 0));
 			panel_6.add(getPanel_7(), BorderLayout.NORTH);
-			panel_6.add(getPanel_8(), BorderLayout.CENTER);
+			panel_6.add(getScrollPane(), BorderLayout.CENTER);
 		}
 		return panel_6;
 	}
@@ -272,28 +275,6 @@ public class Iu_Menu2J extends JFrame {
 		return btnChangeNickname_1;
 	}
 
-	private JPanel getPanel_8() {
-		if (panel_8 == null) {
-			panel_8 = new JPanel();
-			panel_8.setBorder(new LineBorder(Color.GRAY, 1, true));
-			panel_8.setBackground(Color.DARK_GRAY);
-			panel_8.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-			panel_8.add(getTxtpnHolaa());
-		}
-		return panel_8;
-	}
-
-	private JTextPane getTxtpnHolaa() {
-		if (txtpnHolaa == null) {
-			txtpnHolaa = new JTextPane();
-			txtpnHolaa.setBackground(Color.DARK_GRAY);
-			txtpnHolaa.setForeground(Color.WHITE);
-			txtpnHolaa.setText("");
-			this.leerNormas();
-		}
-		return txtpnHolaa;
-	}
-
 	private void leerNormas() {
 		
 		String norma = "";
@@ -310,7 +291,26 @@ public class Iu_Menu2J extends JFrame {
 			ex.printStackTrace();
 		}
 		System.out.println();
-		getTxtpnHolaa().setText(norma);
+		area.setText(norma);
+		
 
+	}
+	private JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane(getArea(),JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			leerNormas();
+		}
+		return scrollPane;
+	}
+	
+	private JTextArea getArea() {
+		if(area == null) {
+			area = new JTextArea();
+			area.setFont(new Font("David Libre", Font.PLAIN, 15));
+			area.setForeground(Color.WHITE);
+			area.setBackground(Color.DARK_GRAY);
+			
+		}
+		return area;
 	}
 }

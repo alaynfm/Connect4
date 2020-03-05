@@ -1,20 +1,19 @@
-Como jugar a Connect4:
+ Como jugar a Connect4:
 
-El conecta 4 se juega en una rejilla vertical de 6 filas y 7 columnas generalmente, aunque podreis personalizarlo.
-El objetivo es alinear 4 fichas de su color, horizontalmente, verticalmente o en diagonal. Cada jugador a su turno
-juega una ficha de su color en la columna de su elección.
+ El conecta 4 se juega en una rejilla vertical de 6 filas y 7 columnas generalmente, aunque podreis personalizarlo.El objetivo es alinear 4 fichas de su color, horizontalmente, verticalmente o en diagonal. Cada jugador a su turno
+ juega una ficha de su color en la columna de su elección.
 
-El primer jugador que consigue alinear 4 fichas de su color, horizontalmente, verticalmente o en diagonal gana la
-partida.Su fin es por lo tanto construir este alineamiento impidiendo hacerlo a sus adversarios. Si la rejilla se 
-llena completamente sin que ningún jugador logre alinear 4 fichas de su color, la partida es declarada nula.
+ El primer jugador que consigue alinear 4 fichas de su color, horizontalmente, verticalmente o en diagonal gana la
+ partida.Su fin es por lo tanto construir este alineamiento impidiendo hacerlo a sus adversarios. Si la rejilla se 
+ llena completamente sin que ningún jugador logre alinear 4 fichas de su color, la partida es declarada nula.
 
-Opciones de configuración de la partida:
+ Opciones de configuración de la partida:
 
-Hay dos modos de juego distintos disponibles, en el primero juagaras contra una IA (inteligencia Artificial) y en el 
-segundo podras elegir contra quien jugar. 
-En el modo un jugador podrás elegir la dificultad de tu oponente (panel de la izquierda). En el modo fácil tu rival
-pondrá fichas de forma aleatoría, por lo que será mucho más sencill ganarle.Recomendamos el modo facil si es la 
-primera partida que jugais. En el modo dificil tu rival jugará a intentar ganar la partida ¿Serás capaz de ganar?
+ Hay dos modos de juego distintos disponibles, en el primero juagaras contra una IA (inteligencia Artificial) y en el 
+ segundo podras elegir contra quien jugar. 
+ En el modo un jugador podrás elegir la dificultad de tu oponente (panel de la izquierda). En el modo fácil tu rival
+ pondrá fichas de forma aleatoría, por lo que será mucho más sencill ganarle.Recomendamos el modo facil si es la 
+ primera partida que jugais. En el modo dificil tu rival jugará a intentar ganar la partida ¿Serás capaz de ganar?
 
-Una vez elegido el modo de juego podreis configurar el campo de batalla, cuanto más grande más larga y complicada 
-la partida.
+ Una vez elegido el modo de juego podreis configurar el campo de batalla, cuanto más grande más larga y complicada 
+ la partida.
