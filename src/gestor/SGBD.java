@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 public class SGBD {
 	private static SGBD mSGBD;
+	private Connection conn;
 	
 	private SGBD() {}
 	
@@ -17,16 +18,17 @@ public class SGBD {
 	}
 	
 	public Connection realizarConexion() throws SQLException{
-		Connection conn = DriverManager.getConnection("url", "usuario", "contrasena");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306", "sql7323314", "5sgebAHRDr");
+		this.conn = conn;
 		return conn;
 	}
 	
-	public ResultSet realizarConsulta(Connection conn, String consulta) throws SQLException {
-		ResultSet rs = conn.createStatement().executeQuery(consulta);
+	public ResultSet realizarConsulta(String consulta) throws SQLException {
+		ResultSet rs = this.conn.createStatement().executeQuery(consulta);
 		return rs;
 	}
 	
-	public void realizarUpdate(Connection conn, String update) throws SQLException {
-		conn.createStatement().executeUpdate(update);
+	public void realizarUpdate(String update) throws SQLException {
+		this.conn.createStatement().executeUpdate(update);
 	}
 }
