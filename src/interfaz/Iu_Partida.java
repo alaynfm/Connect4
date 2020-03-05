@@ -39,6 +39,8 @@ public class Iu_Partida extends JFrame {
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JPanel panel_10;
+	
+	private JButton[][] tablero;
 
 	/**
 	 * Launch the application.
@@ -138,7 +140,7 @@ public class Iu_Partida extends JFrame {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
 			panel_6.setBackground(Color.DARK_GRAY);
-			crearTablero(10,10);
+			crearTablero(6,9);
 		}
 		return panel_6;
 	}
@@ -146,8 +148,8 @@ public class Iu_Partida extends JFrame {
 	public void crearTablero(int fila, int col) {
 		
 		
-		int i = 5;
-		int j= 7;
+		int i = 6;
+		int j= 9;
 		if(i==0 || j== 0) {			
 			//poner mensaje de tamaño incorrecto creando por defecto;
 		}else {
@@ -155,12 +157,21 @@ public class Iu_Partida extends JFrame {
 			j = col;
 		}
 		
+		tablero = new JButton[i][j];
+		
 		getPanel_6().setLayout(new GridLayout(0, j, 0, 0));
 		
 		for(int a= 0; a<i;a++) {
 			for(int e= 0; e<j;e++) {
 				JButton jb = new JButton();
+				jb.setBackground(Color.WHITE);
+			
+				if(a != 0) {
+					jb.setEnabled(false);
+					
+				}
 				getPanel_6().add(jb);
+				tablero[a][e] = jb;
 			}
 		}
 	}
