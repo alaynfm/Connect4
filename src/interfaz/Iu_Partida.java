@@ -63,7 +63,7 @@ public class Iu_Partida extends JFrame {
 	 */
 	public Iu_Partida() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 870, 413);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -140,7 +140,7 @@ public class Iu_Partida extends JFrame {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
 			panel_6.setBackground(Color.DARK_GRAY);
-			crearTablero(6,9);
+			crearTablero(-1,9);
 		}
 		return panel_6;
 	}
@@ -150,25 +150,29 @@ public class Iu_Partida extends JFrame {
 		
 		int i = 6;
 		int j= 9;
-		if(i==0 || j== 0) {			
+		if(fila<=0 || col<= 0) {			
 			//poner mensaje de tamaño incorrecto creando por defecto;
 		}else {
 			i = fila;
 			j = col;
 		}
 		
-		tablero = new JButton[i][j];
+		tablero = new JButton[i][j+1];
 		
-		getPanel_6().setLayout(new GridLayout(0, j, 0, 0));
+		getPanel_6().setLayout(new GridLayout(0, j+1, 0, 0));
 		
 		for(int a= 0; a<i;a++) {
 			for(int e= 0; e<j;e++) {
 				JButton jb = new JButton();
-				jb.setBackground(Color.WHITE);
-			
+				jb.setBackground(Color.GRAY);
 				if(a != 0) {
-					jb.setEnabled(false);
-					
+					jb.setEnabled(false);				
+				}
+				
+				if(e==0) {
+					JLabel jl = new JLabel(a + "");
+					jl.setForeground(Color.WHITE);
+					getPanel_6().add(jl);
 				}
 				getPanel_6().add(jb);
 				tablero[a][e] = jb;
@@ -221,7 +225,7 @@ public class Iu_Partida extends JFrame {
 		if (lblVs == null) {
 			lblVs = new JLabel("Vs");
 			lblVs.setForeground(Color.WHITE);
-			lblVs.setFont(new Font("Segoe Print", Font.PLAIN, 24));
+			lblVs.setFont(new Font("Segoe Print", Font.PLAIN, 28));
 		}
 		return lblVs;
 	}
