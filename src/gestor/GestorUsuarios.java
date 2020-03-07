@@ -2,10 +2,12 @@ package gestor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import partida.*;
 
 public class GestorUsuarios {
 
 	private static GestorUsuarios mGestorUsuarios;
+	private Jugador jugador;
 	
 	private GestorUsuarios() {}
 	
@@ -24,6 +26,7 @@ public class GestorUsuarios {
 			
 			if (contrasenaPosible == contrasena) {
 				System.out.println("Sesion iniciada");
+				this.jugador = new Jugador(usuario, "rojo");
 			} else {
 				System.out.println("Contrasena incorrecta");
 			}
@@ -43,7 +46,6 @@ public class GestorUsuarios {
 			System.out.println("Error al registrarte");
 			System.out.println(e.getMessage());
 		}
-		
 	}
 	
 	public void partidaGanada(int puntuacion, String usuario) {
@@ -64,5 +66,9 @@ public class GestorUsuarios {
 			System.out.println("Error al buscar o actualizar datos");
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	public Jugador getJugador() {
+		return this.jugador;
 	}
 }

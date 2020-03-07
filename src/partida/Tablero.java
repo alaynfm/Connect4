@@ -53,9 +53,12 @@ public class Tablero {
 			for (int i = ty - 1; i >= 0; i--) { // recorremos de forma inversa
 				if (tablero[i][x].equals("-")) {
 					tablero[i][x] = color;
-					buscarGanador(i, x);
+					buscarGanador(i, x, color);
 					break;
 				}
+			}
+			if(hayGanador()) {
+				System.out.println("Hay un ganador");
 			}
 		}
 	}
@@ -71,9 +74,13 @@ public class Tablero {
 		return false;
 	}
 
-	public void buscarGanador(int i, int x) {
+	public void buscarGanador(int i, int x, String color) {
 		if (buscarGanadorJuego(i, x)) {
-			ganador = tablero[i][x];
+			if (color == "rojo") {
+				ganador = "usuario";
+			} else {
+				ganador = "maquina";
+			}
 		}
 	}
 
@@ -126,7 +133,6 @@ public class Tablero {
 			}
 		}
 		return ganador;
-
 	}
 
 	public boolean buscarGanadorHorizontal(int fila, int columna) {
@@ -179,53 +185,51 @@ public class Tablero {
 		boolean contC = true;
 		boolean contD = true;
 
-		boolean ganado = false;
+		boolean ganador = false;
 		// hacia arriba
 		for (int i = 1; i < 4; i++) {
 
-				// hacia abajo izquierda
-				if (contA && posCorrecta(fila + i, columna - i)) {
-					if ((tablero[fila + i][columna - i]).equals(color)) {
-						contAbajoIzq++;
-					} else {
-						contA = false;
-					}
+			// hacia abajo izquierda
+			if (contA && posCorrecta(fila + i, columna - i)) {
+				if ((tablero[fila + i][columna - i]).equals(color)) {
+					contAbajoIzq++;
+				} else {
+					contA = false;
 				}
-
-				// hacia arriba derecha
-				if (contB && posCorrecta(fila - i, columna + i)) {
-					if ((tablero[fila - i][columna + i]).equals(color)) {
-						contArribaDer++;
-					} else {
-						contB = false;
-					}
-				}
-
-				// hacia abajo derecha
-				if (contC && posCorrecta(fila + i, columna + i)) {
-					if ((tablero[fila + i][columna + i]).equals(color)) {
-						contAbajoDer++;
-					} else {
-						contC = false;
-					}
-				}
-
-				// arriba izq
-				if (contD && posCorrecta(fila - i, columna - i)) {
-					if ((tablero[fila - i][columna - i]).equals(color)) {
-						contArribaIzq++;
-					} else {
-						contD = false;
-					}
-				}
-				
-				if (contArribaDer + contAbajoIzq >= 3 || contAbajoDer + contArribaIzq >= 3) {
-					ganado = true;
-					break;
+			}
+			// hacia arriba derecha
+			if (contB && posCorrecta(fila - i, columna + i)) {
+				if ((tablero[fila - i][columna + i]).equals(color)) {
+					contArribaDer++;
+				} else {
+					contB = false;
 				}
 			}
 
-		return ganado;
+			// hacia abajo derecha
+			if (contC && posCorrecta(fila + i, columna + i)) {
+				if ((tablero[fila + i][columna + i]).equals(color)) {
+					contAbajoDer++;
+				} else {
+					contC = false;
+				}
+			}
+
+			// arriba izq
+			if (contD && posCorrecta(fila - i, columna - i)) {
+				if ((tablero[fila - i][columna - i]).equals(color)) {
+					contArribaIzq++;
+				} else {
+					contD = false;
+				}
+			}
+			
+			if (contArribaDer + contAbajoIzq >= 3 || contAbajoDer + contArribaIzq >= 3) {
+				ganador = true;
+				break;
+			}
+		}
+		return ganador;
 	}
 
 	private Boolean posCorrecta(int i, int j) {
@@ -238,7 +242,7 @@ public class Tablero {
 
 	public String getGanador() {
 		// Devuelve el atributo ganador (recomendable comprobar primero si hay ganador
-		return ganador;
+		return this.ganador;
 	}
 
 }

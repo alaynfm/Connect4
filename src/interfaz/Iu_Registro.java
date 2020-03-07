@@ -1,5 +1,7 @@
 package interfaz;
 
+import gestor.*;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -17,6 +19,8 @@ import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Font;
 import javax.swing.JTextField;
 
@@ -32,12 +36,12 @@ public class Iu_Registro extends JFrame {
 	private JLabel lblXabico;
 	private JPanel panel_5;
 	private JLabel lblCrearUsuario;
-	private JTextField textField;
-	private JPasswordField textField_1;
-	private JLabel lblNickname;
-	private JLabel lblPassword;
-	private JButton btnRegister;
-	private JButton btnLogin;
+	private JTextField textUsuario;
+	private JPasswordField textContrasena;
+	private JLabel lblUsuario;
+	private JLabel lblContrasena;
+	private JButton btnRegistro;
+	private JButton btnInicioSesion;
 
 	/**
 	 * Launch the application.
@@ -149,36 +153,36 @@ public class Iu_Registro extends JFrame {
 			gbc_lblNickname.anchor = GridBagConstraints.EAST;
 			gbc_lblNickname.gridx = 3;
 			gbc_lblNickname.gridy = 5;
-			panel_5.add(getLblNickname(), gbc_lblNickname);
+			panel_5.add(getLblUsuario(), gbc_lblNickname);
 			GridBagConstraints gbc_textField = new GridBagConstraints();
 			gbc_textField.insets = new Insets(0, 0, 5, 5);
 			gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 			gbc_textField.gridx = 4;
 			gbc_textField.gridy = 5;
-			panel_5.add(getTextField(), gbc_textField);
+			panel_5.add(getTextUsuario(), gbc_textField);
 			GridBagConstraints gbc_lblPassword = new GridBagConstraints();
 			gbc_lblPassword.fill = GridBagConstraints.HORIZONTAL;
 			gbc_lblPassword.insets = new Insets(0, 0, 5, 5);
 			gbc_lblPassword.anchor = GridBagConstraints.EAST;
 			gbc_lblPassword.gridx = 3;
 			gbc_lblPassword.gridy = 6;
-			panel_5.add(getLblPassword(), gbc_lblPassword);
+			panel_5.add(getLblContrasena(), gbc_lblPassword);
 			GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 			gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 			gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
 			gbc_textField_1.gridx = 4;
 			gbc_textField_1.gridy = 6;
-			panel_5.add(getTextField_1(), gbc_textField_1);
+			panel_5.add(getTextPassword(), gbc_textField_1);
 			GridBagConstraints gbc_btnLogin = new GridBagConstraints();
 			gbc_btnLogin.insets = new Insets(0, 0, 5, 5);
 			gbc_btnLogin.gridx = 4;
 			gbc_btnLogin.gridy = 8;
-			panel_5.add(getBtnLogin(), gbc_btnLogin);
+			panel_5.add(getBtnInicioSesion(), gbc_btnLogin);
 			GridBagConstraints gbc_btnRegister = new GridBagConstraints();
 			gbc_btnRegister.insets = new Insets(0, 0, 5, 5);
 			gbc_btnRegister.gridx = 4;
 			gbc_btnRegister.gridy = 9;
-			panel_5.add(getBtnRegister(), gbc_btnRegister);
+			panel_5.add(getBtnRegistro(), gbc_btnRegister);
 		}
 		return panel_5;
 	}
@@ -190,54 +194,72 @@ public class Iu_Registro extends JFrame {
 		}
 		return lblCrearUsuario;
 	}
-	private JTextField getTextField() {
-		if (textField == null) {
-			textField = new JTextField();
-			textField.setHorizontalAlignment(SwingConstants.CENTER);
-			textField.setColumns(5);
+	private JTextField getTextUsuario() {
+		if (textUsuario == null) {
+			textUsuario = new JTextField();
+			textUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+			textUsuario.setColumns(5);
 		}
-		return textField;
+		return textUsuario;
 	}
-	private JPasswordField getTextField_1() {
-		if (textField_1 == null) {
-			textField_1 = new JPasswordField();
-			textField_1.setHorizontalAlignment(SwingConstants.CENTER);
-			textField_1.setColumns(5);
+	private JPasswordField getTextPassword() {
+		if (textContrasena == null) {
+			textContrasena = new JPasswordField();
+			textContrasena.setHorizontalAlignment(SwingConstants.CENTER);
+			textContrasena.setColumns(5);
 		}
-		return textField_1;
+		return textContrasena;
 	}
-	private JLabel getLblNickname() {
-		if (lblNickname == null) {
-			lblNickname = new JLabel("NickName");
-			lblNickname.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblNickname.setForeground(Color.WHITE);
-			lblNickname.setHorizontalAlignment(SwingConstants.CENTER);
+	private JLabel getLblUsuario() {
+		if (lblUsuario == null) {
+			lblUsuario = new JLabel("NickName");
+			lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblUsuario.setForeground(Color.WHITE);
+			lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		}
-		return lblNickname;
+		return lblUsuario;
 	}
-	private JLabel getLblPassword() {
-		if (lblPassword == null) {
-			lblPassword = new JLabel("Password");
-			lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
-			lblPassword.setForeground(Color.WHITE);
+	private JLabel getLblContrasena() {
+		if (lblContrasena == null) {
+			lblContrasena = new JLabel("Password");
+			lblContrasena.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			lblContrasena.setHorizontalAlignment(SwingConstants.CENTER);
+			lblContrasena.setForeground(Color.WHITE);
 		}
-		return lblPassword;
+		return lblContrasena;
 	}
-	private JButton getBtnRegister() {
-		if (btnRegister == null) {
-			btnRegister = new JButton("Register");
-			btnRegister.setBackground(new Color(204, 51, 51));
-			btnRegister.setForeground(new Color(204, 204, 204));
+	private JButton getBtnRegistro() {
+		if (btnRegistro == null) {
+			btnRegistro = new JButton("Register");
+			btnRegistro.setBackground(new Color(204, 51, 51));
+			btnRegistro.setForeground(new Color(204, 204, 204));
+			btnRegistro.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					register();
+				}
+			});
 		}
-		return btnRegister;
+		return btnRegistro;
 	}
-	private JButton getBtnLogin() {
-		if (btnLogin == null) {
-			btnLogin = new JButton("      Login     ");
-			btnLogin.setBackground(new Color(51, 153, 255));
-			btnLogin.setForeground(Color.WHITE);
+	private JButton getBtnInicioSesion() {
+		if (btnInicioSesion == null) {
+			btnInicioSesion = new JButton("      Login     ");
+			btnInicioSesion.setBackground(new Color(51, 153, 255));
+			btnInicioSesion.setForeground(Color.WHITE);
+			btnInicioSesion.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					login();
+				}
+			});
 		}
-		return btnLogin;
+		return btnInicioSesion;
+	}
+	
+	private void login() {
+		GestorUsuarios.getGestorUsuarios().iniciarSesion(this.textUsuario.getText(), this.textContrasena.getText());
+	}
+	
+	private void register() {
+		GestorUsuarios.getGestorUsuarios().registrarse(this.textUsuario.getText(), this.textContrasena.getText());
 	}
 }

@@ -25,5 +25,5 @@ public class main {
 		System.out.println(x.sePuedeColocar(0));
 		x.imprimirTablero();
 	}
-
+	
 }
