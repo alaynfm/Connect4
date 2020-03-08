@@ -18,8 +18,8 @@ public class Fichero {
 	public static Fichero getFichero() {return miFichero;}
 
 	public String leerNormas() {
-
-		String norma = "Normas para jugar al Conecta 4";
+		//Imprime las normas
+		String norma = "Normas para jugar al Conecta 4"; 
 
 		try {
 			Scanner input = new Scanner(new File("normas.txt"));
