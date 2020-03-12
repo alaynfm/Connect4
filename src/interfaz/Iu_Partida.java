@@ -157,6 +157,7 @@ public class Iu_Partida extends JFrame {
 			j = col;
 		}
 		
+		
 		tablero = new JButton[i][j+1];
 		
 		getPanel_6().setLayout(new GridLayout(0, j+1, 0, 0));
