@@ -5,16 +5,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.GridLayout;
-import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
 
 public class Iu_Partida extends JFrame {
 
@@ -41,6 +43,11 @@ public class Iu_Partida extends JFrame {
 	private JPanel panel_10;
 	
 	private JButton[][] tablero;
+	private int tamanoX = 50;
+	private int tamanoY = 50;
+	
+	private int numFilas;
+	private int numColumnas;
 
 	/**
 	 * Launch the application.
@@ -140,6 +147,7 @@ public class Iu_Partida extends JFrame {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
 			panel_6.setBackground(Color.DARK_GRAY);
+			panel_6.setLayout(null);
 			crearTablero(-1,9);
 		}
 		return panel_6;
@@ -147,42 +155,68 @@ public class Iu_Partida extends JFrame {
 	
 	public void crearTablero(int fila, int col) {
 		
-		
-		int i = 6;
-		int j= 9;
+	
 		if(fila<=0 || col<= 0) {			
 			//poner mensaje de tamaño incorrecto creando por defecto;
+			numFilas = 6;
+			numColumnas = 12;
+			fila = 6;
+			col = 12;
 		}else {
-			i = fila;
-			j = col;
+			numFilas = fila;
+			numColumnas = col;
 		}
 		
 		
-		tablero = new JButton[i][j+1];
+		tablero = new JButton[fila][col];
 		
-		getPanel_6().setLayout(new GridLayout(0, j+1, 0, 0));
+		int x = 0;
+		int y = 15;
 		
-		for(int a= 0; a<i;a++) {
-			for(int e= 0; e<j;e++) {
+		for(int a= 0; a<fila;a++) {
+			for(int e= 0; e<col;e++) {
 				JButton jb = new JButton();
-				jb.setBackground(Color.GRAY);
-				if(a != 0) {
-					jb.setEnabled(false);				
-				}
-				
-				if(e==0) {
-					JLabel jl = new JLabel(a + "");
-					jl.setForeground(Color.WHITE);
-					getPanel_6().add(jl);
-				}
-				getPanel_6().add(jb);
+				jb.setBackground(Color.LIGHT_GRAY);
+				jb.setBorderPainted(true);
 				tablero[a][e] = jb;
+				tablero[a][e].setBounds(x, y, tamanoX, tamanoY);
+				tablero[a][e].addMouseListener(new MouseAdapter() {
+
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						// TODO Auto-generated method stub
+
+						int j = (int) (jb.getY()) / tamanoY;
+						int j2 = (int) (jb.getX()) / tamanoX;
+						if (arg0.getButton() == 1) {
+							//No hacemos nada click izq
+						} else if (arg0.getButton() == 3) {
+							//meter lo que hacemos con el click derecho, si hacemos patron observer cambia
+
+						}
+					}
+				});
+				getPanel_6().add(jb);
+
+				x = x + tamanoX;
 			}
+			x = 0;
+			y = y + tamanoY;
 		}
+
+		setSize(((numColumnas) * (tamanoX) + 42), ((numFilas + 1) * tamanoY) + panel_5.getHeight() + 100);
+		setResizable(false);
+		actualizarTablero(getPanel_6());
+	}
+	
+	private void actualizarTablero(JPanel panel) {
+		SwingUtilities.updateComponentTreeUI(panel);
 	}
 	private JPanel getPanel_7() {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
+			FlowLayout flowLayout = (FlowLayout) panel_7.getLayout();
+			flowLayout.setAlignment(FlowLayout.RIGHT);
 			panel_7.setBackground(Color.DARK_GRAY);
 			panel_7.add(getLblNick());
 			panel_7.add(getLabel());
@@ -200,6 +234,8 @@ public class Iu_Partida extends JFrame {
 	private JPanel getPanel_9() {
 		if (panel_9 == null) {
 			panel_9 = new JPanel();
+			FlowLayout flowLayout = (FlowLayout) panel_9.getLayout();
+			flowLayout.setAlignment(FlowLayout.LEFT);
 			panel_9.setBackground(Color.DARK_GRAY);
 			panel_9.add(getLblNick_1());
 			panel_9.add(getLabel_1());
@@ -209,7 +245,8 @@ public class Iu_Partida extends JFrame {
 	private JLabel getLblNick() {
 		if (lblNick == null) {
 			lblNick = new JLabel("Nick1");
-			lblNick.setFont(new Font("Arial Black", Font.BOLD, 16));
+			lblNick.setHorizontalAlignment(SwingConstants.CENTER);
+			lblNick.setFont(new Font("Arial Black", Font.BOLD, 37));
 			lblNick.setForeground(new Color(51, 153, 255));
 		}
 		return lblNick;
@@ -217,7 +254,8 @@ public class Iu_Partida extends JFrame {
 	private JLabel getLabel() {
 		if (label == null) {
 			label = new JLabel("25");
-			label.setFont(new Font("Arial", Font.PLAIN, 13));
+			label.setHorizontalAlignment(SwingConstants.CENTER);
+			label.setFont(new Font("Arial", Font.PLAIN, 21));
 			label.setForeground(new Color(153, 0, 0));
 		}
 		return label;
@@ -233,7 +271,7 @@ public class Iu_Partida extends JFrame {
 	private JLabel getLblNick_1() {
 		if (lblNick_1 == null) {
 			lblNick_1 = new JLabel("Nick2");
-			lblNick_1.setFont(new Font("Arial Black", Font.BOLD, 16));
+			lblNick_1.setFont(new Font("Arial Black", Font.BOLD, 37));
 			lblNick_1.setForeground(new Color(153, 0, 0));
 		}
 		return lblNick_1;
@@ -241,7 +279,7 @@ public class Iu_Partida extends JFrame {
 	private JLabel getLabel_1() {
 		if (label_1 == null) {
 			label_1 = new JLabel("25");
-			label_1.setFont(new Font("Arial", Font.PLAIN, 13));
+			label_1.setFont(new Font("Arial", Font.PLAIN, 25));
 			label_1.setForeground(new Color(51, 153, 255));
 		}
 		return label_1;
