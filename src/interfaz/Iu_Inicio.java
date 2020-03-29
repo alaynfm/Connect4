@@ -17,6 +17,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Iu_Inicio extends JFrame {
 
@@ -33,6 +35,8 @@ public class Iu_Inicio extends JFrame {
 	private JButton btnTop;
 	private JLabel lblXabico;
 	private JButton btnRegistrarse;
+	
+	private static Iu_Inicio miinicio = new Iu_Inicio();
 
 	/**
 	 * Launch the application.
@@ -53,7 +57,7 @@ public class Iu_Inicio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Iu_Inicio() {
+	private Iu_Inicio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 873, 470);
 		contentPane = new JPanel();
@@ -68,6 +72,9 @@ public class Iu_Inicio extends JFrame {
 		contentPane.add(getCenter(), BorderLayout.CENTER);
 	}
 
+	public static Iu_Inicio miInicio() {
+		return miinicio;
+	}
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
@@ -161,6 +168,12 @@ public class Iu_Inicio extends JFrame {
 	private JButton getBtnUnJugador() {
 		if (btnUnJugador == null) {
 			btnUnJugador = new JButton("Un Jugador");
+			btnUnJugador.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setVisible(false);
+					Iu_Menu1J.miPartida().setVisible(true);
+				}
+			});
 			btnUnJugador.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			btnUnJugador.setBackground(new Color(135, 206, 250));
 		}
@@ -169,6 +182,12 @@ public class Iu_Inicio extends JFrame {
 	private JButton getBtnMultijugador() {
 		if (btnMultijugador == null) {
 			btnMultijugador = new JButton("Multijugador");
+			btnMultijugador.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setVisible(false);
+					Iu_Menu2J.miPartida().setVisible(true);
+				}
+			});
 			btnMultijugador.setForeground(new Color(255, 255, 255));
 			btnMultijugador.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			btnMultijugador.setBackground(new Color(204, 0, 51));
