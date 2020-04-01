@@ -19,43 +19,40 @@ import java.awt.Label;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.JTree;
+
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import javax.swing.SwingConstants;
-import javax.swing.JTextPane;
-import javax.swing.border.LineBorder;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
 import java.awt.Font;
 
 public class Iu_Menu2J extends JFrame {
 
 	private JPanel contentPane;
+
+	private static Iu_Menu2J miPartida = new Iu_Menu2J();
+	private JPanel norte1;
+	private JPanel sur1;
+	private JPanel oeste1;
+	private JPanel este1;
+	private JPanel centro1;
 	private JPanel panel;
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JPanel panel_3;
 	private JPanel panel_4;
-	private JPanel panel_5;
 	private JPanel panel_6;
-	private JPanel panel_7;
-	private JLabel lblNormas;
-	private JButton btnOk;
 	private JLabel lblNickname;
-	private JButton btnChangeNickname;
-	private JLabel lblXabico;
-	private JLabel lblHeight;
 	private JTextField textField;
-	private JLabel lblColumns;
+	private JPanel panel_7;
+	private JButton btnEmpezar;
+	private JButton btnNormas;
+	private JButton btnAtras;
+	private JLabel lblVs;
+	private JLabel lblJoseMurillo;
 	private JTextField textField_1;
-	private JLabel lblNicknamep;
-	private JButton btnChangeNickname_1;
-	private JScrollPane scrollPane;
-	private JTextArea area;
 
 	/**
 	 * Launch the application.
@@ -76,7 +73,7 @@ public class Iu_Menu2J extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Iu_Menu2J() {
+	private Iu_Menu2J() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 873, 470);
 		contentPane = new JPanel();
@@ -84,233 +81,188 @@ public class Iu_Menu2J extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		contentPane.add(getPanel(), BorderLayout.NORTH);
-		contentPane.add(getPanel_1(), BorderLayout.EAST);
-		contentPane.add(getPanel_2(), BorderLayout.WEST);
-		contentPane.add(getPanel_3(), BorderLayout.SOUTH);
-		contentPane.add(getPanel_4(), BorderLayout.CENTER);
+		contentPane.add(getPanel_9(), BorderLayout.NORTH);
+		contentPane.add(getPanel_10(), BorderLayout.SOUTH);
+		contentPane.add(getPanel_11(), BorderLayout.WEST);
+		contentPane.add(getPanel_12(), BorderLayout.EAST);
+		contentPane.add(getPanel_13(), BorderLayout.CENTER);
+		setResizable(false);
 	}
 
-	private JPanel getPanel() {
+	public static Iu_Menu2J miPartida() {
+		return miPartida;
+	}
+
+	private JPanel getPanel_9() {
+		if (norte1 == null) {
+			norte1 = new JPanel();
+		}
+		return norte1;
+	}
+	private JPanel getPanel_10() {
+		if (sur1 == null) {
+			sur1 = new JPanel();
+		}
+		return sur1;
+	}
+	private JPanel getPanel_11() {
+		if (oeste1 == null) {
+			oeste1 = new JPanel();
+		}
+		return oeste1;
+	}
+	private JPanel getPanel_12() {
+		if (este1 == null) {
+			este1 = new JPanel();
+		}
+		return este1;
+	}
+	private JPanel getPanel_13() {
+		if (centro1 == null) {
+			centro1 = new JPanel();
+			centro1.setBackground(Color.DARK_GRAY);
+			centro1.setLayout(new GridLayout(0, 1, 0, 0));
+			centro1.add(getPanel_14());
+			centro1.add(getPanel_1_1());
+			centro1.add(getPanel_3_1());
+			centro1.add(getPanel_2_1());
+			centro1.add(getPanel_4_1());
+			centro1.add(getPanel_6_1());
+			centro1.add(getPanel_7());
+		}
+		return centro1;
+	}
+	private JPanel getPanel_14() {
 		if (panel == null) {
 			panel = new JPanel();
 			panel.setBackground(Color.DARK_GRAY);
+			panel.setLayout(null);
+			panel.add(getBtnNormas());
+			panel.add(getBtnAtras());
 		}
 		return panel;
 	}
-
-	private JPanel getPanel_1() {
+	private JPanel getPanel_1_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
 			panel_1.setBackground(Color.DARK_GRAY);
-			panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		}
 		return panel_1;
 	}
-
-	private JPanel getPanel_2() {
+	private JPanel getPanel_2_1() {
 		if (panel_2 == null) {
 			panel_2 = new JPanel();
 			panel_2.setBackground(Color.DARK_GRAY);
+			panel_2.setLayout(null);
+			panel_2.add(getLblNickname());
+			panel_2.add(getTextField_2());
+			panel_2.add(getLblVs());
+			panel_2.add(getLblJoseMurillo());
+			panel_2.add(getTextField_1());
 		}
 		return panel_2;
 	}
-
-	private JPanel getPanel_3() {
+	private JPanel getPanel_3_1() {
 		if (panel_3 == null) {
 			panel_3 = new JPanel();
 			panel_3.setBackground(Color.DARK_GRAY);
-			panel_3.add(getLblXabico());
+			panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		}
 		return panel_3;
 	}
-
-	private JPanel getPanel_4() {
+	private JPanel getPanel_4_1() {
 		if (panel_4 == null) {
 			panel_4 = new JPanel();
 			panel_4.setBackground(Color.DARK_GRAY);
-			panel_4.setLayout(new BorderLayout(0, 0));
-			panel_4.add(getPanel_5(), BorderLayout.WEST);
-			panel_4.add(getPanel_6(), BorderLayout.CENTER);
+			panel_4.setLayout(null);
 		}
 		return panel_4;
 	}
-
-	private JPanel getPanel_5() {
-		if (panel_5 == null) {
-			panel_5 = new JPanel();
-			panel_5.setForeground(new Color(255, 255, 255));
-			panel_5.setBackground(Color.DARK_GRAY);
-			panel_5.setLayout(
-					new MigLayout("", "[117px,grow]", "[35px][20px][5px][35px][20px][5px][][][][][5px][35px]"));
-			panel_5.add(getLblNickname(), "cell 0 0,grow");
-			panel_5.add(getBtnChangeNickname(), "cell 0 1,grow");
-			panel_5.add(getLblNicknamep(), "cell 0 3");
-			panel_5.add(getBtnChangeNickname_1(), "cell 0 4");
-			panel_5.add(getLblHeight(), "cell 0 6");
-			panel_5.add(getTextField(), "cell 0 7,growx");
-			panel_5.add(getLblColumns(), "cell 0 8");
-			panel_5.add(getTextField_1(), "cell 0 9,growx");
-			panel_5.add(getBtnOk(), "cell 0 11,grow");
-
-			ButtonGroup grupo1 = new ButtonGroup();
-		}
-		return panel_5;
-	}
-
-	private JPanel getPanel_6() {
+	private JPanel getPanel_6_1() {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
 			panel_6.setBackground(Color.DARK_GRAY);
-			panel_6.setLayout(new BorderLayout(0, 0));
-			panel_6.add(getPanel_7(), BorderLayout.NORTH);
-			panel_6.add(getScrollPane(), BorderLayout.CENTER);
+			panel_6.setLayout(null);
+			panel_6.add(getBtnEmpezar());
 		}
 		return panel_6;
 	}
-
-	private JPanel getPanel_7() {
-		if (panel_7 == null) {
-			panel_7 = new JPanel();
-			panel_7.setBackground(Color.DARK_GRAY);
-			panel_7.add(getLblNormas());
-		}
-		return panel_7;
-	}
-
-	private JLabel getLblNormas() {
-		if (lblNormas == null) {
-			lblNormas = new JLabel("Normas");
-			lblNormas.setForeground(new Color(255, 255, 255));
-		}
-		return lblNormas;
-	}
-
-	private JButton getBtnOk() {
-		if (btnOk == null) {
-			btnOk = new JButton("Ok");
-			btnOk.setForeground(Color.WHITE);
-			btnOk.setBackground(Color.DARK_GRAY);
-			btnOk.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-
-					// hay que comprobar que filas y columnas son numeros
-				}
-			});
-		}
-		return btnOk;
-	}
-
 	private JLabel getLblNickname() {
 		if (lblNickname == null) {
-			lblNickname = new JLabel("Nickname 1p");
-			lblNickname.setForeground(new Color(255, 255, 255));
+			lblNickname = new JLabel("Nickname1");
+			lblNickname.setForeground(new Color(0, 153, 255));
+			lblNickname.setFont(new Font("Tahoma", Font.PLAIN, 33));
+			lblNickname.setBounds(82, -5, 160, 57);
 		}
 		return lblNickname;
 	}
-
-	private JButton getBtnChangeNickname() {
-		if (btnChangeNickname == null) {
-			btnChangeNickname = new JButton("Change nickname");
-			btnChangeNickname.setForeground(Color.WHITE);
-			btnChangeNickname.setBackground(new Color(51, 153, 255));
-		}
-		return btnChangeNickname;
-	}
-
-	private JLabel getLblXabico() {
-		if (lblXabico == null) {
-			lblXabico = new JLabel("Xabi&Co");
-			lblXabico.setForeground(new Color(255, 255, 255));
-		}
-		return lblXabico;
-	}
-
-	private JLabel getLblHeight() {
-		if (lblHeight == null) {
-			lblHeight = new JLabel("Rows");
-			lblHeight.setForeground(new Color(255, 255, 255));
-		}
-		return lblHeight;
-	}
-
-	private JTextField getTextField() {
+	private JTextField getTextField_2() {
 		if (textField == null) {
 			textField = new JTextField();
+			textField.setBounds(252, 18, 86, 20);
 			textField.setColumns(10);
 		}
 		return textField;
 	}
-
-	private JLabel getLblColumns() {
-		if (lblColumns == null) {
-			lblColumns = new JLabel("Columns");
-			lblColumns.setForeground(new Color(255, 255, 255));
+	private JPanel getPanel_7() {
+		if (panel_7 == null) {
+			panel_7 = new JPanel();
+			panel_7.setBackground(Color.DARK_GRAY);
+			panel_7.setLayout(null);
 		}
-		return lblColumns;
+		return panel_7;
 	}
-
+	private JButton getBtnEmpezar() {
+		if (btnEmpezar == null) {
+			btnEmpezar = new JButton("Empezar");
+			btnEmpezar.setBounds(372, 11, 89, 23);
+		}
+		return btnEmpezar;
+	}
+	private JButton getBtnNormas() {
+		if (btnNormas == null) {
+			btnNormas = new JButton("Normas");
+			btnNormas.setBounds(706, 11, 89, 23);
+		}
+		return btnNormas;
+	}
+	private JButton getBtnAtras() {
+		if (btnAtras == null) {
+			btnAtras = new JButton("Atras");
+			btnAtras.setBounds(47, 11, 89, 23);
+			btnAtras.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					Iu_Inicio.miInicio().setVisible(true);
+				}
+			});
+		}
+		return btnAtras;
+	}
+	private JLabel getLblVs() {
+		if (lblVs == null) {
+			lblVs = new JLabel("Vs");
+			lblVs.setForeground(Color.WHITE);
+			lblVs.setFont(new Font("Tahoma", Font.PLAIN, 36));
+			lblVs.setBounds(390, -5, 46, 57);
+		}
+		return lblVs;
+	}
+	private JLabel getLblJoseMurillo() {
+		if (lblJoseMurillo == null) {
+			lblJoseMurillo = new JLabel("Nickname2");
+			lblJoseMurillo.setForeground(new Color(204, 0, 0));
+			lblJoseMurillo.setFont(new Font("Tahoma", Font.PLAIN, 33));
+			lblJoseMurillo.setBounds(480, -5, 168, 57);
+		}
+		return lblJoseMurillo;
+	}
 	private JTextField getTextField_1() {
 		if (textField_1 == null) {
 			textField_1 = new JTextField();
+			textField_1.setBounds(656, 18, 86, 20);
 			textField_1.setColumns(10);
 		}
 		return textField_1;
-	}
-
-	private JLabel getLblNicknamep() {
-		if (lblNicknamep == null) {
-			lblNicknamep = new JLabel("Nickname 2p");
-			lblNicknamep.setForeground(new Color(255, 255, 255));
-		}
-		return lblNicknamep;
-	}
-
-	private JButton getBtnChangeNickname_1() {
-		if (btnChangeNickname_1 == null) {
-			btnChangeNickname_1 = new JButton("Change Nickname");
-			btnChangeNickname_1.setForeground(Color.WHITE);
-			btnChangeNickname_1.setBackground(new Color(153, 0, 0));
-		}
-		return btnChangeNickname_1;
-	}
-
-	private void leerNormas() {
-		
-		String norma = "";
-
-		try {
-			Scanner input = new Scanner(new File("normas.txt"));
-			while (input.hasNextLine()) {
-				String line = input.nextLine();
-				norma = norma + line +"\n"; 
-
-			}
-			input.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		System.out.println();
-		area.setText(norma);
-		
-
-	}
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane(getArea(),JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			leerNormas();
-		}
-		return scrollPane;
-	}
-	
-	private JTextArea getArea() {
-		if(area == null) {
-			area = new JTextArea();
-			area.setFont(new Font("David Libre", Font.PLAIN, 15));
-			area.setForeground(Color.WHITE);
-			area.setBackground(Color.DARK_GRAY);
-			
-		}
-		return area;
 	}
 }
