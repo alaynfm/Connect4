@@ -79,6 +79,7 @@ public class Tablero extends Observable {
 		for(int i = tablero.length - 1; i>=0;i--) {
 			if(tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
+				buscarGanador(i, c, color);
 				break;
 			}
 			

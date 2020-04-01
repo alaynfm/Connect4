@@ -1,10 +1,12 @@
 package interfaz;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import partida.Tablero;
 
@@ -23,7 +25,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 
-public class Iu_Partida extends JFrame implements Observer{
+public class Iu_Partida extends JFrame implements Observer {
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -46,17 +48,18 @@ public class Iu_Partida extends JFrame implements Observer{
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JPanel panel_10;
-	
+
 	private JButton[][] tablero;
 	private int tamanoX = 50;
 	private int tamanoY = 50;
-	
+
 	private int numFilas;
 	private int numColumnas;
-	
-	/*Los numeros impares corresponden al jugador 1, los numeros pares al jugador 2*/
+
+	/*
+	 * Los numeros impares corresponden al jugador 1, los numeros pares al jugador 2
+	 */
 	private int turno;
-	
 
 	/**
 	 * Launch the application.
@@ -93,73 +96,79 @@ public class Iu_Partida extends JFrame implements Observer{
 		turno = 0;
 		crearTablero(9, 15);
 	}
-	
+
 	public void crearTablero(int fila, int col) {
-			
-		
-		
-		if(fila<=0 || col<= 0) {			
-			//poner mensaje de tamaño incorrecto creando por defecto;
+
+		if (fila <= 0 || col <= 0) {
+			// poner mensaje de tamaño incorrecto creando por defecto;
 			numFilas = 6;
 			numColumnas = 12;
 			fila = 6;
 			col = 12;
-		}else {
+		} else {
 			numFilas = fila;
 			numColumnas = col;
 		}
-		
-		Tablero.getMiTablero().generarTablero(fila, col); //generamos el tablero de la  partida
-		tablero = new JButton[fila][col]; //generamos el tablero de botones
-		
+
+		Tablero.getMiTablero().generarTablero(fila, col); // generamos el tablero de la partida
+		tablero = new JButton[fila][col]; // generamos el tablero de botones
+
 		int x = 0;
 		int y = 15;
-		
-		for(int a= 0; a<fila;a++) {
-			for(int e= 0; e<col;e++) {
+
+		for (int a = 0; a < fila; a++) {
+			for (int e = 0; e < col; e++) {
 				JButton jb = new JButton();
-				jb.setBackground(Color.LIGHT_GRAY);
+				jb.setBackground(Color.DARK_GRAY);
 				jb.setBorderPainted(true);
 				tablero[a][e] = jb;
 				tablero[a][e].setBounds(x, y, tamanoX, tamanoY);
-				tablero[a][e].addMouseListener(new MouseAdapter() {
-
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
-						// TODO Auto-generated method stub
-						int j = (int) (jb.getX() / (tablero[0][1]).getX());
-						if (arg0.getButton() == 1) {
-							//al hacer click izq colocamos la ficha
-							if(turno % 2 ==0) Tablero.getMiTablero().colocarFicha2(j, "a");
-							else Tablero.getMiTablero().colocarFicha2(j, "r");
-							turno++;
-							pintarTablero();
-						} 
-					}
-				});
+				jb.setBorder(new LineBorder(Color.GRAY));
+				if (a == 0) {
+					tablero[a][e].addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							// TODO Auto-generated method stub
+							int j = (int) (jb.getX() / (tablero[0][1]).getX());
+							if (arg0.getButton() == 1) {
+								// al hacer click izq colocamos la ficha
+								if (turno % 2 == 0)
+									Tablero.getMiTablero().colocarFicha2(j, "a");
+								else
+									Tablero.getMiTablero().colocarFicha2(j, "r");
+								turno++;
+								if(Tablero.getMiTablero().hayGanador()) {
+									System.out.println(Tablero.getMiTablero().getGanador());
+									//Poner codigo para terminar el juego
+								}
+								pintarTablero();
+							}
+						}
+					});
+				}
 				getPanel_6().add(jb);
-
 				x = x + tamanoX;
 			}
 			x = 0;
 			y = y + tamanoY;
 		}
-		
+
 		setSize(((numColumnas) * (tamanoX) + 42), ((numFilas + 1) * tamanoY) + panel_5.getHeight() + 100);
 		setResizable(false);
 		actualizarTablero(getPanel_6());
 	}
-	
+
 	private void pintarTablero() {
-	
+
 		ImageIcon imagen;
-		
+
 		for (int i = 0; i < tablero.length; i++) {
 			for (int j = 0; j < tablero[0].length; j++) {
 				String color = Tablero.getMiTablero().getPosicion(i, j);
 				imagen = new ImageIcon("img/" + color + ".jpg");
 				java.awt.Image conversion = imagen.getImage();
-				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth(), tablero[0][0].getWidth(), 0);
+				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth(), tablero[0][0].getWidth(),
+						0);
 				ImageIcon fin = new ImageIcon(tamano);
 				tablero[i][j].setIcon(fin);
 			}
@@ -174,6 +183,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return panel;
 	}
+
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
@@ -182,6 +192,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return panel_1;
 	}
+
 	private JPanel getPanel_2() {
 		if (panel_2 == null) {
 			panel_2 = new JPanel();
@@ -189,6 +200,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return panel_2;
 	}
+
 	private JPanel getPanel_3() {
 		if (panel_3 == null) {
 			panel_3 = new JPanel();
@@ -197,6 +209,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return panel_3;
 	}
+
 	private JPanel getPanel_4() {
 		if (panel_4 == null) {
 			panel_4 = new JPanel();
@@ -208,6 +221,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return panel_4;
 	}
+
 	private JLabel getLblXabico() {
 		if (lblXabico == null) {
 			lblXabico = new JLabel("Xabi&Co");
@@ -215,6 +229,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return lblXabico;
 	}
+
 	private JPanel getPanel_5() {
 		if (panel_5 == null) {
 			panel_5 = new JPanel();
@@ -226,6 +241,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return panel_5;
 	}
+
 	private JPanel getPanel_6() {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
@@ -234,12 +250,11 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return panel_6;
 	}
-	
 
-	
 	private void actualizarTablero(JPanel panel) {
 		SwingUtilities.updateComponentTreeUI(panel);
 	}
+
 	private JPanel getPanel_7() {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
@@ -251,6 +266,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return panel_7;
 	}
+
 	private JPanel getPanel_8() {
 		if (panel_8 == null) {
 			panel_8 = new JPanel();
@@ -259,6 +275,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return panel_8;
 	}
+
 	private JPanel getPanel_9() {
 		if (panel_9 == null) {
 			panel_9 = new JPanel();
@@ -270,6 +287,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return panel_9;
 	}
+
 	private JLabel getLblNick() {
 		if (lblNick == null) {
 			lblNick = new JLabel("Nick1");
@@ -279,6 +297,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return lblNick;
 	}
+
 	private JLabel getLabel() {
 		if (label == null) {
 			label = new JLabel("25");
@@ -288,6 +307,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return label;
 	}
+
 	private JLabel getLblVs() {
 		if (lblVs == null) {
 			lblVs = new JLabel("Vs");
@@ -296,6 +316,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return lblVs;
 	}
+
 	private JLabel getLblNick_1() {
 		if (lblNick_1 == null) {
 			lblNick_1 = new JLabel("Nick2");
@@ -304,6 +325,7 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return lblNick_1;
 	}
+
 	private JLabel getLabel_1() {
 		if (label_1 == null) {
 			label_1 = new JLabel("25");
@@ -312,24 +334,28 @@ public class Iu_Partida extends JFrame implements Observer{
 		}
 		return label_1;
 	}
+
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("New button");
 		}
 		return btnNewButton;
 	}
+
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("New button");
 		}
 		return btnNewButton_1;
 	}
+
 	private JButton getBtnNewButton_2() {
 		if (btnNewButton_2 == null) {
 			btnNewButton_2 = new JButton("New button");
 		}
 		return btnNewButton_2;
 	}
+
 	private JPanel getPanel_10() {
 		if (panel_10 == null) {
 			panel_10 = new JPanel();
@@ -341,6 +367,6 @@ public class Iu_Partida extends JFrame implements Observer{
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
