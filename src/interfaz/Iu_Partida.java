@@ -6,10 +6,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import partida.Tablero;
+
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 import java.awt.GridLayout;
 import javax.swing.SwingUtilities;
 
@@ -18,7 +23,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 
-public class Iu_Partida extends JFrame {
+public class Iu_Partida extends JFrame implements Observer{
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -48,6 +53,10 @@ public class Iu_Partida extends JFrame {
 	
 	private int numFilas;
 	private int numColumnas;
+	
+	/*Los numeros impares corresponden al jugador 1, los numeros pares al jugador 2*/
+	private int turno;
+	
 
 	/**
 	 * Launch the application.
@@ -81,6 +90,80 @@ public class Iu_Partida extends JFrame {
 		contentPane.add(getPanel_2(), BorderLayout.EAST);
 		contentPane.add(getPanel_3(), BorderLayout.SOUTH);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
+		turno = 0;
+		crearTablero(9, 15);
+	}
+	
+	public void crearTablero(int fila, int col) {
+			
+		
+		
+		if(fila<=0 || col<= 0) {			
+			//poner mensaje de tamaño incorrecto creando por defecto;
+			numFilas = 6;
+			numColumnas = 12;
+			fila = 6;
+			col = 12;
+		}else {
+			numFilas = fila;
+			numColumnas = col;
+		}
+		
+		Tablero.getMiTablero().generarTablero(fila, col); //generamos el tablero de la  partida
+		tablero = new JButton[fila][col]; //generamos el tablero de botones
+		
+		int x = 0;
+		int y = 15;
+		
+		for(int a= 0; a<fila;a++) {
+			for(int e= 0; e<col;e++) {
+				JButton jb = new JButton();
+				jb.setBackground(Color.LIGHT_GRAY);
+				jb.setBorderPainted(true);
+				tablero[a][e] = jb;
+				tablero[a][e].setBounds(x, y, tamanoX, tamanoY);
+				tablero[a][e].addMouseListener(new MouseAdapter() {
+
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						// TODO Auto-generated method stub
+						int j = (int) (jb.getX() / (tablero[0][1]).getX());
+						if (arg0.getButton() == 1) {
+							//al hacer click izq colocamos la ficha
+							if(turno % 2 ==0) Tablero.getMiTablero().colocarFicha2(j, "a");
+							else Tablero.getMiTablero().colocarFicha2(j, "r");
+							turno++;
+							pintarTablero();
+						} 
+					}
+				});
+				getPanel_6().add(jb);
+
+				x = x + tamanoX;
+			}
+			x = 0;
+			y = y + tamanoY;
+		}
+		
+		setSize(((numColumnas) * (tamanoX) + 42), ((numFilas + 1) * tamanoY) + panel_5.getHeight() + 100);
+		setResizable(false);
+		actualizarTablero(getPanel_6());
+	}
+	
+	private void pintarTablero() {
+	
+		ImageIcon imagen;
+		
+		for (int i = 0; i < tablero.length; i++) {
+			for (int j = 0; j < tablero[0].length; j++) {
+				String color = Tablero.getMiTablero().getPosicion(i, j);
+				imagen = new ImageIcon("img/" + color + ".jpg");
+				java.awt.Image conversion = imagen.getImage();
+				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth(), tablero[0][0].getWidth(), 0);
+				ImageIcon fin = new ImageIcon(tamano);
+				tablero[i][j].setIcon(fin);
+			}
+		}
 	}
 
 	private JPanel getPanel() {
@@ -148,66 +231,11 @@ public class Iu_Partida extends JFrame {
 			panel_6 = new JPanel();
 			panel_6.setBackground(Color.DARK_GRAY);
 			panel_6.setLayout(null);
-			crearTablero(-1,9);
 		}
 		return panel_6;
 	}
 	
-	public void crearTablero(int fila, int col) {
-		
-	
-		if(fila<=0 || col<= 0) {			
-			//poner mensaje de tamaño incorrecto creando por defecto;
-			numFilas = 6;
-			numColumnas = 12;
-			fila = 6;
-			col = 12;
-		}else {
-			numFilas = fila;
-			numColumnas = col;
-		}
-		
-		
-		tablero = new JButton[fila][col];
-		
-		int x = 0;
-		int y = 15;
-		
-		for(int a= 0; a<fila;a++) {
-			for(int e= 0; e<col;e++) {
-				JButton jb = new JButton();
-				jb.setBackground(Color.LIGHT_GRAY);
-				jb.setBorderPainted(true);
-				tablero[a][e] = jb;
-				tablero[a][e].setBounds(x, y, tamanoX, tamanoY);
-				tablero[a][e].addMouseListener(new MouseAdapter() {
 
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
-						// TODO Auto-generated method stub
-
-						int j = (int) (jb.getY()) / tamanoY;
-						int j2 = (int) (jb.getX()) / tamanoX;
-						if (arg0.getButton() == 1) {
-							//No hacemos nada click izq
-						} else if (arg0.getButton() == 3) {
-							//meter lo que hacemos con el click derecho, si hacemos patron observer cambia
-
-						}
-					}
-				});
-				getPanel_6().add(jb);
-
-				x = x + tamanoX;
-			}
-			x = 0;
-			y = y + tamanoY;
-		}
-
-		setSize(((numColumnas) * (tamanoX) + 42), ((numFilas + 1) * tamanoY) + panel_5.getHeight() + 100);
-		setResizable(false);
-		actualizarTablero(getPanel_6());
-	}
 	
 	private void actualizarTablero(JPanel panel) {
 		SwingUtilities.updateComponentTreeUI(panel);
@@ -308,5 +336,11 @@ public class Iu_Partida extends JFrame {
 			panel_10.setBackground(Color.DARK_GRAY);
 		}
 		return panel_10;
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 }

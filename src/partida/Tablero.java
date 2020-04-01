@@ -1,17 +1,29 @@
 package partida;
 
+import java.util.Observable;
 import java.util.Stack;
 
-public class Tablero {
+public class Tablero extends Observable {
 
 	private String[][] tablero;
-	private String ganador;
+	/*Los colores de las fichas pueden ser
+	 * - : vacia
+	 * a : azul
+	 * r : rojo
+	 * */
+	private String ganador;	//Nombre del jugador que ha ganado
+	
+	private static Tablero miTablero = new Tablero();
+	
+	private Tablero() {}
+	
+	public static Tablero getMiTablero() {return miTablero;}
 
-	public Tablero(int x, int y) { // creamos el tablero
+	public void generarTablero(int x, int y) { // creamos el tablero
 		ganador = "-";
-		tablero = new String[y][x];
-		for (int i = 0; i < y; i++) { // recorremos la y
-			for (int k = 0; k < x; k++) { // recorremos la x
+		tablero = new String[x][y];
+		for (int i = 0; i < x; i++) { // recorremos la y
+			for (int k = 0; k < y; k++) { // recorremos la x
 				tablero[i][k] = "-"; // por defecto vacio
 			}
 		}
@@ -36,12 +48,12 @@ public class Tablero {
 		int ty = tablero.length;
 		int tx = tablero[0].length;
 
-		if (x > tx || x < 0) { // posicion incorrecta (hay que tratarla)
+		if (x > ty || x < 0) { // posicion incorrecta (hay que tratarla)
 			return null;
-		} else if (y > ty || y < 0) { // posicion incorrecta (hay que tratarla)
+		} else if (y > tx || y < 0) { // posicion incorrecta (hay que tratarla)
 			return null;
 		} else {
-			return tablero[y][x];
+			return tablero[x][y];
 		}
 	}
 
@@ -62,6 +74,16 @@ public class Tablero {
 			}
 		}
 	}
+	
+	public void colocarFicha2(int c,String color) {
+		for(int i = tablero.length - 1; i>=0;i--) {
+			if(tablero[i][c].equals("-")) {
+				tablero[i][c] = color;
+				break;
+			}
+			
+		}
+	}
 
 	public boolean sePuedeColocar(int x) {
 		// Post: Devuelve true si se puede colocar
@@ -76,7 +98,7 @@ public class Tablero {
 
 	public void buscarGanador(int i, int x, String color) {
 		if (buscarGanadorJuego(i, x)) {
-			if (color == "rojo") {
+			if (color == "r") {
 				ganador = "usuario";
 			} else {
 				ganador = "maquina";
@@ -243,6 +265,9 @@ public class Tablero {
 	public String getGanador() {
 		// Devuelve el atributo ganador (recomendable comprobar primero si hay ganador
 		return this.ganador;
+	}
+	public String[][] getMatriz() {
+		return tablero;
 	}
 
 }
