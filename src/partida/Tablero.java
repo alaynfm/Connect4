@@ -3,6 +3,8 @@ package partida;
 import java.util.Observable;
 import java.util.Stack;
 
+import interfaz.Iu_Partida;
+
 public class Tablero extends Observable {
 
 	private String[][] tablero;
@@ -76,6 +78,8 @@ public class Tablero extends Observable {
 	}
 	
 	public void colocarFicha2(int c,String color) {
+		setChanged();
+		notifyObservers(Iu_Partida.miPartida());
 		for(int i = tablero.length - 1; i>=0;i--) {
 			if(tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
