@@ -1,6 +1,7 @@
 package partida;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Stack;
 
@@ -9,20 +10,23 @@ import interfaz.Iu_Partida;
 public class Tablero extends Observable {
 
 	private String[][] tablero;
-	/*Los colores de las fichas pueden ser
-	 * - : vacia
-	 * a : azul
-	 * r : rojo
-	 * */
-	private String ganador;	//Nombre del jugador que ha ganado
+	/*
+	 * Los colores de las fichas pueden ser - : vacia a : azul r : rojo
+	 */
+	private String ganador; // Nombre del jugador que ha ganado
 	private static Tablero miTablero = new Tablero();
-	private ArrayList<Observable> misObservables = new ArrayList<Observable>();
-	
+	private IA joseMurillo = null;
+
+	private ListaCasilla listaCasillasLibres;
+
 	private Tablero() {
-		misObservables = new ArrayList<Observable>();
+		setIa(true);
+		listaCasillasLibres = new ListaCasilla();
 	}
-	
-	public static Tablero getMiTablero() {return miTablero;}
+
+	public static Tablero getMiTablero() {
+		return miTablero;
+	}
 
 	public void generarTablero(int x, int y) { // creamos el tablero
 		ganador = "-";
@@ -30,11 +34,26 @@ public class Tablero extends Observable {
 		for (int i = 0; i < x; i++) { // recorremos la fila
 			for (int k = 0; k < y; k++) { // recorremos la columna
 				tablero[i][k] = "-"; // por defecto vacio
+				listaCasillasLibres.anadirCasilla(""+ i + "" + k +"", k);
 			}
 		}
 	}
+
+	public ListaCasilla getCasillasLibres() {
+		return listaCasillasLibres;
+	}
 	
-	public String[][] getTablero(){
+	
+	public void setIa(boolean nivel) {
+		// true Ia facil
+		// False ia dificil
+		if (nivel)
+			joseMurillo = new IAFacil();
+		else
+			joseMurillo = new IADificil();
+	}
+
+	public String[][] getTablero() {
 		return tablero;
 	}
 
@@ -66,63 +85,51 @@ public class Tablero extends Observable {
 		}
 	}
 
-	public void colocarFicha(int x, String color) {
-		// busca la posicion mas baja y coloca ahi la ficha
-		int tx = tablero[0].length;
-		if (x < tx && sePuedeColocar(x)) {
-			int ty = tablero.length;
-			for (int i = ty - 1; i >= 0; i--) { // recorremos de forma inversa
-				if (tablero[i][x].equals("-")) {
-					tablero[i][x] = color;
-					buscarGanador(i, x, color);
-					
-					//Patron observer https://www.youtube.com/watch?v=Zt6478Za0zk
-					setChanged();
-					notifyObservers();
+	public void colocarFicha2(int c, String color) {
 
-					break;
-				}
-			}
-			if(hayGanador()) {
-				System.out.println("Hay un ganador");
-			}
-		}
-	}
-	
-	public void colocarFicha2(int c,String color) {
-	
-		for(int i = tablero.length - 1; i>=0;i--) {
-			if(tablero[i][c].equals("-")) {
+		for (int i = tablero.length - 1; i >= 0; i--) {
+			if (tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
 				buscarGanador(i, c, color);
-				
-				//Para el patron observer
-				setChanged();
-				notifyObservers(Iu_Partida.miPartida());
+				listaCasillasLibres.eliminarCasillla("" + i  + ""+ c +"");
 				
 				break;
 			}
-			
+
+		}
+	}
+	public void jugarPartida1vsia(int j) {
+
+		colocarFicha2(j, "a");
+		
+		if (!hayGanador()) {
+			joseMurillo.jugar();
+		
+		}else {
+			Iu_Partida.miPartida().setVisible(false);
 		}
 	}
 
+
 	public boolean sePuedeColocar(int x) {
 		// Post: Devuelve true si se puede colocar
+		
+		boolean sepuede = false;
 		int ty = tablero.length;
 		for (int i = ty - 1; i >= 0; i--) { // recorremos de forma inversa
 			if (tablero[i][x].equals("-")) {
-				return true;
+				sepuede = true;
 			}
 		}
-		return false;
+		return sepuede;
 	}
 
 	public void buscarGanador(int i, int x, String color) {
 		if (buscarGanadorJuego(i, x)) {
 			if (color == "r") {
-				ganador = "usuario";
+				ganador = "Jose Murillo";
 			} else {
-				ganador = "maquina";
+				ganador = "usuario";
 			}
 		}
 	}
@@ -266,7 +273,7 @@ public class Tablero extends Observable {
 					contD = false;
 				}
 			}
-			
+
 			if (contArribaDer + contAbajoIzq >= 3 || contAbajoDer + contArribaIzq >= 3) {
 				ganador = true;
 				break;
@@ -287,12 +294,14 @@ public class Tablero extends Observable {
 		// Devuelve el atributo ganador (recomendable comprobar primero si hay ganador
 		return this.ganador;
 	}
+
 	public String[][] getMatriz() {
 		return tablero;
 	}
-	
-	public void setColor(int fila, int columna , String color) {
+
+	public void setColor(int fila, int columna, String color) {
 		tablero[fila][columna] = color;
 	}
 
+	
 }

@@ -2,43 +2,27 @@ package interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
-import partida.Cambio;
-import partida.Reloj;
 import partida.Tablero;
-
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 import java.awt.GridLayout;
-import java.awt.Insets;
-
 import javax.swing.SwingUtilities;
-
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 
-public class Iu_Partida extends JFrame implements Observer, ComponentListener {
+public class Iu_Partida extends JFrame implements ComponentListener {
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -57,26 +41,22 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 	private JLabel lblVs;
 	private JLabel lblNick_1;
 	private JLabel label_1;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
 	private JPanel panel_10;
-
 	private JButton[][] tablero;
 	private int tamanoX = 50;
 	private int tamanoY = 50;
-
 	private int numFilas;
 	private int numColumnas;
 	private int x = -1;
-	private Cambio c;
+	private boolean forma; //true si es 1 vs IA 
+	private int turno; //Para saber si le toca al azul o al rojo
 
 	private static Iu_Partida miPartida = new Iu_Partida();
 
 	/*
 	 * Los numeros impares corresponden al jugador 1, los numeros pares al jugador 2
 	 */
-	private int turno;
+	
 
 	/**
 	 * Launch the application.
@@ -111,9 +91,9 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 		contentPane.add(getPanel_3(), BorderLayout.SOUTH);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		turno = 0;
-		c = Cambio.getcambio();
-		c.addObserver(this);
-		crearTablero(9, 25);
+		forma = true;
+
+		crearTablero(5, 12);
 	}
 
 	public static Iu_Partida miPartida() {
@@ -123,7 +103,7 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 	public void crearTablero(int fila, int col) {
 
 		if (fila <= 0 || col <= 0) {
-			// poner mensaje de tamaño incorrecto creando por defecto;
+			// poner mensaje de tamaï¿½o incorrecto creando por defecto;
 			numFilas = 6;
 			numColumnas = 12;
 			fila = 6;
@@ -147,50 +127,49 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 				tablero[a][e] = jb;
 				tablero[a][e].setBounds(x, y, tamanoX, tamanoY);
 				jb.setBorder(new LineBorder(Color.GRAY));
-				if (a == 0) {
-					tablero[a][e].addMouseListener(new MouseAdapter() {
 
-						public void mouseEntered(MouseEvent evento) {
-							int j = (int) (jb.getX() / (tablero[0][1]).getX());
-							setCambio(j);
-							caidaFichas();
-						}
+				tablero[a][e].addMouseListener(new MouseAdapter() {
 
-						public void mouseExited(MouseEvent evento) {
-							int j = (int) (jb.getX() / (tablero[0][1]).getX());
-							setCambio(j);
-							retomarFichas();
-						}
+					public void mouseEntered(MouseEvent evento) {
+						int j = (int) (jb.getX() / (tablero[0][1]).getX());
+						setCambio(j);
+						caidaFichas();
+					}
 
-						@Override
-						public void mouseClicked(MouseEvent arg0) {
-							// TODO Auto-generated method stub
+					public void mouseExited(MouseEvent evento) {
+						int j = (int) (jb.getX() / (tablero[0][1]).getX());
+						setCambio(j);
+						retomarFichas();
+					}
 
-							int j = (int) (jb.getX() / (tablero[0][1]).getX());
-							setCambio(j);
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						// TODO Auto-generated method stub
 
-							if (arg0.getButton() == 1) {
-								// al hacer click izq colocamos la ficha
+						
+						int j = (int) (jb.getX() / (tablero[0][1]).getX());
+						setCambio(j);
 
-								if (turno % 2 == 0)
-									Tablero.getMiTablero().colocarFicha2(j, "a");
-								else
-									Tablero.getMiTablero().colocarFicha2(j, "r");
-								turno++;
-								if (Tablero.getMiTablero().hayGanador()) {
-									System.out.println(Tablero.getMiTablero().getGanador());
-									// Poner codigo para terminar el juego
-								}
-								retomarFichas();
-
-							} else if (arg0.getButton() == 3) {
-								caidaFichas();
-
+						if (arg0.getButton() == 1) {
+							
+							//Si estamos jugando contra la IA entra aqui
+							if(forma) {
+								Tablero.getMiTablero().jugarPartida1vsia(j);
+								pintarTablero();
+								
+							//Si estamos jugando 1 vs 1 entra aqui
+							}else {
+								
+								if (turno % 2 == 0) Tablero.getMiTablero().colocarFicha2(j, "a");
+								else Tablero.getMiTablero().colocarFicha2(j, "r");
+								pintarColumna(j);
+								turno ++;
 							}
-							pintarColumna();
+
 						}
-					});
-				}
+					}
+				});
+
 				getPanel_6().add(jb);
 				x = x + tamanoX;
 			}
@@ -205,11 +184,6 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 		actualizarTablero(getPanel_6());
 	}
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-
-	}
 
 	private void caidaFichas() {
 		if (x >= 0) {
@@ -221,7 +195,7 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 
 					if (!Tablero.getMiTablero().getPosicion(i + 1, x).equals("-")) {
 
-						//tablero[i][x].setBackground(Color.GRAY);
+						// tablero[i][x].setBackground(Color.GRAY);
 						if (turno % 2 == 0)
 							tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
 						else
@@ -230,7 +204,7 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 						break;
 					}
 				} else if (i == tablero.length - 1) {
-					//tablero[i][x].setBackground(Color.GRAY);
+					// tablero[i][x].setBackground(Color.GRAY);
 					if (turno % 2 == 0)
 						tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
 					else
@@ -253,7 +227,7 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 	}
 
 	// metodo a utilizar en el update del Patron observer
-	public void pintarColumna() {
+	public void pintarColumna(int columna) {
 
 		if (x >= 0) {
 			ImageIcon imagen;
@@ -299,6 +273,10 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 
 	private void setCambio(int j) {
 		x = j;
+	}
+	
+	public void setTurno(int j) {
+		turno = j;
 	}
 
 	public int getCambio() {
@@ -463,27 +441,6 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 			label_1.setForeground(new Color(51, 153, 255));
 		}
 		return label_1;
-	}
-
-	private JButton getBtnNewButton() {
-		if (btnNewButton == null) {
-			btnNewButton = new JButton("New button");
-		}
-		return btnNewButton;
-	}
-
-	private JButton getBtnNewButton_1() {
-		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("New button");
-		}
-		return btnNewButton_1;
-	}
-
-	private JButton getBtnNewButton_2() {
-		if (btnNewButton_2 == null) {
-			btnNewButton_2 = new JButton("New button");
-		}
-		return btnNewButton_2;
 	}
 
 	private JPanel getPanel_10() {
