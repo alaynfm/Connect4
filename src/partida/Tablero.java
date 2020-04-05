@@ -1,5 +1,6 @@
 package partida;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Stack;
 
@@ -14,21 +15,27 @@ public class Tablero extends Observable {
 	 * r : rojo
 	 * */
 	private String ganador;	//Nombre del jugador que ha ganado
-	
 	private static Tablero miTablero = new Tablero();
+	private ArrayList<Observable> misObservables = new ArrayList<Observable>();
 	
-	private Tablero() {}
+	private Tablero() {
+		misObservables = new ArrayList<Observable>();
+	}
 	
 	public static Tablero getMiTablero() {return miTablero;}
 
 	public void generarTablero(int x, int y) { // creamos el tablero
 		ganador = "-";
 		tablero = new String[x][y];
-		for (int i = 0; i < x; i++) { // recorremos la y
-			for (int k = 0; k < y; k++) { // recorremos la x
+		for (int i = 0; i < x; i++) { // recorremos la fila
+			for (int k = 0; k < y; k++) { // recorremos la columna
 				tablero[i][k] = "-"; // por defecto vacio
 			}
 		}
+	}
+	
+	public String[][] getTablero(){
+		return tablero;
 	}
 
 	public void imprimirTablero() {
@@ -68,6 +75,11 @@ public class Tablero extends Observable {
 				if (tablero[i][x].equals("-")) {
 					tablero[i][x] = color;
 					buscarGanador(i, x, color);
+					
+					//Patron observer https://www.youtube.com/watch?v=Zt6478Za0zk
+					setChanged();
+					notifyObservers();
+
 					break;
 				}
 			}
@@ -78,12 +90,16 @@ public class Tablero extends Observable {
 	}
 	
 	public void colocarFicha2(int c,String color) {
-		setChanged();
-		notifyObservers(Iu_Partida.miPartida());
+	
 		for(int i = tablero.length - 1; i>=0;i--) {
 			if(tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
 				buscarGanador(i, c, color);
+				
+				//Para el patron observer
+				setChanged();
+				notifyObservers(Iu_Partida.miPartida());
+				
 				break;
 			}
 			
@@ -273,6 +289,10 @@ public class Tablero extends Observable {
 	}
 	public String[][] getMatriz() {
 		return tablero;
+	}
+	
+	public void setColor(int fila, int columna , String color) {
+		tablero[fila][columna] = color;
 	}
 
 }

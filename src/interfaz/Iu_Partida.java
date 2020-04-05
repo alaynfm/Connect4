@@ -5,13 +5,16 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import partida.Cambio;
 import partida.Reloj;
 import partida.Tablero;
 
 import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -19,13 +22,19 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.awt.GridLayout;
+import java.awt.Insets;
+
 import javax.swing.SwingUtilities;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 
@@ -59,6 +68,9 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 
 	private int numFilas;
 	private int numColumnas;
+	private int x = -1;
+	private Cambio c;
+
 	private static Iu_Partida miPartida = new Iu_Partida();
 
 	/*
@@ -99,10 +111,14 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 		contentPane.add(getPanel_3(), BorderLayout.SOUTH);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		turno = 0;
+		c = Cambio.getcambio();
+		c.addObserver(this);
 		crearTablero(9, 25);
 	}
-	
-	public static Iu_Partida miPartida() {return miPartida;}
+
+	public static Iu_Partida miPartida() {
+		return miPartida;
+	}
 
 	public void crearTablero(int fila, int col) {
 
@@ -133,12 +149,29 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 				jb.setBorder(new LineBorder(Color.GRAY));
 				if (a == 0) {
 					tablero[a][e].addMouseListener(new MouseAdapter() {
+
+						public void mouseEntered(MouseEvent evento) {
+							int j = (int) (jb.getX() / (tablero[0][1]).getX());
+							setCambio(j);
+							caidaFichas();
+						}
+
+						public void mouseExited(MouseEvent evento) {
+							int j = (int) (jb.getX() / (tablero[0][1]).getX());
+							setCambio(j);
+							retomarFichas();
+						}
+
 						@Override
 						public void mouseClicked(MouseEvent arg0) {
 							// TODO Auto-generated method stub
+
 							int j = (int) (jb.getX() / (tablero[0][1]).getX());
+							setCambio(j);
+
 							if (arg0.getButton() == 1) {
 								// al hacer click izq colocamos la ficha
+
 								if (turno % 2 == 0)
 									Tablero.getMiTablero().colocarFicha2(j, "a");
 								else
@@ -148,11 +181,13 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 									System.out.println(Tablero.getMiTablero().getGanador());
 									// Poner codigo para terminar el juego
 								}
-								pintarColumna(j);
-								
-								//pintarTablero();
+								retomarFichas();
+
+							} else if (arg0.getButton() == 3) {
+								caidaFichas();
 
 							}
+							pintarColumna();
 						}
 					});
 				}
@@ -163,52 +198,87 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 			y = y + tamanoY;
 		}
 
+		pintarTablero();
 
 		setSize(((numColumnas) * (tamanoX) + 42), ((numFilas + 1) * tamanoY) + panel_5.getHeight() + 100);
 		setResizable(false);
 		actualizarTablero(getPanel_6());
 	}
 
-	private void pintarColumna(int c) {
-		// metodo para sustituir al observer
-		// solo pintamos la columna en la que metemos la ficha
-		ImageIcon imagen;
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
 
-		for (int i = 0; i < tablero.length; i++) {
-			String color = Tablero.getMiTablero().getPosicion(i, c);
-			if (color.equals("-")) {
-
-				if (turno % 2 == 0)
-					color = "r";
-				else
-					color = "a";
-
-				imagen = new ImageIcon("img/" + color + ".jpg");
-				java.awt.Image conversion = imagen.getImage();
-				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth(), tablero[0][0].getWidth(),
-						0);
-				ImageIcon fin = new ImageIcon(tamano);
-				tablero[i][c].setIcon(fin);
-
-			} else {
-
-				imagen = new ImageIcon("img/" + color + ".jpg");
-				java.awt.Image conversion = imagen.getImage();
-				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth(), tablero[0][0].getWidth(),
-						0);
-				ImageIcon fin = new ImageIcon(tamano);
-				tablero[i][c].setIcon(fin);
-			}
-		}
 	}
 
-	private void pintarTablero() {
+	private void caidaFichas() {
+		if (x >= 0) {
+			for (int i = 0; i < tablero.length; i++) {
+				if (i + 1 < tablero.length) {
+					
+					if (!Tablero.getMiTablero().getPosicion(i + 1, x).equals("-")) {
+						
+						tablero[i][x].setBackground(Color.GRAY);
+						if(turno %2 == 0) tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
+						else  tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+						
+						break;
+					}
+				}else if (i == tablero.length - 1) {
+					tablero[i][x].setBackground(Color.GRAY);
+					if(turno %2 == 0) tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
+					else  tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+				}
+			}
+		}
+
+	}
+
+	private void retomarFichas() {
+
+		for (int i = tablero.length - 1; i >= 0; i--) {
+			tablero[i][x].setBackground(Color.DARK_GRAY);
+			tablero[i][x].setBorder(new LineBorder(Color.GRAY));
+			repaint();
+
+		}
+
+	}
+
+	// metodo a utilizar en el update del Patron observer
+	public void pintarColumna() {
+
+		if (x >= 0) {
+			ImageIcon imagen;
+
+			for (int i = 0; i < tablero.length; i++) {
+
+				String color = Tablero.getMiTablero().getPosicion(i, x);
+				imagen = new ImageIcon("img/" + color + ".jpg");
+				java.awt.Image conversion = imagen.getImage();
+				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth(), tablero[0][0].getWidth(),
+						0);
+				ImageIcon fin = new ImageIcon(tamano);
+
+				if (color.equals("-"))
+					tablero[i][x].setIcon(null);
+				else
+					tablero[i][x].setIcon(fin);
+
+				repaint();
+				actualizarTablero(getPanel_6());
+
+			}
+
+		} // else no hay nada que pintar no se ha hecho ningun cambio
+	}
+
+	public void pintarTablero() {
 		ImageIcon imagen;
 
 		for (int i = 0; i < tablero.length; i++) {
 			for (int c = 0; c < tablero[0].length; c++) {
 				String color = Tablero.getMiTablero().getPosicion(i, c);
-
 				imagen = new ImageIcon("img/" + color + ".jpg");
 				java.awt.Image conversion = imagen.getImage();
 				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth(), tablero[0][0].getWidth(),
@@ -219,8 +289,14 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 			}
 		}
 	}
-	
-	
+
+	private void setCambio(int j) {
+		x = j;
+	}
+
+	public int getCambio() {
+		return x;
+	}
 
 	private JPanel getPanel() {
 		if (panel == null) {
@@ -409,12 +485,6 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 			panel_10.setBackground(Color.DARK_GRAY);
 		}
 		return panel_10;
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		pintarTablero();
 	}
 
 	@Override
