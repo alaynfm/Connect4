@@ -221,7 +221,7 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 
 					if (!Tablero.getMiTablero().getPosicion(i + 1, x).equals("-")) {
 
-						tablero[i][x].setBackground(Color.GRAY);
+						//tablero[i][x].setBackground(Color.GRAY);
 						if (turno % 2 == 0)
 							tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
 						else
@@ -230,7 +230,7 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 						break;
 					}
 				} else if (i == tablero.length - 1) {
-					tablero[i][x].setBackground(Color.GRAY);
+					//tablero[i][x].setBackground(Color.GRAY);
 					if (turno % 2 == 0)
 						tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
 					else
