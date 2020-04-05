@@ -214,20 +214,27 @@ public class Iu_Partida extends JFrame implements Observer, ComponentListener {
 	private void caidaFichas() {
 		if (x >= 0) {
 			for (int i = 0; i < tablero.length; i++) {
-				if (i + 1 < tablero.length) {
-					
+
+				if (!Tablero.getMiTablero().getPosicion(i, x).equals("-")) {
+
+				} else if (i + 1 < tablero.length) {
+
 					if (!Tablero.getMiTablero().getPosicion(i + 1, x).equals("-")) {
-						
+
 						tablero[i][x].setBackground(Color.GRAY);
-						if(turno %2 == 0) tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
-						else  tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
-						
+						if (turno % 2 == 0)
+							tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
+						else
+							tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+
 						break;
 					}
-				}else if (i == tablero.length - 1) {
+				} else if (i == tablero.length - 1) {
 					tablero[i][x].setBackground(Color.GRAY);
-					if(turno %2 == 0) tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
-					else  tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+					if (turno % 2 == 0)
+						tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
+					else
+						tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
 				}
 			}
 		}
