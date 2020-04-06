@@ -34,7 +34,7 @@ public class Tablero extends Observable {
 		for (int i = 0; i < x; i++) { // recorremos la fila
 			for (int k = 0; k < y; k++) { // recorremos la columna
 				tablero[i][k] = "-"; // por defecto vacio
-				listaCasillasLibres.anadirCasilla(""+ i + "" + k +"", k);
+				listaCasillasLibres.anadirCasilla("" + i + "" + k + "", k);
 			}
 		}
 	}
@@ -42,8 +42,7 @@ public class Tablero extends Observable {
 	public ListaCasilla getCasillasLibres() {
 		return listaCasillasLibres;
 	}
-	
-	
+
 	public void setIa(boolean nivel) {
 		// true Ia facil
 		// False ia dificil
@@ -91,29 +90,31 @@ public class Tablero extends Observable {
 			if (tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
 				buscarGanador(i, c, color);
-				listaCasillasLibres.eliminarCasillla("" + i  + ""+ c +"");
-				
+				listaCasillasLibres.eliminarCasillla("" + i + "" + c + "");
+
 				break;
 			}
 
 		}
 	}
+
 	public void jugarPartida1vsia(int j) {
 
-		colocarFicha2(j, "a");
-		
 		if (!hayGanador()) {
-			joseMurillo.jugar();
-		
-		}else {
-			Iu_Partida.miPartida().setVisible(false);
+			colocarFicha2(j, "a");
+
+			if (!hayGanador()) {
+				joseMurillo.jugar();
+
+			} else {
+				Iu_Partida.miPartida().setVisible(false);
+			}
 		}
 	}
 
-
 	public boolean sePuedeColocar(int x) {
 		// Post: Devuelve true si se puede colocar
-		
+
 		boolean sepuede = false;
 		int ty = tablero.length;
 		for (int i = ty - 1; i >= 0; i--) { // recorremos de forma inversa
@@ -303,5 +304,4 @@ public class Tablero extends Observable {
 		tablero[fila][columna] = color;
 	}
 
-	
 }

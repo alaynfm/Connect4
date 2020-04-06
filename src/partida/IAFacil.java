@@ -6,7 +6,6 @@ public class IAFacil extends IA {
 		ListaCasilla listaCasillas = Tablero.getMiTablero().getCasillasLibres();
 		int casilla = listaCasillas.getCasillaAleatoria();
 		Tablero.getMiTablero().colocarFicha2(casilla, "r");
-		
 	}
 	
 	

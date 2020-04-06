@@ -22,7 +22,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 
-public class Iu_Partida extends JFrame implements ComponentListener {
+public class Iu_Partida extends JFrame  {
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -78,6 +78,7 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 	 * Create the frame.
 	 */
 	private Iu_Partida() {
+		//Constructora
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 870, 413);
 		contentPane = new JPanel();
@@ -91,8 +92,10 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 		contentPane.add(getPanel_3(), BorderLayout.SOUTH);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		turno = 0;
+		
+		/*Si lo ponemos a true Jugador vs Jose Murillo
+		 * Si ponemos a false Jugador1 vs Jugador2*/
 		forma = true;
-
 		crearTablero(5, 12);
 	}
 
@@ -100,10 +103,19 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 		return miPartida;
 	}
 
+	
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	/*Programas para el manejo de la interfaz*/
+	
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 	public void crearTablero(int fila, int col) {
+		
+		//programa para la creacion del tablero con los correspondientes botones
 
 		if (fila <= 0 || col <= 0) {
-			// poner mensaje de tama�o incorrecto creando por defecto;
+			// poner mensaje de tamano incorrecto creando por defecto;
 			numFilas = 6;
 			numColumnas = 12;
 			fila = 6;
@@ -131,12 +143,16 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 				tablero[a][e].addMouseListener(new MouseAdapter() {
 
 					public void mouseEntered(MouseEvent evento) {
+						
+						//Si pasamos por encima con el raton, mostramos la donde se colocaria la ficha
 						int j = (int) (jb.getX() / (tablero[0][1]).getX());
 						setCambio(j);
 						caidaFichas();
 					}
 
 					public void mouseExited(MouseEvent evento) {
+						
+						//Cuando quitamos el cursor del raton volvemos a ponerlo normal
 						int j = (int) (jb.getX() / (tablero[0][1]).getX());
 						setCambio(j);
 						retomarFichas();
@@ -144,26 +160,32 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
-						// TODO Auto-generated method stub
 
-						
+						//Cuando hacemos click
 						int j = (int) (jb.getX() / (tablero[0][1]).getX());
 						setCambio(j);
 
 						if (arg0.getButton() == 1) {
+							//Cuando hacemos click izq
 							
-							//Si estamos jugando contra la IA entra aqui
 							if(forma) {
+								
+								//Si estamos jugando contra la IA entra aqui
 								Tablero.getMiTablero().jugarPartida1vsia(j);
 								pintarTablero();
 								
-							//Si estamos jugando 1 vs 1 entra aqui
+						
 							}else {
 								
+								/*Si estamos jugando 1 vs 1 entra aqui
+								 * Si el turno es par pintamos azul
+								 * si el turno es impar pintamos rojo
+								 * */
 								if (turno % 2 == 0) Tablero.getMiTablero().colocarFicha2(j, "a");
 								else Tablero.getMiTablero().colocarFicha2(j, "r");
 								pintarColumna(j);
 								turno ++;
+								System.out.println(Tablero.getMiTablero().hayGanador());
 							}
 
 						}
@@ -186,6 +208,8 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 
 
 	private void caidaFichas() {
+		
+		//metodo para pintar donde caeria la ficha al pasar por encima de la columna
 		if (x >= 0) {
 			for (int i = 0; i < tablero.length; i++) {
 
@@ -217,6 +241,7 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 
 	private void retomarFichas() {
 
+		//metodo para volver a colocar todo normal
 		for (int i = tablero.length - 1; i >= 0; i--) {
 			tablero[i][x].setBackground(Color.DARK_GRAY);
 			tablero[i][x].setBorder(new LineBorder(Color.GRAY));
@@ -226,9 +251,12 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 
 	}
 
-	// metodo a utilizar en el update del Patron observer
 	public void pintarColumna(int columna) {
-
+		
+		//Una vez colocamos una ficha volvemos a pintar la columna para que se vea el cambio
+		//Podría mejorarse con el patron observer, cada vez que hacemos un cambio que se pinte
+		
+		//Sabemos la columna que se ha cambiado gracias al atributo x (columna cambiada
 		if (x >= 0) {
 			ImageIcon imagen;
 
@@ -255,6 +283,9 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 	}
 
 	public void pintarTablero() {
+		
+		//Para pintar todo el tablero (no es recomendable utilizar mas coste que pintarColumna
+		
 		ImageIcon imagen;
 
 		for (int i = 0; i < tablero.length; i++) {
@@ -272,17 +303,77 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 	}
 
 	private void setCambio(int j) {
+		
+		//Metodo que utilizamos para decir que vamos a añadir una ficha en esa columna
 		x = j;
-	}
-	
-	public void setTurno(int j) {
-		turno = j;
 	}
 
 	public int getCambio() {
+		
+		//Metodo para obtener la columna en la que vamos a hacer el cambio
 		return x;
 	}
+	
+	
+	
 
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	/*Programas para cambiar la informacion y funcionamiento de la interfaz*/
+	
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	
+	
+	public void setForma(boolean f) 
+	{
+		/*Se le pasa un booleano 
+		 * si es true Jugador vs Jose Murillo (IA)
+		 * si es false jugador vs jugador*/
+		forma = f;
+	}
+	
+	public void setNombreJugador1() {
+		//Para cambiar el nombre del jugador 1
+	}
+	
+	public void setNombreJugador2() {
+		//Para cambiar el nombre del jugador dos o de la IA
+	}
+	
+	public void setPuntuacionJugador1() {
+		//Para cambiar la puntuacion del jugador1
+	}
+	
+	public void setPunatuacionJugador2() {
+		//Para cambiar la puntuacion del jugador2 o de la IA
+	}
+	
+	public void getNombreJugador1() {
+		//Para obtener el nombre del jugador 1 que hemos escrito
+	}
+	
+	public void getNombreJugador2() {
+		//Para obtener el nombre del jugador dos o de la IA que hemos escrito
+	}
+	
+	public void getPuntuacionJugador1() {
+		//Para obtener la puntuacion del jugador1 que hemos obtenido
+	}
+	
+	public void getPunatuacionJugador2() {
+		//Para obtener la puntuacion del jugador2 o de la IA que hemos obtenido
+	}
+	
+	
+	
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//Codigo generado por Windowbuilder en modo Lazy
+	
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
@@ -449,33 +540,5 @@ public class Iu_Partida extends JFrame implements ComponentListener {
 			panel_10.setBackground(Color.DARK_GRAY);
 		}
 		return panel_10;
-	}
-
-	@Override
-	public void componentHidden(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		pintarTablero();
-
-	}
-
-	@Override
-	public void componentMoved(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		pintarTablero();
-
-	}
-
-	@Override
-	public void componentResized(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		pintarTablero();
-
-	}
-
-	@Override
-	public void componentShown(ComponentEvent arg0) {
-		// TODO Auto-generated method stub
-		pintarTablero();
-
 	}
 }
