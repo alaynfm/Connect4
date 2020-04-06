@@ -78,6 +78,7 @@ public class Iu_Partida extends JFrame  {
 	 * Create the frame.
 	 */
 	private Iu_Partida() {
+		
 		//Constructora
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 870, 413);
@@ -95,8 +96,6 @@ public class Iu_Partida extends JFrame  {
 		
 		/*Si lo ponemos a true Jugador vs Jose Murillo
 		 * Si ponemos a false Jugador1 vs Jugador2*/
-		forma = true;
-		crearTablero(5, 12);
 	}
 
 	public static Iu_Partida miPartida() {
@@ -115,12 +114,14 @@ public class Iu_Partida extends JFrame  {
 		//programa para la creacion del tablero con los correspondientes botones
 
 		if (fila <= 0 || col <= 0) {
+			
 			// poner mensaje de tamano incorrecto creando por defecto;
 			numFilas = 6;
 			numColumnas = 12;
 			fila = 6;
 			col = 12;
 		} else {
+			
 			numFilas = fila;
 			numColumnas = col;
 		}
@@ -333,12 +334,15 @@ public class Iu_Partida extends JFrame  {
 		forma = f;
 	}
 	
-	public void setNombreJugador1() {
+	public void setNombreJugador1(String nombre) {
 		//Para cambiar el nombre del jugador 1
+		lblNick.setText(nombre);
+		
 	}
 	
-	public void setNombreJugador2() {
+	public void setNombreJugador2(String nombre) {
 		//Para cambiar el nombre del jugador dos o de la IA
+		lblNick_1.setText(nombre);
 	}
 	
 	public void setPuntuacionJugador1() {
@@ -369,7 +373,7 @@ public class Iu_Partida extends JFrame  {
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
-	//Codigo generado por Windowbuilder en modo Lazy
+	//Codigo generado por Windowbuilder (en modo Lazy)
 	
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 

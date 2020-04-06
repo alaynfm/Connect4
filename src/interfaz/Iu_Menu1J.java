@@ -5,20 +5,29 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import java.awt.GridLayout;
+import java.awt.Insets;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 import java.awt.Font;
+import java.awt.Graphics;
 
 public class Iu_Menu1J extends JFrame {
 
@@ -47,10 +56,17 @@ public class Iu_Menu1J extends JFrame {
 	private JButton btnAtras;
 	private JLabel lblVs;
 	private JLabel lblJoseMurillo;
+	private JPanel panel_5;
+	private JLabel lblFilas;
+	private JLabel lblColumnas;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JLabel lblX;
 
 	/**
 	 * Launch the application.
 	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -81,6 +97,7 @@ public class Iu_Menu1J extends JFrame {
 		contentPane.add(getPanel_12(), BorderLayout.EAST);
 		contentPane.add(getPanel_13(), BorderLayout.CENTER);
 		setResizable(false);
+		
 	}
 
 	public static Iu_Menu1J miPartida() {
@@ -93,24 +110,28 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return norte1;
 	}
+
 	private JPanel getPanel_10() {
 		if (sur1 == null) {
 			sur1 = new JPanel();
 		}
 		return sur1;
 	}
+
 	private JPanel getPanel_11() {
 		if (oeste1 == null) {
 			oeste1 = new JPanel();
 		}
 		return oeste1;
 	}
+
 	private JPanel getPanel_12() {
 		if (este1 == null) {
 			este1 = new JPanel();
 		}
 		return este1;
 	}
+
 	private JPanel getPanel_13() {
 		if (centro1 == null) {
 			centro1 = new JPanel();
@@ -119,6 +140,7 @@ public class Iu_Menu1J extends JFrame {
 			centro1.add(getPanel_14());
 			centro1.add(getPanel_1_1());
 			centro1.add(getPanel_2_1());
+			centro1.add(getPanel_5());
 			centro1.add(getPanel_3_1());
 			centro1.add(getPanel_4_1());
 			centro1.add(getPanel_6_1());
@@ -126,6 +148,7 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return centro1;
 	}
+
 	private JPanel getPanel_14() {
 		if (panel == null) {
 			panel = new JPanel();
@@ -136,6 +159,7 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return panel;
 	}
+
 	private JPanel getPanel_1_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
@@ -143,6 +167,7 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return panel_1;
 	}
+
 	private JPanel getPanel_2_1() {
 		if (panel_2 == null) {
 			panel_2 = new JPanel();
@@ -155,15 +180,17 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return panel_2;
 	}
+
 	private JPanel getPanel_3_1() {
 		if (panel_3 == null) {
 			panel_3 = new JPanel();
 			panel_3.setBackground(Color.DARK_GRAY);
-			panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			panel_3.setLayout(null);
 			panel_3.add(getLblDificultadIa());
 		}
 		return panel_3;
 	}
+
 	private JPanel getPanel_4_1() {
 		if (panel_4 == null) {
 			panel_4 = new JPanel();
@@ -174,6 +201,7 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return panel_4;
 	}
+
 	private JPanel getPanel_6_1() {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
@@ -183,6 +211,7 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return panel_6;
 	}
+
 	private JLabel getLblNickname() {
 		if (lblNickname == null) {
 			lblNickname = new JLabel("Nickname");
@@ -192,6 +221,7 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return lblNickname;
 	}
+
 	private JTextField getTextField_2() {
 		if (textField == null) {
 			textField = new JTextField();
@@ -200,35 +230,40 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return textField;
 	}
+
 	private JLabel getLblDificultadIa() {
 		if (lblDificultadIa == null) {
 			lblDificultadIa = new JLabel("Dificultad IA");
+			lblDificultadIa.setBounds(301, 0, 198, 45);
 			lblDificultadIa.setForeground(Color.WHITE);
 			lblDificultadIa.setFont(new Font("Tahoma", Font.PLAIN, 37));
 		}
 		return lblDificultadIa;
 	}
+
 	private JRadioButton getRdbtnFacil() {
 		if (rdbtnFacil == null) {
 			rdbtnFacil = new JRadioButton("Facil");
 			rdbtnFacil.setForeground(new Color(153, 0, 0));
-			rdbtnFacil.setBounds(304, 0, 100, 49);
+			rdbtnFacil.setBounds(309, 0, 100, 49);
 			rdbtnFacil.setBackground(Color.DARK_GRAY);
 			rdbtnFacil.setFont(new Font("Tahoma", Font.PLAIN, 19));
 			rdbtnFacil.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return rdbtnFacil;
 	}
+
 	private JRadioButton getRdbtnDificil() {
 		if (rdbtnDificil == null) {
 			rdbtnDificil = new JRadioButton("Dificil");
 			rdbtnDificil.setForeground(new Color(0, 153, 255));
-			rdbtnDificil.setBounds(433, 0, 92, 49);
+			rdbtnDificil.setBounds(411, 0, 92, 49);
 			rdbtnDificil.setBackground(Color.DARK_GRAY);
 			rdbtnDificil.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		}
 		return rdbtnDificil;
 	}
+
 	private JPanel getPanel_7() {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
@@ -237,13 +272,56 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return panel_7;
 	}
+
 	private JButton getBtnEmpezar() {
 		if (btnEmpezar == null) {
 			btnEmpezar = new JButton("Empezar");
-			btnEmpezar.setBounds(372, 11, 89, 23);
+			btnEmpezar.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+			btnEmpezar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					
+					//El normbre nos da igual, aceptamos cuqlquiera
+					Iu_Partida.miPartida().setNombreJugador1(textField.getText());
+					Iu_Partida.miPartida().setNombreJugador2("murillo");
+					
+					
+					try {
+						
+						int f = Integer.parseInt(textField_1.getText());
+						int c = Integer.parseInt(textField_2.getText());
+						
+						if(f>0 && c>0  && (rdbtnDificil.isSelected() || rdbtnFacil.isSelected())){
+							
+							Iu_Partida.miPartida().crearTablero(f, c);
+							setVisible(false);
+							Iu_Partida.miPartida().setVisible(true);
+							
+							if(rdbtnFacil.isSelected()) Iu_Partida.miPartida().setForma(true);
+							else Iu_Partida.miPartida().setForma(false);
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "Valores erroneos, por favor comprueba los valores de nuevo", "Error",
+									JOptionPane.ERROR_MESSAGE);
+							
+						}
+						
+					} catch (NumberFormatException excepcion) {
+						// System.out.println("Por favor introduce numeros");
+						JOptionPane.showMessageDialog(null, "Por favor introduce n�meros", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+					//Hay que mirar que las filas y las columnas son numeros
+					
+					//hay que difinir el tipo de Ia que se va a jugar
+				}
+			});
+			btnEmpezar.setForeground(Color.WHITE);
+			btnEmpezar.setBackground(Color.DARK_GRAY);
+			btnEmpezar.setBounds(355, 11, 89, 23);
 		}
 		return btnEmpezar;
 	}
+
 	private JButton getBtnNormas() {
 		if (btnNormas == null) {
 			btnNormas = new JButton("Normas");
@@ -251,6 +329,7 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return btnNormas;
 	}
+
 	private JButton getBtnAtras() {
 		if (btnAtras == null) {
 			btnAtras = new JButton("Atras");
@@ -264,6 +343,7 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return btnAtras;
 	}
+
 	private JLabel getLblVs() {
 		if (lblVs == null) {
 			lblVs = new JLabel("Vs");
@@ -273,13 +353,80 @@ public class Iu_Menu1J extends JFrame {
 		}
 		return lblVs;
 	}
+
 	private JLabel getLblJoseMurillo() {
 		if (lblJoseMurillo == null) {
 			lblJoseMurillo = new JLabel("Jose Murillo");
 			lblJoseMurillo.setForeground(new Color(204, 0, 0));
 			lblJoseMurillo.setFont(new Font("Tahoma", Font.PLAIN, 33));
-			lblJoseMurillo.setBounds(487, -5, 244, 57);
+			lblJoseMurillo.setBounds(465, -5, 244, 57);
 		}
 		return lblJoseMurillo;
 	}
+
+	private JPanel getPanel_5() {
+		if (panel_5 == null) {
+			panel_5 = new JPanel();
+			panel_5.setBackground(Color.DARK_GRAY);
+			panel_5.setLayout(null);
+			panel_5.add(getLblFilas());
+			panel_5.add(getLblColumnas());
+			panel_5.add(getTextField_1());
+			panel_5.add(getTextField_2_1());
+			panel_5.add(getLblX());
+		}
+		return panel_5;
+	}
+
+	private JLabel getLblFilas() {
+		if (lblFilas == null) {
+			lblFilas = new JLabel("Filas");
+			lblFilas.setForeground(Color.WHITE);
+			lblFilas.setFont(new Font("Tahoma", Font.PLAIN, 26));
+			lblFilas.setBounds(173, 0, 69, 51);
+		}
+		return lblFilas;
+	}
+
+	private JLabel getLblColumnas() {
+		if (lblColumnas == null) {
+			lblColumnas = new JLabel("Columnas");
+			lblColumnas.setForeground(Color.WHITE);
+			lblColumnas.setFont(new Font("Tahoma", Font.PLAIN, 24));
+			lblColumnas.setBounds(466, 0, 155, 51);
+		}
+		return lblColumnas;
+	}
+
+	private JTextField getTextField_1() {
+		if (textField_1 == null) {
+			textField_1 = new JTextField();
+			textField_1.setBounds(254, 21, 86, 20);
+			textField_1.setColumns(10);
+		}
+		return textField_1;
+	}
+
+	private JTextField getTextField_2_1() {
+		if (textField_2 == null) {
+			textField_2 = new JTextField();
+			textField_2.setBounds(589, 21, 86, 20);
+			textField_2.setColumns(10);
+		}
+		return textField_2;
+	}
+
+	private JLabel getLblX() {
+		if (lblX == null) {
+			lblX = new JLabel("X");
+			lblX.setForeground(Color.WHITE);
+			lblX.setFont(new Font("Tahoma", Font.PLAIN, 43));
+			lblX.setBounds(389, 0, 46, 51);
+		}
+		return lblX;
+	}
+
+	/* Para poder hacer los botones redondos */
+
+	
 }

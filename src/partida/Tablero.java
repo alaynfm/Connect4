@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Stack;
 
+import javax.swing.JOptionPane;
+
 import interfaz.Iu_Partida;
 
 public class Tablero extends Observable {
@@ -107,6 +109,8 @@ public class Tablero extends Observable {
 				joseMurillo.jugar();
 
 			} else {
+				JOptionPane.showMessageDialog(null, "Se ha terminado la Partida", "Error",
+						JOptionPane.WARNING_MESSAGE);
 				Iu_Partida.miPartida().setVisible(false);
 			}
 		}
