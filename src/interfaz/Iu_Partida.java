@@ -319,6 +319,8 @@ public class Iu_Partida extends JFrame {
 		// partida
 
 		try {
+			
+			//githu
 
 			int fila = Integer.parseInt(f);
 			int columna = Integer.parseInt(c);
