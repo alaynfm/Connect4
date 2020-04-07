@@ -439,6 +439,7 @@ public class Iu_Menu2J extends JFrame {
 	private JTextField getTxtNickname() {
 		if (txtNickname == null) {
 			txtNickname = new JTextField();
+			//sjdj
 			txtNickname.setBounds(454, 0, 197, 48);
 			txtNickname.setText("Nick2");
 			txtNickname.setHorizontalAlignment(SwingConstants.CENTER);
