@@ -134,7 +134,7 @@ public class Iu_Partida extends JFrame {
 		for (int a = 0; a < fila; a++) {
 			for (int e = 0; e < col; e++) {
 				JButton jb = new JButton();
-				jb.setBackground(Color.DARK_GRAY);
+				jb.setBackground(null);
 				jb.setBorderPainted(true);
 				tablero[a][e] = jb;
 				tablero[a][e].setBounds(x, y, tamanoX, tamanoY);
@@ -173,6 +173,7 @@ public class Iu_Partida extends JFrame {
 								// Si estamos jugando contra la IA entra aqui
 								Tablero.getMiTablero().colocarFicha2(j);
 								Tablero.getMiTablero().jugarPartida1vsia(j);
+								retomarFichas();
 
 							} else {
 
@@ -319,8 +320,6 @@ public class Iu_Partida extends JFrame {
 		// partida
 
 		try {
-			
-			//githu
 
 			int fila = Integer.parseInt(f);
 			int columna = Integer.parseInt(c);

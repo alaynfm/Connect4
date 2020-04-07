@@ -121,7 +121,9 @@ public class Tablero extends Observable {
 
 			for (String elemento : lista) {
 
-				Iu_Partida.miPartida().pintarGanadores(elemento.charAt(0) + "", elemento.charAt(1) + "", color);
+				String[] v1 = elemento.split("\\s+-->\\s+");
+
+				Iu_Partida.miPartida().pintarGanadores(v1[0], v1[1], color);
 			}
 
 			Iu_Partida.miPartida().pintarTablero();
@@ -190,7 +192,7 @@ public class Tablero extends Observable {
 		boolean contB = true;
 
 		ArrayList<String> lista1 = new ArrayList<String>();
-		lista1.add("" + fila + "" + columna);
+		lista1.add("" + fila + " --> " + columna);
 
 		for (int i = 1; i < 4; i++) {
 
@@ -199,7 +201,7 @@ public class Tablero extends Observable {
 				if ((tablero[fila + i][columna]).equals(tablero[fila][columna])) {
 					vcontArriba++;
 					int f = fila + i;
-					lista1.add("" + f + "" + columna);
+					lista1.add("" + f + " --> " + columna);
 				} else {
 					contA = false;
 				}
@@ -210,7 +212,7 @@ public class Tablero extends Observable {
 				if ((tablero[fila - i][columna]).equals(tablero[fila][columna])) {
 					vcontAbajo++;
 					int f = fila - i;
-					lista1.add("" + f + "" + columna);
+					lista1.add("" + f + " --> " + columna);
 
 				} else {
 					contB = false;
@@ -234,7 +236,7 @@ public class Tablero extends Observable {
 		boolean contB = true;
 
 		ArrayList<String> lista1 = new ArrayList<String>();
-		lista1.add("" + fila + "" + columna);
+		lista1.add("" + fila + " --> " + columna);
 
 		for (int i = 1; i < 4; i++) {
 
@@ -242,7 +244,7 @@ public class Tablero extends Observable {
 				if ((tablero[fila][columna + i]).equals(tablero[fila][columna])) {
 					vcontArriba++;
 					int c = columna + i;
-					lista1.add("" + fila + "" + c);
+					lista1.add("" + fila + " --> " + c);
 
 				} else {
 					contaA = false;
@@ -253,7 +255,7 @@ public class Tablero extends Observable {
 				if (contB && (tablero[fila][columna - i]).equals(tablero[fila][columna])) {
 					vcontAbajo++;
 					int c = columna - i;
-					lista1.add("" + fila + "" + c);
+					lista1.add("" + fila + " --> " + c);
 				} else {
 					contB = false;
 				}
@@ -285,7 +287,7 @@ public class Tablero extends Observable {
 
 		boolean existe = false;
 		ArrayList<String> lista1 = new ArrayList<String>();
-		lista1.add("" + fila + "" + columna);
+		lista1.add("" + fila + " --> " + columna);
 
 		// hacia arriba
 		for (int i = 1; i < 4; i++) {
@@ -295,8 +297,8 @@ public class Tablero extends Observable {
 				if ((tablero[fila + i][columna - i]).equals(color)) {
 					contAbajoIzq++;
 					int f = fila + i;
-					int c = columna - 1;
-					lista1.add("" + f + "" + c);
+					int c = columna - i;
+					lista1.add("" + f + " --> " + c);
 
 				} else {
 					contA = false;
@@ -308,7 +310,7 @@ public class Tablero extends Observable {
 					contArribaDer++;
 					int f = fila - i;
 					int c = columna + i;
-					lista1.add("" + f + "" + c);
+					lista1.add("" + f + " --> " + c);
 				} else {
 					contB = false;
 				}
@@ -320,7 +322,7 @@ public class Tablero extends Observable {
 					contAbajoDer++;
 					int f = fila + i;
 					int c = columna + i;
-					lista1.add("" + f + "" + c);
+					lista1.add("" + f + " --> " + c);
 				} else {
 					contC = false;
 				}
@@ -332,7 +334,7 @@ public class Tablero extends Observable {
 					contArribaIzq++;
 					int f = fila - i;
 					int c = columna - i;
-					lista1.add("" + f + "" + c);
+					lista1.add("" + f + " --> " + c);
 				} else {
 					contD = false;
 				}
