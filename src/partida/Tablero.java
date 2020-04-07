@@ -110,7 +110,7 @@ public class Tablero extends Observable {
 		for (int i = tablero.length - 1; i >= 0; i--) {
 			if (tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
-				Iu_Partida.miPartida().pintarColumna(c); // Pintamos la columna en la que la ponemos
+				Iu_Partida.miPartida().pintarPosicion(i, c); // Pintamos la columna en la que la ponemos
 				buscarGanador(i, c, color);
 				listaCasillasLibres.eliminarCasillla("" + i + "" + c + "");
 				break;
@@ -125,7 +125,7 @@ public class Tablero extends Observable {
 
 			for (String elemento : lista) {
 
-				Iu_Partida.miPartida().pintarPosicion(elemento.charAt(0) + "", elemento.charAt(1) + "", color);
+				Iu_Partida.miPartida().pintarGanadores(elemento.charAt(0) + "", elemento.charAt(1) + "", color);
 			}
 
 			Iu_Partida.miPartida().pintarTablero();
@@ -138,9 +138,7 @@ public class Tablero extends Observable {
 
 	public void jugarPartida1vsia(int j) {
 
-		colocarFicha2(j);
-		if (!hayGanador())
-			joseMurillo.jugar();
+		joseMurillo.jugar();
 
 	}
 

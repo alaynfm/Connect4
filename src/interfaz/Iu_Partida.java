@@ -24,7 +24,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 
-public class Iu_Partida extends JFrame  {
+public class Iu_Partida extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -47,15 +47,14 @@ public class Iu_Partida extends JFrame  {
 	private int numFilas;
 	private int numColumnas;
 	private int x = -1;
-	private boolean forma; //true si es 1 vs IA 
-	private int turno; //Para saber si le toca al azul o al rojo
+	private boolean forma; // true si es 1 vs IA
+	private int turno; // Para saber si le toca al azul o al rojo
 
 	private static Iu_Partida miPartida = new Iu_Partida();
 
 	/*
 	 * Los numeros impares corresponden al jugador 1, los numeros pares al jugador 2
 	 */
-	
 
 	/**
 	 * Launch the application.
@@ -77,8 +76,8 @@ public class Iu_Partida extends JFrame  {
 	 * Create the frame.
 	 */
 	private Iu_Partida() {
-		
-		//Constructora
+
+		// Constructora
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 870, 413);
 		contentPane = new JPanel();
@@ -92,35 +91,36 @@ public class Iu_Partida extends JFrame  {
 		contentPane.add(getPanel_3(), BorderLayout.SOUTH);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		turno = 0;
-		
-		/*Si lo ponemos a true Jugador vs Jose Murillo
-		 * Si ponemos a false Jugador1 vs Jugador2*/
+
+		/*
+		 * Si lo ponemos a true Jugador vs Jose Murillo Si ponemos a false Jugador1 vs
+		 * Jugador2
+		 */
 	}
 
 	public static Iu_Partida miPartida() {
 		return miPartida;
 	}
 
-	
-	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	/*Programas para el manejo de la interfaz*/
-	
-	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
+	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	/* Programas para el manejo de la interfaz */
+
+	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 	public void crearTablero(int fila, int col) {
-		
-		//programa para la creacion del tablero con los correspondientes botones
+
+		// programa para la creacion del tablero con los correspondientes botones
 
 		if (fila <= 0 || col <= 0) {
-			
+
 			// poner mensaje de tamano incorrecto creando por defecto;
 			numFilas = 6;
 			numColumnas = 12;
 			fila = 6;
 			col = 12;
 		} else {
-			
+
 			numFilas = fila;
 			numColumnas = col;
 		}
@@ -143,16 +143,16 @@ public class Iu_Partida extends JFrame  {
 				tablero[a][e].addMouseListener(new MouseAdapter() {
 
 					public void mouseEntered(MouseEvent evento) {
-						
-						//Si pasamos por encima con el raton, mostramos la donde se colocaria la ficha
+
+						// Si pasamos por encima con el raton, mostramos la donde se colocaria la ficha
 						int j = (int) (jb.getX() / (tablero[0][1]).getX());
 						setCambio(j);
 						caidaFichas();
 					}
 
 					public void mouseExited(MouseEvent evento) {
-						
-						//Cuando quitamos el cursor del raton volvemos a ponerlo normal
+
+						// Cuando quitamos el cursor del raton volvemos a ponerlo normal
 						int j = (int) (jb.getX() / (tablero[0][1]).getX());
 						setCambio(j);
 						retomarFichas();
@@ -161,26 +161,24 @@ public class Iu_Partida extends JFrame  {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
 
-						//Cuando hacemos click
+						// Cuando hacemos click
 						int j = (int) (jb.getX() / (tablero[0][1]).getX());
 						setCambio(j);
 
 						if (arg0.getButton() == 1) {
-							//Cuando hacemos click izq
-							
-							if(forma) {
-								
-								//Si estamos jugando contra la IA entra aqui
-								Tablero.getMiTablero().jugarPartida1vsia(j);
-								pintarTablero();	//no sabemos donde ha colocado la IA la ficha por lo que pintamos todo el tablero
-								
-						
-							}else {
-								
+							// Cuando hacemos click izq
+
+							if (forma) {
+
+								// Si estamos jugando contra la IA entra aqui
 								Tablero.getMiTablero().colocarFicha2(j);
-								turno++;									//hay que alternar el turno para el color de la caida
-								pintarColumna(j);
-									
+								Tablero.getMiTablero().jugarPartida1vsia(j);
+
+							} else {
+
+								Tablero.getMiTablero().colocarFicha2(j);
+								turno++; // hay que alternar el turno para el color de la caida
+
 							}
 
 						}
@@ -201,28 +199,9 @@ public class Iu_Partida extends JFrame  {
 		actualizarTablero(getPanel_6());
 	}
 
-
-	public void pintarPosicion(String f, String c, String color) {
-		
-		
-		//utilizamos el metodo para marcar las casillas con las que se ha ganado la partida 
-		
-		try {
-			
-			int fila = Integer.parseInt(f);
-			int columna = Integer.parseInt(c);
-			
-			if(color.equals("a")) tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
-			else  tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-	}
 	private void caidaFichas() {
-		
-		//metodo para pintar donde caeria la ficha al pasar por encima de la columna
+
+		// metodo para pintar donde caeria la ficha al pasar por encima de la columna
 		if (x >= 0) {
 			for (int i = 0; i < tablero.length; i++) {
 
@@ -254,7 +233,7 @@ public class Iu_Partida extends JFrame  {
 
 	private void retomarFichas() {
 
-		//metodo para volver a colocar todo normal
+		// metodo para volver a colocar todo normal
 		for (int i = tablero.length - 1; i >= 0; i--) {
 			tablero[i][x].setBackground(Color.DARK_GRAY);
 			tablero[i][x].setBorder(new LineBorder(Color.GRAY));
@@ -264,12 +243,30 @@ public class Iu_Partida extends JFrame  {
 
 	}
 
+	public void pintarPosicion(int f, int c) {
+
+		ImageIcon imagen;
+
+		String color = Tablero.getMiTablero().getPosicion(f, c);
+		imagen = new ImageIcon("img/" + color + ".png");
+		java.awt.Image conversion = imagen.getImage();
+		java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth() - 6, tablero[0][0].getWidth() - 6,
+				0);
+		ImageIcon fin = new ImageIcon(tamano);
+		tablero[f][c].setIcon(fin);
+
+		repaint();
+
+	}
+
 	public void pintarColumna(int columna) {
-		
-		//Una vez colocamos una ficha volvemos a pintar la columna para que se vea el cambio
-		//Podría mejorarse con el patron observer, cada vez que hacemos un cambio que se pinte
-		
-		//Sabemos la columna que se ha cambiado gracias al atributo x (columna cambiada
+
+		// Una vez colocamos una ficha volvemos a pintar la columna para que se vea el
+		// cambio
+		// Podría mejorarse con el patron observer, cada vez que hacemos un cambio que
+		// se pinte
+
+		// Sabemos la columna que se ha cambiado gracias al atributo x (columna cambiada
 		if (x >= 0) {
 			ImageIcon imagen;
 
@@ -278,8 +275,8 @@ public class Iu_Partida extends JFrame  {
 				String color = Tablero.getMiTablero().getPosicion(i, x);
 				imagen = new ImageIcon("img/" + color + ".png");
 				java.awt.Image conversion = imagen.getImage();
-				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth()-6, tablero[0][0].getWidth()-6,
-						0);
+				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth() - 6,
+						tablero[0][0].getWidth() - 6, 0);
 				ImageIcon fin = new ImageIcon(tamano);
 
 				if (color.equals("-"))
@@ -296,9 +293,10 @@ public class Iu_Partida extends JFrame  {
 	}
 
 	public void pintarTablero() {
-		
-		//Para pintar todo el tablero (no es recomendable utilizar mas coste que pintarColumna
-		
+
+		// Para pintar todo el tablero (no es recomendable utilizar mas coste que
+		// pintarColumna
+
 		ImageIcon imagen;
 
 		for (int i = 0; i < tablero.length; i++) {
@@ -306,8 +304,8 @@ public class Iu_Partida extends JFrame  {
 				String color = Tablero.getMiTablero().getPosicion(i, c);
 				imagen = new ImageIcon("img/" + color + ".png");
 				java.awt.Image conversion = imagen.getImage();
-				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth()-6, tablero[0][0].getWidth()-6,
-						0);
+				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth() - 6,
+						tablero[0][0].getWidth() - 6, 0);
 				ImageIcon fin = new ImageIcon(tamano);
 				tablero[i][c].setIcon(fin);
 
@@ -315,81 +313,94 @@ public class Iu_Partida extends JFrame  {
 		}
 	}
 
+	public void pintarGanadores(String f, String c, String color) {
+
+		// utilizamos el metodo para marcar las casillas con las que se ha ganado la
+		// partida
+
+		try {
+
+			int fila = Integer.parseInt(f);
+			int columna = Integer.parseInt(c);
+
+			if (color.equals("a"))
+				tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
+			else
+				tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
 	private void setCambio(int j) {
-		
-		//Metodo que utilizamos para decir que vamos a añadir una ficha en esa columna
+
+		// Metodo que utilizamos para decir que vamos a añadir una ficha en esa columna
 		x = j;
 	}
 
 	public int getCambio() {
-		
-		//Metodo para obtener la columna en la que vamos a hacer el cambio
+
+		// Metodo para obtener la columna en la que vamos a hacer el cambio
 		return x;
 	}
-	
-	
-	
 
-	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	/*Programas para cambiar la informacion y funcionamiento de la interfaz*/
-	
-	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	
-	
-	public void setForma(boolean f) 
-	{
-		/*Se le pasa un booleano 
-		 * si es true Jugador vs Jose Murillo (IA)
-		 * si es false jugador vs jugador*/
+	/* Programas para cambiar la informacion y funcionamiento de la interfaz */
+
+	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	public void setForma(boolean f) {
+		/*
+		 * Se le pasa un booleano si es true Jugador vs Jose Murillo (IA) si es false
+		 * jugador vs jugador
+		 */
 		forma = f;
 	}
-	
+
 	public void setNombreJugador1(String nombre) {
-		//Para cambiar el nombre del jugador 1
+		// Para cambiar el nombre del jugador 1
 		lblNick.setText(nombre);
-		
+
 	}
-	
+
 	public void setNombreJugador2(String nombre) {
-		//Para cambiar el nombre del jugador dos o de la IA
+		// Para cambiar el nombre del jugador dos o de la IA
 		lblNick_1.setText(nombre);
 	}
-	
-	public void setPuntuacionJugador1() {
-		//Para cambiar la puntuacion del jugador1
-	}
-	
-	public void setPunatuacionJugador2() {
-		//Para cambiar la puntuacion del jugador2 o de la IA
-	}
-	
-	public void getNombreJugador1() {
-		//Para obtener el nombre del jugador 1 que hemos escrito
-	}
-	
-	public void getNombreJugador2() {
-		//Para obtener el nombre del jugador dos o de la IA que hemos escrito
-	}
-	
-	public void getPuntuacionJugador1() {
-		//Para obtener la puntuacion del jugador1 que hemos obtenido
-	}
-	
-	public void getPunatuacionJugador2() {
-		//Para obtener la puntuacion del jugador2 o de la IA que hemos obtenido
-	}
-	
-	
-	
-	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
-	
-	//Codigo generado por Windowbuilder (en modo Lazy)
-	
-	//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	
+	public void setPuntuacionJugador1() {
+		// Para cambiar la puntuacion del jugador1
+	}
+
+	public void setPunatuacionJugador2() {
+		// Para cambiar la puntuacion del jugador2 o de la IA
+	}
+
+	public void getNombreJugador1() {
+		// Para obtener el nombre del jugador 1 que hemos escrito
+	}
+
+	public void getNombreJugador2() {
+		// Para obtener el nombre del jugador dos o de la IA que hemos escrito
+	}
+
+	public void getPuntuacionJugador1() {
+		// Para obtener la puntuacion del jugador1 que hemos obtenido
+	}
+
+	public void getPunatuacionJugador2() {
+		// Para obtener la puntuacion del jugador2 o de la IA que hemos obtenido
+	}
+
+	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	// Codigo generado por Windowbuilder (en modo Lazy)
+
+	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
