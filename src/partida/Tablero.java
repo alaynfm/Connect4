@@ -44,13 +44,8 @@ public class Tablero extends Observable {
 	public ListaCasilla getCasillasLibres() {
 		return listaCasillasLibres;
 	}
-<<<<<<< HEAD
-
-=======
 	
 	
-	
->>>>>>> master
 	public void setIa(boolean nivel) {
 		// true Ia facil
 		// False ia dificil
