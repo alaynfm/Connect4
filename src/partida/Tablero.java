@@ -20,10 +20,14 @@ public class Tablero extends Observable {
 	private IA joseMurillo = null;
 
 	private ListaCasilla listaCasillasLibres;
+	private ArrayList<String> ganadores;
+	private int turno;
 
 	private Tablero() {
 		setIa(true);
 		listaCasillasLibres = new ListaCasilla();
+		ganadores = new ArrayList<String>();
+		turno = 0;
 	}
 
 	public static Tablero getMiTablero() {
@@ -44,8 +48,7 @@ public class Tablero extends Observable {
 	public ListaCasilla getCasillasLibres() {
 		return listaCasillasLibres;
 	}
-	
-	
+
 	public void setIa(boolean nivel) {
 		// true Ia facil
 		// False ia dificil
@@ -57,6 +60,10 @@ public class Tablero extends Observable {
 
 	public String[][] getTablero() {
 		return tablero;
+	}
+
+	private void jugar2vs2(int j) {
+
 	}
 
 	public void imprimirTablero() {
@@ -87,34 +94,54 @@ public class Tablero extends Observable {
 		}
 	}
 
-	public void colocarFicha2(int c, String color) {
+	public void colocarFicha2(int c) {
+
+		// Miramos si podemos colocar la ficha
+
+		// Si la colocamos y ha ganado terminamos la partida
+		// Si no seguimos jugando
+
+		String color;
+		if (turno % 2 == 0) // jugador1
+			color = "a";
+		else // Jugador2 o IA
+			color = "r";
 
 		for (int i = tablero.length - 1; i >= 0; i--) {
 			if (tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
+				Iu_Partida.miPartida().pintarColumna(c); // Pintamos la columna en la que la ponemos
 				buscarGanador(i, c, color);
 				listaCasillasLibres.eliminarCasillla("" + i + "" + c + "");
-
 				break;
 			}
+		}
+
+		turno++;
+
+		if (hayGanador()) { // Terminamos la partida y pintamos con las fichas que se ha ganado
+
+			ArrayList<String> lista = Tablero.getMiTablero().getGanadores();
+
+			for (String elemento : lista) {
+
+				Iu_Partida.miPartida().pintarPosicion(elemento.charAt(0) + "", elemento.charAt(1) + "", color);
+			}
+
+			Iu_Partida.miPartida().pintarTablero();
+			JOptionPane.showMessageDialog(null, "Se ha terminado la Partida", "Error", JOptionPane.WARNING_MESSAGE);
+			Iu_Partida.miPartida().setVisible(false);
 
 		}
+
 	}
 
 	public void jugarPartida1vsia(int j) {
 
-		if (!hayGanador()) {
-			colocarFicha2(j, "a");
+		colocarFicha2(j);
+		if (!hayGanador())
+			joseMurillo.jugar();
 
-			if (!hayGanador()) {
-				joseMurillo.jugar();
-
-			} else {
-				JOptionPane.showMessageDialog(null, "Se ha terminado la Partida", "Error",
-						JOptionPane.WARNING_MESSAGE);
-				Iu_Partida.miPartida().setVisible(false);
-			}
-		}
 	}
 
 	public boolean sePuedeColocar(int x) {
@@ -154,30 +181,33 @@ public class Tablero extends Observable {
 		else
 			return false;
 	}
-	
+
 	public boolean buscarTresSeguidas(String color) {
 		boolean existe = false;
 		boolean existeVertical = false;
 		boolean existeHorizontal = false;
 		boolean existeDiagonal = false;
-		
-		
+
 		existe = existeVertical || existeHorizontal || existeDiagonal;
 		return existe;
-		
+
 	}
-	
+
 	public boolean buscarDosSeguidas(String color) {
-		
+
 		return true;
 	}
-	
+
 	public boolean buscarVertical(int fila, int columna, int numFichas) {
+
 		boolean existe = false;
 		int vcontAbajo = 0;
 		int vcontArriba = 0;
 		boolean contA = true;
 		boolean contB = true;
+
+		ArrayList<String> lista1 = new ArrayList<String>();
+		lista1.add("" + fila + "" + columna);
 
 		for (int i = 1; i < 4; i++) {
 
@@ -185,6 +215,8 @@ public class Tablero extends Observable {
 			if (contA && posCorrecta(fila + i, columna)) {
 				if ((tablero[fila + i][columna]).equals(tablero[fila][columna])) {
 					vcontArriba++;
+					int f = fila + i;
+					lista1.add("" + f + "" + columna);
 				} else {
 					contA = false;
 				}
@@ -194,19 +226,23 @@ public class Tablero extends Observable {
 			if (contB && posCorrecta(fila - i, columna)) {
 				if ((tablero[fila - i][columna]).equals(tablero[fila][columna])) {
 					vcontAbajo++;
+					int f = fila - i;
+					lista1.add("" + f + "" + columna);
+
 				} else {
 					contB = false;
 				}
 			}
 
-			if (vcontArriba + vcontAbajo >= numFichas -1) {
+			if (vcontArriba + vcontAbajo >= numFichas - 1) {
 				existe = true;
+				ganadores = lista1;
 				break;
 			}
 		}
 		return existe;
 	}
-	
+
 	public boolean buscarHorizontal(int fila, int columna, int numFichas) {
 		boolean existe = false;
 		int vcontAbajo = 0;
@@ -214,11 +250,17 @@ public class Tablero extends Observable {
 		boolean contaA = true;
 		boolean contB = true;
 
+		ArrayList<String> lista1 = new ArrayList<String>();
+		lista1.add("" + fila + "" + columna);
+
 		for (int i = 1; i < 4; i++) {
 
 			if (contaA && posCorrecta(fila, columna + i)) {
 				if ((tablero[fila][columna + i]).equals(tablero[fila][columna])) {
 					vcontArriba++;
+					int c = columna + i;
+					lista1.add("" + fila + "" + c);
+
 				} else {
 					contaA = false;
 				}
@@ -227,6 +269,8 @@ public class Tablero extends Observable {
 			if (contB && posCorrecta(fila, columna - i)) {
 				if (contB && (tablero[fila][columna - i]).equals(tablero[fila][columna])) {
 					vcontAbajo++;
+					int c = columna - i;
+					lista1.add("" + fila + "" + c);
 				} else {
 					contB = false;
 				}
@@ -234,13 +278,14 @@ public class Tablero extends Observable {
 
 			if (vcontArriba + vcontAbajo >= numFichas - 1) {
 				existe = true;
+				ganadores = lista1;
 				break;
 			}
 		}
 
 		return existe;
 	}
-	
+
 	public boolean buscarDiagonal(int fila, int columna, int numFichas) {
 		String color = tablero[fila][columna];
 		// Diagonal
@@ -256,6 +301,9 @@ public class Tablero extends Observable {
 		boolean contD = true;
 
 		boolean existe = false;
+		ArrayList<String> lista1 = new ArrayList<String>();
+		lista1.add("" + fila + "" + columna);
+
 		// hacia arriba
 		for (int i = 1; i < 4; i++) {
 
@@ -263,6 +311,10 @@ public class Tablero extends Observable {
 			if (contA && posCorrecta(fila + i, columna - i)) {
 				if ((tablero[fila + i][columna - i]).equals(color)) {
 					contAbajoIzq++;
+					int f = fila + i;
+					int c = columna - 1;
+					lista1.add("" + f + "" + c);
+
 				} else {
 					contA = false;
 				}
@@ -271,6 +323,9 @@ public class Tablero extends Observable {
 			if (contB && posCorrecta(fila - i, columna + i)) {
 				if ((tablero[fila - i][columna + i]).equals(color)) {
 					contArribaDer++;
+					int f = fila - i;
+					int c = columna + i;
+					lista1.add("" + f + "" + c);
 				} else {
 					contB = false;
 				}
@@ -280,6 +335,9 @@ public class Tablero extends Observable {
 			if (contC && posCorrecta(fila + i, columna + i)) {
 				if ((tablero[fila + i][columna + i]).equals(color)) {
 					contAbajoDer++;
+					int f = fila + i;
+					int c = columna + i;
+					lista1.add("" + f + "" + c);
 				} else {
 					contC = false;
 				}
@@ -289,6 +347,9 @@ public class Tablero extends Observable {
 			if (contD && posCorrecta(fila - i, columna - i)) {
 				if ((tablero[fila - i][columna - i]).equals(color)) {
 					contArribaIzq++;
+					int f = fila - i;
+					int c = columna - i;
+					lista1.add("" + f + "" + c);
 				} else {
 					contD = false;
 				}
@@ -296,13 +357,16 @@ public class Tablero extends Observable {
 
 			if (contArribaDer + contAbajoIzq >= numFichas - 1 || contAbajoDer + contArribaIzq >= numFichas - 1) {
 				existe = true;
+				ganadores = lista1;
 				break;
 			}
 		}
 		return existe;
 	}
-	
-	
+
+	public ArrayList<String> getGanadores() {
+		return ganadores;
+	}
 
 	public boolean buscarGanadorVertical(int fila, int columna) {
 
@@ -311,7 +375,7 @@ public class Tablero extends Observable {
 
 	public boolean buscarGanadorHorizontal(int fila, int columna) {
 
-		return buscarHorizontal (fila, columna, 4);
+		return buscarHorizontal(fila, columna, 4);
 
 	}
 

@@ -64,7 +64,6 @@ public class Iu_Menu1J extends JFrame {
 	private JLabel lblX;
 	private ButtonGroup group = new ButtonGroup();
 	private JTextField txtNick;
-	private JLabel lblXabico;
 
 	/**
 	 * Launch the application.
@@ -121,7 +120,6 @@ public class Iu_Menu1J extends JFrame {
 		if (sur1 == null) {
 			sur1 = new JPanel();
 			sur1.setBackground(Color.DARK_GRAY);
-			sur1.add(getLblXabico());
 		}
 		return sur1;
 	}
@@ -276,7 +274,7 @@ public class Iu_Menu1J extends JFrame {
 
 						} else {
 
-							if (f > 0 && c > 0) {
+							if (f >= 6 && c >= 7 && f<=18 && c<=35) {
 
 								if (rdbtnDificil.isSelected() || rdbtnFacil.isSelected()) {
 
@@ -482,13 +480,5 @@ public class Iu_Menu1J extends JFrame {
 			});
 		}
 		return txtNick;
-	}
-
-	private JLabel getLblXabico() {
-		if (lblXabico == null) {
-			lblXabico = new JLabel("Xabi&Co");
-			lblXabico.setForeground(Color.WHITE);
-		}
-		return lblXabico;
 	}
 }

@@ -16,7 +16,7 @@ public class IADificil extends IA {
 			} else {
 				ListaCasilla listaCasillas = Tablero.getMiTablero().getCasillasLibres();
 				int casilla = listaCasillas.getCasillaAleatoria();
-				Tablero.getMiTablero().colocarFicha2(casilla, "r");
+				Tablero.getMiTablero().colocarFicha2(casilla);
 			}
 		}
 	}

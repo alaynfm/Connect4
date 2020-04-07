@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import partida.Tablero;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.GridLayout;
 import javax.swing.SwingUtilities;
 import java.awt.Font;
@@ -30,7 +32,6 @@ public class Iu_Partida extends JFrame  {
 	private JPanel panel_2;
 	private JPanel panel_3;
 	private JPanel panel_4;
-	private JLabel lblXabico;
 	private JPanel panel_5;
 	private JPanel panel_6;
 	private JPanel panel_7;
@@ -171,20 +172,15 @@ public class Iu_Partida extends JFrame  {
 								
 								//Si estamos jugando contra la IA entra aqui
 								Tablero.getMiTablero().jugarPartida1vsia(j);
-								pintarTablero();
+								pintarTablero();	//no sabemos donde ha colocado la IA la ficha por lo que pintamos todo el tablero
 								
 						
 							}else {
 								
-								/*Si estamos jugando 1 vs 1 entra aqui
-								 * Si el turno es par pintamos azul
-								 * si el turno es impar pintamos rojo
-								 * */
-								if (turno % 2 == 0) Tablero.getMiTablero().colocarFicha2(j, "a");
-								else Tablero.getMiTablero().colocarFicha2(j, "r");
+								Tablero.getMiTablero().colocarFicha2(j);
+								turno++;									//hay que alternar el turno para el color de la caida
 								pintarColumna(j);
-								turno ++;
-								System.out.println(Tablero.getMiTablero().hayGanador());
+									
 							}
 
 						}
@@ -206,6 +202,24 @@ public class Iu_Partida extends JFrame  {
 	}
 
 
+	public void pintarPosicion(String f, String c, String color) {
+		
+		
+		//utilizamos el metodo para marcar las casillas con las que se ha ganado la partida 
+		
+		try {
+			
+			int fila = Integer.parseInt(f);
+			int columna = Integer.parseInt(c);
+			
+			if(color.equals("a")) tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
+			else  tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
 	private void caidaFichas() {
 		
 		//metodo para pintar donde caeria la ficha al pasar por encima de la columna
@@ -262,9 +276,9 @@ public class Iu_Partida extends JFrame  {
 			for (int i = 0; i < tablero.length; i++) {
 
 				String color = Tablero.getMiTablero().getPosicion(i, x);
-				imagen = new ImageIcon("img/" + color + ".jpg");
+				imagen = new ImageIcon("img/" + color + ".png");
 				java.awt.Image conversion = imagen.getImage();
-				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth(), tablero[0][0].getWidth(),
+				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth()-6, tablero[0][0].getWidth()-6,
 						0);
 				ImageIcon fin = new ImageIcon(tamano);
 
@@ -290,9 +304,9 @@ public class Iu_Partida extends JFrame  {
 		for (int i = 0; i < tablero.length; i++) {
 			for (int c = 0; c < tablero[0].length; c++) {
 				String color = Tablero.getMiTablero().getPosicion(i, c);
-				imagen = new ImageIcon("img/" + color + ".jpg");
+				imagen = new ImageIcon("img/" + color + ".png");
 				java.awt.Image conversion = imagen.getImage();
-				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth(), tablero[0][0].getWidth(),
+				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth()-6, tablero[0][0].getWidth()-6,
 						0);
 				ImageIcon fin = new ImageIcon(tamano);
 				tablero[i][c].setIcon(fin);
@@ -406,7 +420,6 @@ public class Iu_Partida extends JFrame  {
 		if (panel_3 == null) {
 			panel_3 = new JPanel();
 			panel_3.setBackground(Color.DARK_GRAY);
-			panel_3.add(getLblXabico());
 		}
 		return panel_3;
 	}
@@ -421,14 +434,6 @@ public class Iu_Partida extends JFrame  {
 			panel_4.add(getPanel_10(), BorderLayout.WEST);
 		}
 		return panel_4;
-	}
-
-	private JLabel getLblXabico() {
-		if (lblXabico == null) {
-			lblXabico = new JLabel("Xabi&Co");
-			lblXabico.setForeground(Color.GRAY);
-		}
-		return lblXabico;
 	}
 
 	private JPanel getPanel_5() {

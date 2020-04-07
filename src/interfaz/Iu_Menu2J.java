@@ -61,7 +61,6 @@ public class Iu_Menu2J extends JFrame {
 	private JLabel lblX;
 	private ButtonGroup group = new ButtonGroup();
 	private JTextField txtNick;
-	private JLabel lblXabico;
 	private JTextField txtNickname;
 
 	/**
@@ -117,7 +116,6 @@ public class Iu_Menu2J extends JFrame {
 		if (sur1 == null) {
 			sur1 = new JPanel();
 			sur1.setBackground(Color.DARK_GRAY);
-			sur1.add(getLblXabico());
 		}
 		return sur1;
 	}
@@ -292,7 +290,7 @@ public class Iu_Menu2J extends JFrame {
 			btnNormas.setBackground(Color.DARK_GRAY);
 
 			btnNormas.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-			btnNormas.setBounds(660, 11, 89, 23);
+			btnNormas.setBounds(641, 11, 89, 23);
 		}
 		return btnNormas;
 	}
@@ -426,14 +424,6 @@ public class Iu_Menu2J extends JFrame {
 			});
 		}
 		return txtNick;
-	}
-
-	private JLabel getLblXabico() {
-		if (lblXabico == null) {
-			lblXabico = new JLabel("Xabi&Co");
-			lblXabico.setForeground(Color.WHITE);
-		}
-		return lblXabico;
 	}
 
 	private JTextField getTxtNickname() {
