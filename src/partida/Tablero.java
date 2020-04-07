@@ -44,6 +44,7 @@ public class Tablero extends Observable {
 	}
 	
 	
+	
 	public void setIa(boolean nivel) {
 		// true Ia facil
 		// False ia dificil
@@ -148,10 +149,26 @@ public class Tablero extends Observable {
 		else
 			return false;
 	}
-
-	public boolean buscarGanadorVertical(int fila, int columna) {
-
-		boolean ganador = false;
+	
+	public boolean buscarTresSeguidas(String color) {
+		boolean existe = false;
+		boolean existeVertical = false;
+		boolean existeHorizontal = false;
+		boolean existeDiagonal = false;
+		
+		
+		existe = existeVertical || existeHorizontal || existeDiagonal;
+		return existe;
+		
+	}
+	
+	public boolean buscarDosSeguidas(String color) {
+		
+		return true;
+	}
+	
+	public boolean buscarVertical(int fila, int columna, int numFichas) {
+		boolean existe = false;
 		int vcontAbajo = 0;
 		int vcontArriba = 0;
 		boolean contA = true;
@@ -177,17 +194,16 @@ public class Tablero extends Observable {
 				}
 			}
 
-			if (vcontArriba + vcontAbajo >= 3) {
-				ganador = true;
+			if (vcontArriba + vcontAbajo >= numFichas -1) {
+				existe = true;
 				break;
 			}
 		}
-		return ganador;
+		return existe;
 	}
-
-	public boolean buscarGanadorHorizontal(int fila, int columna) {
-
-		boolean ganador = false;
+	
+	public boolean buscarHorizontal(int fila, int columna, int numFichas) {
+		boolean existe = false;
 		int vcontAbajo = 0;
 		int vcontArriba = 0;
 		boolean contaA = true;
@@ -211,17 +227,16 @@ public class Tablero extends Observable {
 				}
 			}
 
-			if (vcontArriba + vcontAbajo >= 3) {
-				ganador = true;
+			if (vcontArriba + vcontAbajo >= numFichas - 1) {
+				existe = true;
 				break;
 			}
 		}
 
-		return ganador;
-
+		return existe;
 	}
-
-	public boolean buscarGanadorDiagonal(int fila, int columna) {
+	
+	public boolean buscarDiagonal(int fila, int columna, int numFichas) {
 		String color = tablero[fila][columna];
 		// Diagonal
 		int contArribaDer = 0;
@@ -235,7 +250,7 @@ public class Tablero extends Observable {
 		boolean contC = true;
 		boolean contD = true;
 
-		boolean ganador = false;
+		boolean existe = false;
 		// hacia arriba
 		for (int i = 1; i < 4; i++) {
 
@@ -274,12 +289,29 @@ public class Tablero extends Observable {
 				}
 			}
 
-			if (contArribaDer + contAbajoIzq >= 3 || contAbajoDer + contArribaIzq >= 3) {
-				ganador = true;
+			if (contArribaDer + contAbajoIzq >= numFichas - 1 || contAbajoDer + contArribaIzq >= numFichas - 1) {
+				existe = true;
 				break;
 			}
 		}
-		return ganador;
+		return existe;
+	}
+	
+	
+
+	public boolean buscarGanadorVertical(int fila, int columna) {
+
+		return buscarVertical(fila, columna, 4);
+	}
+
+	public boolean buscarGanadorHorizontal(int fila, int columna) {
+
+		return buscarHorizontal (fila, columna, 4);
+
+	}
+
+	public boolean buscarGanadorDiagonal(int fila, int columna) {
+		return buscarDiagonal(fila, columna, 4);
 	}
 
 	private Boolean posCorrecta(int i, int j) {
