@@ -62,10 +62,6 @@ public class Tablero extends Observable {
 		return tablero;
 	}
 
-	private void jugar2vs2(int j) {
-
-	}
-
 	public void imprimirTablero() {
 		// Imprime el tablero en la terminal
 		int ty = tablero.length;
@@ -121,7 +117,7 @@ public class Tablero extends Observable {
 
 		if (hayGanador()) { // Terminamos la partida y pintamos con las fichas que se ha ganado
 
-			ArrayList<String> lista = Tablero.getMiTablero().getGanadores();
+			ArrayList<String> lista = ganadores;
 
 			for (String elemento : lista) {
 
@@ -138,24 +134,13 @@ public class Tablero extends Observable {
 
 	public void jugarPartida1vsia(int j) {
 
-		joseMurillo.jugar();
-
-	}
-
-	public boolean sePuedeColocar(int x) {
-		// Post: Devuelve true si se puede colocar
-
-		boolean sepuede = false;
-		int ty = tablero.length;
-		for (int i = ty - 1; i >= 0; i--) { // recorremos de forma inversa
-			if (tablero[i][x].equals("-")) {
-				sepuede = true;
-			}
+		if (!hayGanador()) {
+			joseMurillo.jugar();
 		}
-		return sepuede;
+
 	}
 
-	public void buscarGanador(int i, int x, String color) {
+	private void buscarGanador(int i, int x, String color) {
 		if (buscarGanadorJuego(i, x)) {
 			if (color == "r") {
 				ganador = "Jose Murillo";
@@ -165,14 +150,14 @@ public class Tablero extends Observable {
 		}
 	}
 
-	public boolean hayGanador() {
+	private boolean hayGanador() {
 		if (ganador.equals("-"))
 			return false;
 		else
 			return true;
 	}
 
-	public boolean buscarGanadorJuego(int i, int x) {
+	private boolean buscarGanadorJuego(int i, int x) {
 
 		if (buscarGanadorDiagonal(i, x) || buscarGanadorHorizontal(i, x) || buscarGanadorVertical(i, x))
 			return true;
@@ -362,10 +347,6 @@ public class Tablero extends Observable {
 		return existe;
 	}
 
-	public ArrayList<String> getGanadores() {
-		return ganadores;
-	}
-
 	public boolean buscarGanadorVertical(int fila, int columna) {
 
 		return buscarVertical(fila, columna, 4);
@@ -389,17 +370,8 @@ public class Tablero extends Observable {
 
 	}
 
-	public String getGanador() {
-		// Devuelve el atributo ganador (recomendable comprobar primero si hay ganador
-		return this.ganador;
-	}
 
-	public String[][] getMatriz() {
-		return tablero;
-	}
 
-	public void setColor(int fila, int columna, String color) {
-		tablero[fila][columna] = color;
-	}
+	
 
 }
