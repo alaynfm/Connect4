@@ -323,11 +323,13 @@ public class Iu_Partida extends JFrame {
 			int fila = Integer.parseInt(f);
 			int columna = Integer.parseInt(c);
 
-			if (color.equals("a"))
-				tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
+			if (color.equals("a")) 
+				tablero[fila][columna].setBackground(Color.BLUE);
 			else
-				tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+				tablero[fila][columna].setBackground(Color.RED);
 
+			tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.GRAY));
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
