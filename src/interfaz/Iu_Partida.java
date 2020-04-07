@@ -34,8 +34,6 @@ public class Iu_Partida extends JFrame  {
 	private JPanel panel_5;
 	private JPanel panel_6;
 	private JPanel panel_7;
-	private JPanel panel_8;
-	private JPanel panel_9;
 	private JLabel lblNick;
 	private JLabel label;
 	private JLabel lblVs;
@@ -130,7 +128,7 @@ public class Iu_Partida extends JFrame  {
 		tablero = new JButton[fila][col]; // generamos el tablero de botones
 
 		int x = 0;
-		int y = 15;
+		int y = 6;
 
 		for (int a = 0; a < fila; a++) {
 			for (int e = 0; e < col; e++) {
@@ -437,10 +435,8 @@ public class Iu_Partida extends JFrame  {
 		if (panel_5 == null) {
 			panel_5 = new JPanel();
 			panel_5.setBackground(Color.DARK_GRAY);
-			panel_5.setLayout(new GridLayout(0, 3, 0, 0));
+			panel_5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			panel_5.add(getPanel_7());
-			panel_5.add(getPanel_8());
-			panel_5.add(getPanel_9());
 		}
 		return panel_5;
 	}
@@ -462,40 +458,21 @@ public class Iu_Partida extends JFrame  {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
 			FlowLayout flowLayout = (FlowLayout) panel_7.getLayout();
-			flowLayout.setAlignment(FlowLayout.RIGHT);
 			panel_7.setBackground(Color.DARK_GRAY);
 			panel_7.add(getLblNick());
 			panel_7.add(getLabel());
+			panel_7.add(getLblVs());
+			panel_7.add(getLabel_1());
+			panel_7.add(getLblNick_1());
 		}
 		return panel_7;
-	}
-
-	private JPanel getPanel_8() {
-		if (panel_8 == null) {
-			panel_8 = new JPanel();
-			panel_8.setBackground(Color.DARK_GRAY);
-			panel_8.add(getLblVs());
-		}
-		return panel_8;
-	}
-
-	private JPanel getPanel_9() {
-		if (panel_9 == null) {
-			panel_9 = new JPanel();
-			FlowLayout flowLayout = (FlowLayout) panel_9.getLayout();
-			flowLayout.setAlignment(FlowLayout.LEFT);
-			panel_9.setBackground(Color.DARK_GRAY);
-			panel_9.add(getLblNick_1());
-			panel_9.add(getLabel_1());
-		}
-		return panel_9;
 	}
 
 	private JLabel getLblNick() {
 		if (lblNick == null) {
 			lblNick = new JLabel("Nick1");
 			lblNick.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNick.setFont(new Font("Arial Black", Font.BOLD, 37));
+			lblNick.setFont(new Font("Arial Black", Font.BOLD, 21));
 			lblNick.setForeground(new Color(51, 153, 255));
 		}
 		return lblNick;
@@ -503,7 +480,7 @@ public class Iu_Partida extends JFrame  {
 
 	private JLabel getLabel() {
 		if (label == null) {
-			label = new JLabel("25");
+			label = new JLabel(" 1 ");
 			label.setHorizontalAlignment(SwingConstants.CENTER);
 			label.setFont(new Font("Arial", Font.PLAIN, 21));
 			label.setForeground(new Color(153, 0, 0));
@@ -523,7 +500,7 @@ public class Iu_Partida extends JFrame  {
 	private JLabel getLblNick_1() {
 		if (lblNick_1 == null) {
 			lblNick_1 = new JLabel("Nick2");
-			lblNick_1.setFont(new Font("Arial Black", Font.BOLD, 37));
+			lblNick_1.setFont(new Font("Arial Black", Font.BOLD, 21));
 			lblNick_1.setForeground(new Color(153, 0, 0));
 		}
 		return lblNick_1;
@@ -531,7 +508,7 @@ public class Iu_Partida extends JFrame  {
 
 	private JLabel getLabel_1() {
 		if (label_1 == null) {
-			label_1 = new JLabel("25");
+			label_1 = new JLabel(" 1 ");
 			label_1.setFont(new Font("Arial", Font.PLAIN, 25));
 			label_1.setForeground(new Color(51, 153, 255));
 		}
