@@ -101,6 +101,8 @@ public class Iu_Menu1J extends JFrame {
 		setResizable(false);
 		group.add(rdbtnDificil);
 		group.add(rdbtnFacil);
+		setLocation(500, 200);
+
 
 	}
 

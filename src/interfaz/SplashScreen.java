@@ -21,14 +21,12 @@ public class SplashScreen extends JFrame {
 	private String[] txt2 = new String[130];
 
 	public SplashScreen() {
+		setBackground(Color.DARK_GRAY);
 		getContentPane().setBackground(Color.DARK_GRAY);
 		setBounds(100, 100, 873, 470);
 
 		Container container = getContentPane();
 		container.setLayout(null);
-		JLabel label = new JLabel("");
-	
-		getContentPane().add(label);
 
 		progressBar.setBackground(Color.GRAY);
 		progressBar.setForeground(new Color(153, 0, 0));
@@ -37,26 +35,38 @@ public class SplashScreen extends JFrame {
 		container.add(progressBar);
 		getContentPane().add(getLblNewLabel());
 		loadProgressBar();
-		
-		setLocationRelativeTo(null);
+
+		setLocation(500, 200);
 		setVisible(true);
-		
-		txt[0] = "hola me llamo alain";
-		txt[1] = "Mi Nombre Es Alvaro";
-		txt[2] = "Yo SOY programador Asier";
-		txt[3] = "A vER si TE Integras, SOy NICO";
-		txt[4] = "XABier, el Mejor PRogramador,A MI YA me CONOCEs";
-		
+
+		txt[0] = "Programador del juego Alain";
+		txt[1] = "Alvaro encargado de pruebas";
+		txt[2] = "Programador del juego Asier";
+		txt[3] = "Encargado del diseño Nico";
+		txt[4] = "Xabier, jefe de proyecto";
+
 		int c = 0;
-		for(int i = 0; i<130; i++) {
-		
-			if(c == 4) c = 0;
-			txt2[i] = txt[c];
-			c++;
-			
-			
+		int a = 0;
+		for (int i = 0; i < 130; i++) {
+
+			if (i < 20)
+				txt2[i] = "Generando tablero....";
+
+			else if (i >= 20 && i < 50)
+				txt2[i] = "Generando fichas...";
+			else if (i >= 50 && i < 80)
+				txt2[i] = "Preparandp IA Murillo...";
+
+			else if (i >= 80 && i < 105)
+				txt2[i] = "Conectando con la base de datos...";
+			else {
+				if (c == 5)
+					c = 0;
+				txt2[i] = txt[c];
+				c++;
+			}
 		}
-		
+		txt2[txt2.length-2] = "Iniciando Juego";
 
 	}
 
@@ -64,16 +74,22 @@ public class SplashScreen extends JFrame {
 		ActionListener al = new ActionListener() {
 
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				
+
 				lblNewLabel.setText(txt2[count]);
 				count++;
-				
+
 				progressBar.setValue(count);
-				System.out.println(count);
 
 				if (count == 130) {
-					dispose();
-					timer1.stop();
+					try {
+						timer1.stop();
+						Thread.sleep(1000);
+						dispose();
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					Iu_Inicio.miInicio().setVisible(true);
 				}
 
@@ -86,13 +102,14 @@ public class SplashScreen extends JFrame {
 	public static void main(String[] args) {
 		execute = new SplashScreen();
 	}
+
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Texto para poner mientras carga");
 			lblNewLabel.setBackground(Color.DARK_GRAY);
 			lblNewLabel.setForeground(Color.LIGHT_GRAY);
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setBounds(134, 375, 526, 14);
+			lblNewLabel.setBounds(153, 327, 526, 14);
 		}
 		return lblNewLabel;
 	}

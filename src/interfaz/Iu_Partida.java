@@ -92,6 +92,7 @@ public class Iu_Partida extends JFrame {
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		turno = 0;
 
+
 		/*
 		 * Si lo ponemos a true Jugador vs Jose Murillo Si ponemos a false Jugador1 vs
 		 * Jugador2
@@ -249,6 +250,7 @@ public class Iu_Partida extends JFrame {
 		ImageIcon imagen;
 
 		String color = Tablero.getMiTablero().getPosicion(f, c);
+		//Hay q poner la imagen buena
 		imagen = new ImageIcon("img/" + color + ".png");
 		java.awt.Image conversion = imagen.getImage();
 		java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth() - 6, tablero[0][0].getWidth() - 6,

@@ -70,7 +70,7 @@ public class Iu_Inicio extends JFrame {
 		contentPane.add(getPanel_2(), BorderLayout.WEST);
 		contentPane.add(getPanel_3(), BorderLayout.EAST);
 		contentPane.add(getCenter(), BorderLayout.CENTER);
-		setLocationRelativeTo(null);
+		setLocation(500, 200);
 
 	}
 

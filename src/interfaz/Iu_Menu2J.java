@@ -97,6 +97,8 @@ public class Iu_Menu2J extends JFrame {
 		contentPane.add(getPanel_12(), BorderLayout.EAST);
 		contentPane.add(getPanel_13(), BorderLayout.CENTER);
 		setResizable(false);
+		setLocation(500, 200);
+
 
 	}
 
