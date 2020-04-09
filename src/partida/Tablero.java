@@ -126,15 +126,17 @@ public class Tablero extends Observable {
 				Iu_Partida.miPartida().pintarGanadores(v1[0], v1[1], color);
 			}
 
+			//Iu_Partida.miPartida().pintarTablero();
+			String ganador = Tablero.getMiTablero().getGanador();
 			Iu_Partida.miPartida().pintarTablero();
-			JOptionPane.showMessageDialog(null, "Se ha terminado la Partida", "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ENhorabuena " + ganador + " :)" , "Partida Terminada", JOptionPane.WARNING_MESSAGE);
 			Iu_Partida.miPartida().setVisible(false);
 
 		}
 
 	}
 
-	public void jugarPartida1vsia(int j) {
+	public void jugarPartida1vsia() {
 
 		if (!hayGanador()) {
 			joseMurillo.jugar();
@@ -152,11 +154,15 @@ public class Tablero extends Observable {
 		}
 	}
 
-	private boolean hayGanador() {
+	public boolean hayGanador() {
 		if (ganador.equals("-"))
 			return false;
 		else
 			return true;
+	}
+
+	public String getGanador() {
+		return ganador;
 	}
 
 	private boolean buscarGanadorJuego(int i, int x) {
@@ -271,19 +277,16 @@ public class Tablero extends Observable {
 		return existe;
 	}
 
-	public boolean buscarDiagonal(int fila, int columna, int numFichas) {
+	public boolean buscarDiagonal1(int fila, int columna, int numFichas) {
 		String color = tablero[fila][columna];
 		// Diagonal
 		int contArribaDer = 0;
-		int contAbajoDer = 0;
 		int contAbajoIzq = 0;
-		int contArribaIzq = 0;
 
 		// Para no contar de mas, una si y una no.
 		boolean contA = true;
 		boolean contB = true;
-		boolean contC = true;
-		boolean contD = true;
+	
 
 		boolean existe = false;
 		ArrayList<String> lista1 = new ArrayList<String>();
@@ -316,6 +319,32 @@ public class Tablero extends Observable {
 				}
 			}
 
+			if (contArribaDer + contAbajoIzq >= numFichas - 1 ) {
+				existe = true;
+				ganadores = lista1;
+				break;
+			}
+		}
+		return existe;
+	}
+	public boolean buscarDiagonal2(int fila, int columna, int numFichas) {
+		String color = tablero[fila][columna];
+		
+		int contAbajoDer = 0;
+		int contArribaIzq = 0;
+
+		// Para no contar de mas, una si y una no.
+		
+		boolean contC = true;
+		boolean contD = true;
+
+		boolean existe = false;
+		ArrayList<String> lista1 = new ArrayList<String>();
+		lista1.add("" + fila + " --> " + columna);
+
+		// hacia arriba
+		for (int i = 1; i < 4; i++) {
+
 			// hacia abajo derecha
 			if (contC && posCorrecta(fila + i, columna + i)) {
 				if ((tablero[fila + i][columna + i]).equals(color)) {
@@ -340,7 +369,7 @@ public class Tablero extends Observable {
 				}
 			}
 
-			if (contArribaDer + contAbajoIzq >= numFichas - 1 || contAbajoDer + contArribaIzq >= numFichas - 1) {
+			if (contAbajoDer + contArribaIzq >= numFichas - 1) {
 				existe = true;
 				ganadores = lista1;
 				break;
@@ -361,7 +390,12 @@ public class Tablero extends Observable {
 	}
 
 	public boolean buscarGanadorDiagonal(int fila, int columna) {
-		return buscarDiagonal(fila, columna, 4);
+		boolean enc = false;
+		enc = buscarDiagonal1(fila, columna, 4);
+		if(!enc) {
+			enc = buscarDiagonal2(fila, columna, 4);
+		}
+		return enc;
 	}
 
 	private Boolean posCorrecta(int i, int j) {
@@ -371,9 +405,5 @@ public class Tablero extends Observable {
 			return false;
 
 	}
-
-
-
-	
 
 }

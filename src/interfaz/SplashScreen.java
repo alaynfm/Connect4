@@ -18,9 +18,10 @@ public class SplashScreen extends JFrame {
 	private static Timer timer1;
 	private JLabel lblNewLabel;
 	private String[] txt = new String[5];
-	private String[] txt2 = new String[130];
+	private String[] txt2 = new String[50];
 
 	public SplashScreen() {
+		setUndecorated(true);
 		setBackground(Color.DARK_GRAY);
 		getContentPane().setBackground(Color.DARK_GRAY);
 		setBounds(100, 100, 873, 470);
@@ -30,7 +31,7 @@ public class SplashScreen extends JFrame {
 
 		progressBar.setBackground(Color.GRAY);
 		progressBar.setForeground(new Color(153, 0, 0));
-		progressBar.setMaximum(120);
+		progressBar.setMaximum(45);
 		progressBar.setBounds(52, 350, 743, 14);
 		container.add(progressBar);
 		getContentPane().add(getLblNewLabel());
@@ -38,6 +39,7 @@ public class SplashScreen extends JFrame {
 
 		setLocation(500, 200);
 		setVisible(true);
+	
 
 		txt[0] = "Programador del juego Alain";
 		txt[1] = "Alvaro encargado de pruebas";
@@ -46,18 +48,17 @@ public class SplashScreen extends JFrame {
 		txt[4] = "Xabier, jefe de proyecto";
 
 		int c = 0;
-		int a = 0;
-		for (int i = 0; i < 130; i++) {
+		for (int i = 0; i < 50; i++) {
 
-			if (i < 20)
+			if (i < 10)
 				txt2[i] = "Generando tablero....";
 
-			else if (i >= 20 && i < 50)
+			else if (i >= 10 && i < 20)
 				txt2[i] = "Generando fichas...";
-			else if (i >= 50 && i < 80)
+			else if (i >= 20 && i < 30)
 				txt2[i] = "Preparandp IA Murillo...";
 
-			else if (i >= 80 && i < 105)
+			else if (i >= 30 && i < 40)
 				txt2[i] = "Conectando con la base de datos...";
 			else {
 				if (c == 5)
@@ -66,7 +67,7 @@ public class SplashScreen extends JFrame {
 				c++;
 			}
 		}
-		txt2[txt2.length-2] = "Iniciando Juego";
+		txt2[47] = "Iniciando Juego";
 
 	}
 
@@ -76,14 +77,14 @@ public class SplashScreen extends JFrame {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 
 				lblNewLabel.setText(txt2[count]);
+				progressBar.setValue(count);
 				count++;
 
-				progressBar.setValue(count);
-
-				if (count == 130) {
+				if (count == 49) {
+					lblNewLabel.setText(txt2[47]);
 					try {
 						timer1.stop();
-						Thread.sleep(1000);
+						Thread.sleep(500);
 						dispose();
 						Thread.sleep(500);
 					} catch (InterruptedException e) {

@@ -92,7 +92,6 @@ public class Iu_Partida extends JFrame {
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		turno = 0;
 
-
 		/*
 		 * Si lo ponemos a true Jugador vs Jose Murillo Si ponemos a false Jugador1 vs
 		 * Jugador2
@@ -173,8 +172,8 @@ public class Iu_Partida extends JFrame {
 
 								// Si estamos jugando contra la IA entra aqui
 								Tablero.getMiTablero().colocarFicha2(j);
-								Tablero.getMiTablero().jugarPartida1vsia(j);
-								retomarFichas();
+								if (!Tablero.getMiTablero().hayGanador())
+									Tablero.getMiTablero().jugarPartida1vsia();
 
 							} else {
 
@@ -250,7 +249,7 @@ public class Iu_Partida extends JFrame {
 		ImageIcon imagen;
 
 		String color = Tablero.getMiTablero().getPosicion(f, c);
-		//Hay q poner la imagen buena
+		// Hay q poner la imagen buena
 		imagen = new ImageIcon("img/" + color + ".png");
 		java.awt.Image conversion = imagen.getImage();
 		java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth() - 6, tablero[0][0].getWidth() - 6,
@@ -326,13 +325,13 @@ public class Iu_Partida extends JFrame {
 			int fila = Integer.parseInt(f);
 			int columna = Integer.parseInt(c);
 
-			if (color.equals("a")) 
+			if (color.equals("a"))
 				tablero[fila][columna].setBackground(Color.BLUE);
 			else
 				tablero[fila][columna].setBackground(Color.RED);
 
 			tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.GRAY));
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
