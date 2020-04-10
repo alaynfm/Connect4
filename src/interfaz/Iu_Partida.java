@@ -44,13 +44,9 @@ public class Iu_Partida extends JFrame {
 	private JButton[][] tablero;
 	private int tamanoX = 50;
 	private int tamanoY = 50;
-	private int numFilas;
-	private int numColumnas;
 	private int x = -1;
-	private boolean forma; // true si es 1 vs IA
 	private int turno; // Para saber si le toca al azul o al rojo
 
-	private static Iu_Partida miPartida = new Iu_Partida();
 
 	/*
 	 * Los numeros impares corresponden al jugador 1, los numeros pares al jugador 2
@@ -75,7 +71,7 @@ public class Iu_Partida extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	private Iu_Partida() {
+	public Iu_Partida() {
 
 		// Constructora
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,10 +94,6 @@ public class Iu_Partida extends JFrame {
 		 */
 	}
 
-	public static Iu_Partida miPartida() {
-		return miPartida;
-	}
-
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	/* Programas para el manejo de la interfaz */
@@ -109,23 +101,12 @@ public class Iu_Partida extends JFrame {
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	public void crearTablero(int fila, int col) {
+		
 
 		// programa para la creacion del tablero con los correspondientes botones
 
-		if (fila <= 0 || col <= 0) {
-
-			// poner mensaje de tamano incorrecto creando por defecto;
-			numFilas = 6;
-			numColumnas = 12;
-			fila = 6;
-			col = 12;
-		} else {
-
-			numFilas = fila;
-			numColumnas = col;
-		}
-
-		Tablero.getMiTablero().generarTablero(fila, col); // generamos el tablero de la partida
+		panel_6.setSize(((col) * (tamanoX)), ((fila + 2) * tamanoY));
+		setSize(panel_7.getWidth()+panel_6.getWidth() + 40, panel_7.getHeight()+panel_6.getHeight()+40);
 		tablero = new JButton[fila][col]; // generamos el tablero de botones
 
 		int x = 0;
@@ -139,6 +120,7 @@ public class Iu_Partida extends JFrame {
 				tablero[a][e] = jb;
 				tablero[a][e].setBounds(x, y, tamanoX, tamanoY);
 				jb.setBorder(new LineBorder(Color.GRAY));
+				jb.setIcon(null);
 
 				tablero[a][e].addMouseListener(new MouseAdapter() {
 
@@ -152,10 +134,12 @@ public class Iu_Partida extends JFrame {
 
 					public void mouseExited(MouseEvent evento) {
 
-						// Cuando quitamos el cursor del raton volvemos a ponerlo normal
-						int j = (int) (jb.getX() / (tablero[0][1]).getX());
-						setCambio(j);
-						retomarFichas();
+						if (!Tablero.getMiTablero().hayGanador()) {
+							// Cuando quitamos el cursor del raton volvemos a ponerlo normal
+							int j = (int) (jb.getX() / (tablero[0][1]).getX());
+							setCambio(j);
+							retomarFichas();
+						}
 					}
 
 					@Override
@@ -163,24 +147,11 @@ public class Iu_Partida extends JFrame {
 
 						// Cuando hacemos click
 						int j = (int) (jb.getX() / (tablero[0][1]).getX());
-						setCambio(j);
 
 						if (arg0.getButton() == 1) {
 							// Cuando hacemos click izq
 
-							if (forma) {
-
-								// Si estamos jugando contra la IA entra aqui
-								Tablero.getMiTablero().colocarFicha2(j);
-								if (!Tablero.getMiTablero().hayGanador())
-									Tablero.getMiTablero().jugarPartida1vsia();
-
-							} else {
-
-								Tablero.getMiTablero().colocarFicha2(j);
-								turno++; // hay que alternar el turno para el color de la caida
-
-							}
+							Tablero.getMiTablero().jugarPartida(j);
 
 						}
 					}
@@ -194,8 +165,6 @@ public class Iu_Partida extends JFrame {
 		}
 
 		pintarTablero();
-
-		setSize(((numColumnas) * (tamanoX) + 42), ((numFilas + 1) * tamanoY) + panel_5.getHeight() + 100);
 		setResizable(false);
 		actualizarTablero(getPanel_6());
 	}
@@ -231,6 +200,10 @@ public class Iu_Partida extends JFrame {
 		}
 
 	}
+	
+	public void seturno(int t) {
+		turno = t;
+	}
 
 	private void retomarFichas() {
 
@@ -244,11 +217,10 @@ public class Iu_Partida extends JFrame {
 
 	}
 
-	public void pintarPosicion(int f, int c) {
+	public void pintarPosicion(int f, int c,String color) {
 
 		ImageIcon imagen;
 
-		String color = Tablero.getMiTablero().getPosicion(f, c);
 		// Hay q poner la imagen buena
 		imagen = new ImageIcon("img/" + color + ".png");
 		java.awt.Image conversion = imagen.getImage();
@@ -314,7 +286,7 @@ public class Iu_Partida extends JFrame {
 			}
 		}
 	}
-
+	
 	public void pintarGanadores(String f, String c, String color) {
 
 		// utilizamos el metodo para marcar las casillas con las que se ha ganado la
@@ -344,11 +316,6 @@ public class Iu_Partida extends JFrame {
 		x = j;
 	}
 
-	public int getCambio() {
-
-		// Metodo para obtener la columna en la que vamos a hacer el cambio
-		return x;
-	}
 
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -356,13 +323,6 @@ public class Iu_Partida extends JFrame {
 
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	public void setForma(boolean f) {
-		/*
-		 * Se le pasa un booleano si es true Jugador vs Jose Murillo (IA) si es false
-		 * jugador vs jugador
-		 */
-		forma = f;
-	}
 
 	public void setNombreJugador1(String nombre) {
 		// Para cambiar el nombre del jugador 1
@@ -375,20 +335,25 @@ public class Iu_Partida extends JFrame {
 		lblNick_1.setText(nombre);
 	}
 
-	public void setPuntuacionJugador1() {
+	public void setPuntuacionJugador2(int punt) {
 		// Para cambiar la puntuacion del jugador1
+		label.setText(punt + "");
 	}
 
-	public void setPunatuacionJugador2() {
+	public void setPunatuacionJugador1(int punt) {
 		// Para cambiar la puntuacion del jugador2 o de la IA
+		label_1.setText(punt + "");
 	}
+	
 
-	public void getNombreJugador1() {
+	public String getNombreJugador1() {
 		// Para obtener el nombre del jugador 1 que hemos escrito
+		return lblNick.getText();
 	}
 
-	public void getNombreJugador2() {
+	public String getNombreJugador2() {
 		// Para obtener el nombre del jugador dos o de la IA que hemos escrito
+		return lblNick_1.getText();
 	}
 
 	public void getPuntuacionJugador1() {
@@ -542,4 +507,5 @@ public class Iu_Partida extends JFrame {
 		}
 		return panel_10;
 	}
+
 }

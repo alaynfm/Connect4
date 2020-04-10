@@ -16,25 +16,41 @@ public class Tablero extends Observable {
 	 * Los colores de las fichas pueden ser - : vacia a : azul r : rojo
 	 */
 	private String ganador; // Nombre del jugador que ha ganado
-	private static Tablero miTablero = new Tablero();
 	private IA joseMurillo = null;
+	private int turno;
+	private boolean forma; // true si es 1 vs IA
+	private String jugador1;
+	private String jugador2;
+	private int puntj1;
+	private int puntj2;
 
+	private static Tablero miTablero = new Tablero();
 	private ListaCasilla listaCasillasLibres;
 	private ArrayList<String> ganadores;
-	private int turno;
+	private Iu_Partida interfaz;
 
+	
+	public static Tablero getMiTablero() {
+		return miTablero;
+	}
+	
 	private Tablero() {
 		setIa(true);
 		listaCasillasLibres = new ListaCasilla();
 		ganadores = new ArrayList<String>();
 		turno = 0;
-	}
+		
+		//Inicializamos los marcadores a 0
+		puntj1 = 0;
+		puntj2 = 0;
+		
+		interfaz = new Iu_Partida();
 
-	public static Tablero getMiTablero() {
-		return miTablero;
 	}
 
 	public void generarTablero(int x, int y) { // creamos el tablero
+
+		interfaz.dispose();
 		ganador = "-";
 		tablero = new String[x][y];
 		for (int i = 0; i < x; i++) { // recorremos la fila
@@ -43,6 +59,40 @@ public class Tablero extends Observable {
 				listaCasillasLibres.anadirCasilla("" + i + "" + k + "", k);
 			}
 		}
+
+		// Creamos la interfaz con los datos correspondientes
+		interfaz = new Iu_Partida();
+		generarInterfaz(x, y);
+		turno = 0;
+	
+	}
+	
+	public void generarInterfaz(int x, int y) {
+		
+		interfaz.crearTablero(x, y);
+		interfaz.setNombreJugador1(jugador1);
+		interfaz.setNombreJugador2(jugador2);
+		interfaz.setPuntuacionJugador2(puntj2);
+		interfaz.setPunatuacionJugador1(puntj1);
+		interfaz.setVisible(true);
+		interfaz.setEnabled(true);
+		interfaz.pintarTablero();
+	}
+
+	public void jugarPartida(int j) {
+		// TODO Auto-generated method stub
+
+		if (forma) {
+			// 1 vs IA
+			colocarFicha2(j);
+			if (!hayGanador()) {
+				joseMurillo.jugar();
+			}
+		} else {
+			colocarFicha2(j);
+
+		}
+
 	}
 
 	public ListaCasilla getCasillasLibres() {
@@ -50,29 +100,13 @@ public class Tablero extends Observable {
 	}
 
 	public void setIa(boolean nivel) {
+		
 		// true Ia facil
 		// False ia dificil
 		if (nivel)
 			joseMurillo = new IAFacil();
 		else
 			joseMurillo = new IADificil();
-	}
-
-	public String[][] getTablero() {
-		return tablero;
-	}
-
-	public void imprimirTablero() {
-		// Imprime el tablero en la terminal
-		int ty = tablero.length;
-		int tx = tablero[0].length;
-		for (int i = 0; i < ty; i++) {
-			System.out.print("\n");
-			for (int k = 0; k < tx; k++) {
-				System.out.print(tablero[i][k]);
-			}
-		}
-
 	}
 
 	public String getPosicion(int x, int y) {
@@ -106,7 +140,10 @@ public class Tablero extends Observable {
 		for (int i = tablero.length - 1; i >= 0; i--) {
 			if (tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
-				Iu_Partida.miPartida().pintarPosicion(i, c); // Pintamos la columna en la que la ponemos
+				if (turno % 2 == 0)
+					interfaz.pintarPosicion(i, c, "a"); // Pintamos la columna en la que la ponemos
+				else
+					interfaz.pintarPosicion(i, c, "r");
 				buscarGanador(i, c, color);
 				listaCasillasLibres.eliminarCasillla("" + i + "" + c + "");
 				break;
@@ -114,6 +151,7 @@ public class Tablero extends Observable {
 		}
 
 		turno++;
+		interfaz.seturno(turno);
 
 		if (hayGanador()) { // Terminamos la partida y pintamos con las fichas que se ha ganado
 
@@ -122,24 +160,15 @@ public class Tablero extends Observable {
 			for (String elemento : lista) {
 
 				String[] v1 = elemento.split("\\s+-->\\s+");
-
-				Iu_Partida.miPartida().pintarGanadores(v1[0], v1[1], color);
+				interfaz.pintarGanadores(v1[0], v1[1], ganador);
 			}
 
-			//Iu_Partida.miPartida().pintarTablero();
-			String ganador = Tablero.getMiTablero().getGanador();
-			Iu_Partida.miPartida().pintarTablero();
-			JOptionPane.showMessageDialog(null, "ENhorabuena " + ganador + " :)" , "Partida Terminada", JOptionPane.WARNING_MESSAGE);
-			Iu_Partida.miPartida().setVisible(false);
+			if(turno % 2 == 0) puntj1++;
+			else puntj2++;
+			Iu_Revancha r = new Iu_Revancha();
+			r.setVisible(true);
+			interfaz.setEnabled(false);
 
-		}
-
-	}
-
-	public void jugarPartida1vsia() {
-
-		if (!hayGanador()) {
-			joseMurillo.jugar();
 		}
 
 	}
@@ -147,9 +176,9 @@ public class Tablero extends Observable {
 	private void buscarGanador(int i, int x, String color) {
 		if (buscarGanadorJuego(i, x)) {
 			if (color == "r") {
-				ganador = "Jose Murillo";
+				ganador = "r";
 			} else {
-				ganador = "usuario";
+				ganador = "a";
 			}
 		}
 	}
@@ -159,10 +188,6 @@ public class Tablero extends Observable {
 			return false;
 		else
 			return true;
-	}
-
-	public String getGanador() {
-		return ganador;
 	}
 
 	private boolean buscarGanadorJuego(int i, int x) {
@@ -286,7 +311,6 @@ public class Tablero extends Observable {
 		// Para no contar de mas, una si y una no.
 		boolean contA = true;
 		boolean contB = true;
-	
 
 		boolean existe = false;
 		ArrayList<String> lista1 = new ArrayList<String>();
@@ -319,7 +343,7 @@ public class Tablero extends Observable {
 				}
 			}
 
-			if (contArribaDer + contAbajoIzq >= numFichas - 1 ) {
+			if (contArribaDer + contAbajoIzq >= numFichas - 1) {
 				existe = true;
 				ganadores = lista1;
 				break;
@@ -327,14 +351,15 @@ public class Tablero extends Observable {
 		}
 		return existe;
 	}
+
 	public boolean buscarDiagonal2(int fila, int columna, int numFichas) {
 		String color = tablero[fila][columna];
-		
+
 		int contAbajoDer = 0;
 		int contArribaIzq = 0;
 
 		// Para no contar de mas, una si y una no.
-		
+
 		boolean contC = true;
 		boolean contD = true;
 
@@ -392,7 +417,7 @@ public class Tablero extends Observable {
 	public boolean buscarGanadorDiagonal(int fila, int columna) {
 		boolean enc = false;
 		enc = buscarDiagonal1(fila, columna, 4);
-		if(!enc) {
+		if (!enc) {
 			enc = buscarDiagonal2(fila, columna, 4);
 		}
 		return enc;
@@ -404,6 +429,46 @@ public class Tablero extends Observable {
 		else
 			return false;
 
+	}
+
+	public int getFilas() {
+		// TODO Auto-generated method stub
+		return tablero.length;
+	}
+
+	public int getColumnas() {
+		// TODO Auto-generated method stub
+		return tablero[0].length;
+	}
+
+	public void setInterfaz(Iu_Partida interfaz2) {
+		// TODO Auto-generated method stub
+		interfaz = interfaz2;
+	}
+
+	public void eliminarInterfaz() {
+		// TODO Auto-generated method stub
+		interfaz.dispose();
+	}
+
+	public Iu_Partida getInterfaz() {
+		return interfaz;
+	}
+
+	public void setForma(boolean f) {
+		forma = f;
+	}
+	
+	public boolean getForma() {
+		return forma;
+	}
+
+	public void setj1(String f) {
+		jugador1 = f;
+	}
+
+	public void setj2(String f) {
+		jugador2 = f;
 	}
 
 }

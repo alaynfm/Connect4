@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import partida.Tablero;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -261,8 +264,8 @@ public class Iu_Menu1J extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 
 					// El normbre nos da igual, aceptamos cuqlquiera
-					Iu_Partida.miPartida().setNombreJugador1(txtNick.getText());
-					Iu_Partida.miPartida().setNombreJugador2("Murillo");
+					Tablero.getMiTablero().setj1(txtNick.getText());
+					Tablero.getMiTablero().setj2("Murillo");
 
 					try {
 
@@ -277,18 +280,19 @@ public class Iu_Menu1J extends JFrame {
 						} else {
 
 							if (f >= 6 && c >= 7 && f<=18 && c<=35) {
+								
+								Tablero.getMiTablero().generarTablero(f, c);
 
 								if (rdbtnDificil.isSelected() || rdbtnFacil.isSelected()) {
 
-									Iu_Partida.miPartida().crearTablero(f, c);
 									setVisible(false);
-									Iu_Partida.miPartida().setVisible(true);
 
 									if (rdbtnFacil.isSelected())
-										Iu_Partida.miPartida().setForma(true);
+										Tablero.getMiTablero().setForma(true);
 									else
-										Iu_Partida.miPartida().setForma(false);
+										Tablero.getMiTablero().setForma(false);
 
+									
 								} else {
 									JOptionPane.showMessageDialog(null, "Por favor seleccione una dificultad",
 											"Warming", JOptionPane.WARNING_MESSAGE);
@@ -301,7 +305,7 @@ public class Iu_Menu1J extends JFrame {
 
 							}
 						}
-
+						
 					} catch (NumberFormatException excepcion) {
 						// System.out.println("Por favor introduce numeros");
 						JOptionPane.showMessageDialog(null, "Por favor introduce n�meros", "Error",

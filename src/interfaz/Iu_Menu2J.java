@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import partida.Tablero;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -237,8 +240,9 @@ public class Iu_Menu2J extends JFrame {
 
 					} else {
 						// El normbre nos da igual, aceptamos cuqlquiera
-						Iu_Partida.miPartida().setNombreJugador1(txtNick.getText());
-						Iu_Partida.miPartida().setNombreJugador2(txtNickname.getText());
+						
+						Tablero.getMiTablero().setj1(txtNick.getText());
+						Tablero.getMiTablero().setj2(txtNickname.getText());
 						
 						try {
 
@@ -247,9 +251,11 @@ public class Iu_Menu2J extends JFrame {
 
 							if (f >= 6 && c >= 7 && f<=18 && c<=38) {
 
-								Iu_Partida.miPartida().crearTablero(f, c);
+								Tablero.getMiTablero().generarTablero(f, c);
+								textField_1.setText(f + "");
+								textField_2.setText(c + "");
+								Tablero.getMiTablero().setForma(false);
 								setVisible(false);
-								Iu_Partida.miPartida().setVisible(true);
 
 							} else {
 								JOptionPane.showMessageDialog(null,
@@ -265,11 +271,6 @@ public class Iu_Menu2J extends JFrame {
 						}
 
 					}
-
-					
-					// Hay que mirar que las filas y las columnas son numeros
-
-					// hay que difinir el tipo de Ia que se va a jugar
 				}
 			});
 			btnEmpezar.setForeground(Color.GRAY);
