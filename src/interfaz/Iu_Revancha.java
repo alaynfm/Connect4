@@ -1,4 +1,4 @@
-package partida;
+package interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,10 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import interfaz.Iu_Finpartida;
-import interfaz.Iu_Menu1J;
-import interfaz.Iu_Menu2J;
-import interfaz.Iu_Partida;
+import partida.Tablero;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -81,6 +78,7 @@ public class Iu_Revancha extends JFrame {
 		}
 		return panel;
 	}
+
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
@@ -88,6 +86,7 @@ public class Iu_Revancha extends JFrame {
 		}
 		return panel_1;
 	}
+
 	private JPanel getPanel_2() {
 		if (panel_2 == null) {
 			panel_2 = new JPanel();
@@ -96,6 +95,7 @@ public class Iu_Revancha extends JFrame {
 		}
 		return panel_2;
 	}
+
 	private JPanel getPanel_3() {
 		if (panel_3 == null) {
 			panel_3 = new JPanel();
@@ -107,6 +107,7 @@ public class Iu_Revancha extends JFrame {
 		}
 		return panel_3;
 	}
+
 	private JPanel getPanel_4() {
 		if (panel_4 == null) {
 			panel_4 = new JPanel();
@@ -118,6 +119,7 @@ public class Iu_Revancha extends JFrame {
 		}
 		return panel_4;
 	}
+
 	private JLabel getLblquieresJugarOtra() {
 		if (lblquieresJugarOtra == null) {
 			lblquieresJugarOtra = new JLabel("\u00BFQuieres jugar otra Partida?");
@@ -127,23 +129,25 @@ public class Iu_Revancha extends JFrame {
 		}
 		return lblquieresJugarOtra;
 	}
+
 	private JButton getBtnS() {
 		if (btnS == null) {
 			btnS = new JButton("S\u00ED");
 			btnS.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					
+
 					Tablero.getMiTablero().eliminarInterfaz();
-					
+
 					setVisible(false);
-					
-					if(Tablero.getMiTablero().getForma()) {
+
+					if (Tablero.getMiTablero().getForma()) {
 						Iu_Menu1J.miPartida().setVisible(true);
-						//Hay que hacer que no se pueda cambiar el nombre solo cambiar el numero de filas
-					}
-					else {
+						// Hay que hacer que no se pueda cambiar el nombre solo cambiar el numero de
+						// filas
+					} else {
 						Iu_Menu2J.miPartida().setVisible(true);
-						//Hay que hacer que no se pueda cambiar el nombre solo cambiar el numero de filas
+						// Hay que hacer que no se pueda cambiar el nombre solo cambiar el numero de
+						// filas
 					}
 				}
 			});
@@ -152,18 +156,27 @@ public class Iu_Revancha extends JFrame {
 		}
 		return btnS;
 	}
+
 	private JButton getBtnNo() {
 		if (btnNo == null) {
 			btnNo = new JButton("No");
 			btnNo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
-					Iu_Finpartida j1 = new Iu_Finpartida(); //Para el jugador azul
-					Iu_Finpartida j2 = new Iu_Finpartida(); //Para el jugador dos o la IA
-					
-					j2.setVisible(true);
+
+					Tablero.getMiTablero().eliminarInterfaz();
+					Iu_highScores hs = new Iu_highScores();
+					hs.setVisible(true);
+					Iu_Finpartida j1 = new Iu_Finpartida(); // Para el jugador azul
+					if (!Tablero.getMiTablero().getForma()) {
+						Iu_Finpartida j2 = new Iu_Finpartida(); // Para el jugador dos o la IA
+						j2.setLocation(1100, 500);
+						j2.setVisible(true);
+					}
+
+					j1.setLocation(1100, 150);
 					j1.setVisible(true);
-					
+					setVisible(false);
+
 				}
 			});
 			btnNo.setBackground(new Color(153, 0, 0));
@@ -171,24 +184,28 @@ public class Iu_Revancha extends JFrame {
 		}
 		return btnNo;
 	}
+
 	private JPanel getPanel_5() {
 		if (panel_5 == null) {
 			panel_5 = new JPanel();
 		}
 		return panel_5;
 	}
+
 	private JPanel getPanel_6() {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
 		}
 		return panel_6;
 	}
+
 	private JPanel getPanel_7() {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
 		}
 		return panel_7;
 	}
+
 	private JPanel getPanel_8() {
 		if (panel_8 == null) {
 			panel_8 = new JPanel();

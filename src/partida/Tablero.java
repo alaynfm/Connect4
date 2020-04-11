@@ -1,5 +1,6 @@
 package partida;
 
+import java.io.ObjectOutputStream.PutField;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -8,6 +9,7 @@ import java.util.Stack;
 import javax.swing.JOptionPane;
 
 import interfaz.Iu_Partida;
+import interfaz.Iu_Revancha;
 
 public class Tablero extends Observable {
 
@@ -63,6 +65,8 @@ public class Tablero extends Observable {
 		// Creamos la interfaz con los datos correspondientes
 		interfaz = new Iu_Partida();
 		generarInterfaz(x, y);
+		puntj1 = 0;
+		puntj2 = 0;
 		turno = 0;
 	
 	}

@@ -64,6 +64,7 @@ public class Iu_Finpartida extends JFrame {
 		contentPane.add(getPanel_3(), BorderLayout.EAST);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		this.setUndecorated(true);
+		
 	}
 	
 	private JButton getBtnNewButton() {

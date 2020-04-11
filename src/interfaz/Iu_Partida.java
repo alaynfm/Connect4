@@ -87,6 +87,8 @@ public class Iu_Partida extends JFrame {
 		contentPane.add(getPanel_3(), BorderLayout.SOUTH);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		turno = 0;
+		setLocationRelativeTo(null);
+
 
 		/*
 		 * Si lo ponemos a true Jugador vs Jose Murillo Si ponemos a false Jugador1 vs
