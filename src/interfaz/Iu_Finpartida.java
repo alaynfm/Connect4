@@ -9,11 +9,15 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class Iu_Finpartida extends JFrame {
@@ -172,6 +176,12 @@ public class Iu_Finpartida extends JFrame {
 			txtNickJugador.setFont(new Font("Tahoma", Font.PLAIN, 29));
 			txtNickJugador.setText("Nick Jugador");
 			txtNickJugador.setColumns(10);
+			txtNickJugador.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+			txtNickJugador.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					txtNickJugador.setText("");
+				}
+			});
 		}
 		return txtNickJugador;
 	}
@@ -184,6 +194,7 @@ public class Iu_Finpartida extends JFrame {
 			txtPuntuacion.setHorizontalAlignment(SwingConstants.CENTER);
 			txtPuntuacion.setText("Puntuacion");
 			txtPuntuacion.setColumns(10);
+			txtPuntuacion.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		}
 		return txtPuntuacion;
 	}
