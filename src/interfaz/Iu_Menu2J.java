@@ -151,8 +151,8 @@ public class Iu_Menu2J extends JFrame {
 			centro1.add(getPanel_3_1());
 			centro1.add(getPanel_2_1());
 			centro1.add(getPanel_5());
-			centro1.add(getPanel_4_1());
 			centro1.add(getPanel_6_1());
+			centro1.add(getPanel_4_1());
 			centro1.add(getPanel_7());
 		}
 		return centro1;
@@ -246,23 +246,23 @@ public class Iu_Menu2J extends JFrame {
 						
 						try {
 
-							int f = Integer.parseInt(textField_1.getText());
-							int c = Integer.parseInt(textField_2.getText());
+//							int f = Integer.parseInt(textField_1.getText());
+//							int c = Integer.parseInt(textField_2.getText());
 
-							if (f >= 6 && c >= 7 && f<=18 && c<=38) {
+//							if (f >= 6 && c >= 7 && f<=18 && c<=38) {
 
-								Tablero.getMiTablero().generarTablero(f, c);
-								textField_1.setText(f + "");
-								textField_2.setText(c + "");
+								Tablero.getMiTablero().generarTablero(6, 9);
+//								textField_1.setText(f + "");
+//								textField_2.setText(c + "");
 								Tablero.getMiTablero().setForma(false);
 								setVisible(false);
 
-							} else {
-								JOptionPane.showMessageDialog(null,
-										"Valores erroneos, por favor comprueba que las filas son al menos 6 y las columnas 7", "Error",
-										JOptionPane.ERROR_MESSAGE);
-
-							}
+//							} else {
+//								JOptionPane.showMessageDialog(null,
+//										"Valores erroneos, por favor comprueba que las filas son al menos 6 y las columnas 7", "Error",
+//										JOptionPane.ERROR_MESSAGE);
+//
+//							}
 
 						} catch (NumberFormatException excepcion) {
 							// System.out.println("Por favor introduce numeros");
@@ -331,11 +331,11 @@ public class Iu_Menu2J extends JFrame {
 			panel_5 = new JPanel();
 			panel_5.setBackground(Color.DARK_GRAY);
 			panel_5.setLayout(null);
-			panel_5.add(getLblFilas());
-			panel_5.add(getLblColumnas());
-			panel_5.add(getTextField_2_1());
-			panel_5.add(getLblX());
-			panel_5.add(getTextField_1());
+//			panel_5.add(getLblFilas());
+//			panel_5.add(getLblColumnas());
+//			panel_5.add(getTextField_2_1());
+//			panel_5.add(getLblX());
+//			panel_5.add(getTextField_1());
 		}
 		return panel_5;
 	}

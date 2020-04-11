@@ -47,7 +47,6 @@ public class Iu_Partida extends JFrame {
 	private int x = -1;
 	private int turno; // Para saber si le toca al azul o al rojo
 
-
 	/*
 	 * Los numeros impares corresponden al jugador 1, los numeros pares al jugador 2
 	 */
@@ -89,7 +88,6 @@ public class Iu_Partida extends JFrame {
 		turno = 0;
 		setLocationRelativeTo(null);
 
-
 		/*
 		 * Si lo ponemos a true Jugador vs Jose Murillo Si ponemos a false Jugador1 vs
 		 * Jugador2
@@ -103,12 +101,11 @@ public class Iu_Partida extends JFrame {
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	public void crearTablero(int fila, int col) {
-		
 
 		// programa para la creacion del tablero con los correspondientes botones
 
 		panel_6.setSize(((col) * (tamanoX)), ((fila + 2) * tamanoY));
-		setSize(panel_7.getWidth()+panel_6.getWidth() + 40, panel_7.getHeight()+panel_6.getHeight()+40);
+		setSize(panel_7.getWidth() + panel_6.getWidth() + 40, panel_7.getHeight() + panel_6.getHeight() + 40);
 		tablero = new JButton[fila][col]; // generamos el tablero de botones
 
 		int x = 0;
@@ -202,7 +199,7 @@ public class Iu_Partida extends JFrame {
 		}
 
 	}
-	
+
 	public void seturno(int t) {
 		turno = t;
 	}
@@ -219,7 +216,7 @@ public class Iu_Partida extends JFrame {
 
 	}
 
-	public void pintarPosicion(int f, int c,String color) {
+	public void pintarPosicion(int f, int c, String color) {
 
 		ImageIcon imagen;
 
@@ -288,7 +285,18 @@ public class Iu_Partida extends JFrame {
 			}
 		}
 	}
-	
+
+	public void restableceTablero() {
+
+		for (int i = 0; i < tablero.length; i++) {
+			for (int c = 0; c < tablero[0].length; c++) {
+				tablero[i][c].setBorder(new LineBorder(Color.GRAY));
+				tablero[i][c].setBackground(Color.DARK_GRAY);
+				tablero[i][c].setIcon(null);
+			}
+		}
+	}
+
 	public void pintarGanadores(String f, String c, String color) {
 
 		// utilizamos el metodo para marcar las casillas con las que se ha ganado la
@@ -318,13 +326,11 @@ public class Iu_Partida extends JFrame {
 		x = j;
 	}
 
-
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	/* Programas para cambiar la informacion y funcionamiento de la interfaz */
 
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 	public void setNombreJugador1(String nombre) {
 		// Para cambiar el nombre del jugador 1
@@ -346,7 +352,6 @@ public class Iu_Partida extends JFrame {
 		// Para cambiar la puntuacion del jugador2 o de la IA
 		label_1.setText(punt + "");
 	}
-	
 
 	public String getNombreJugador1() {
 		// Para obtener el nombre del jugador 1 que hemos escrito
@@ -445,6 +450,7 @@ public class Iu_Partida extends JFrame {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
 			FlowLayout flowLayout = (FlowLayout) panel_7.getLayout();
+			flowLayout.setHgap(15);
 			panel_7.setBackground(Color.DARK_GRAY);
 			panel_7.add(getLblNick());
 			panel_7.add(getLabel());
@@ -459,7 +465,7 @@ public class Iu_Partida extends JFrame {
 		if (lblNick == null) {
 			lblNick = new JLabel("Nick1");
 			lblNick.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNick.setFont(new Font("Arial Black", Font.BOLD, 21));
+			lblNick.setFont(new Font("Arial Black", Font.PLAIN, 25));
 			lblNick.setForeground(new Color(51, 153, 255));
 		}
 		return lblNick;
@@ -469,8 +475,8 @@ public class Iu_Partida extends JFrame {
 		if (label == null) {
 			label = new JLabel(" 1 ");
 			label.setHorizontalAlignment(SwingConstants.CENTER);
-			label.setFont(new Font("Arial", Font.PLAIN, 21));
-			label.setForeground(new Color(153, 0, 0));
+			label.setFont(new Font("Arial", Font.BOLD, 32));
+			label.setForeground(Color.WHITE);
 		}
 		return label;
 	}
@@ -487,7 +493,7 @@ public class Iu_Partida extends JFrame {
 	private JLabel getLblNick_1() {
 		if (lblNick_1 == null) {
 			lblNick_1 = new JLabel("Nick2");
-			lblNick_1.setFont(new Font("Arial Black", Font.BOLD, 21));
+			lblNick_1.setFont(new Font("Arial Black", Font.PLAIN, 25));
 			lblNick_1.setForeground(new Color(153, 0, 0));
 		}
 		return lblNick_1;
@@ -496,8 +502,8 @@ public class Iu_Partida extends JFrame {
 	private JLabel getLabel_1() {
 		if (label_1 == null) {
 			label_1 = new JLabel(" 1 ");
-			label_1.setFont(new Font("Arial", Font.PLAIN, 25));
-			label_1.setForeground(new Color(51, 153, 255));
+			label_1.setFont(new Font("Arial", Font.BOLD, 32));
+			label_1.setForeground(Color.WHITE);
 		}
 		return label_1;
 	}

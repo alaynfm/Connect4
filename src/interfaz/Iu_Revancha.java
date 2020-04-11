@@ -68,6 +68,9 @@ public class Iu_Revancha extends JFrame {
 		contentPane.add(getPanel_7(), BorderLayout.WEST);
 		contentPane.add(getPanel_8(), BorderLayout.EAST);
 		this.setUndecorated(true);
+		setLocation(700,100);
+		Iu_gif gif = new Iu_gif("ganar");
+		gif.setVisible(true);
 
 	}
 
@@ -136,19 +139,21 @@ public class Iu_Revancha extends JFrame {
 			btnS.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 
-					Tablero.getMiTablero().eliminarInterfaz();
+					//Tablero.getMiTablero().eliminarInterfaz();
+					Tablero.getMiTablero().generarTablero(6, 9);
+				
 
 					setVisible(false);
 
-					if (Tablero.getMiTablero().getForma()) {
-						Iu_Menu1J.miPartida().setVisible(true);
-						// Hay que hacer que no se pueda cambiar el nombre solo cambiar el numero de
-						// filas
-					} else {
-						Iu_Menu2J.miPartida().setVisible(true);
-						// Hay que hacer que no se pueda cambiar el nombre solo cambiar el numero de
-						// filas
-					}
+//					if (Tablero.getMiTablero().getForma()) {
+//						Iu_Menu1J.miPartida().setVisible(true);
+//						// Hay que hacer que no se pueda cambiar el nombre solo cambiar el numero de
+//						// filas
+//					} else {
+//						Iu_Menu2J.miPartida().setVisible(true);
+//						// Hay que hacer que no se pueda cambiar el nombre solo cambiar el numero de
+//						// filas
+//					}
 				}
 			});
 			btnS.setForeground(new Color(255, 255, 255));

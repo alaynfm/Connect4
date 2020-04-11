@@ -154,9 +154,9 @@ public class Iu_Menu1J extends JFrame {
 			centro1.add(getPanel_1_1());
 			centro1.add(getPanel_3_1());
 			centro1.add(getPanel_2_1());
-			centro1.add(getPanel_5());
 			centro1.add(getPanel_4_1());
 			centro1.add(getPanel_6_1());
+			centro1.add(getPanel_5());
 			centro1.add(getPanel_7());
 		}
 		return centro1;
@@ -269,19 +269,22 @@ public class Iu_Menu1J extends JFrame {
 
 					try {
 
-						int f = Integer.parseInt(textField_1.getText());
-						int c = Integer.parseInt(textField_2.getText());
+//						int f = Integer.parseInt(textField_1.getText());
+//						int c = Integer.parseInt(textField_2.getText());
 
 						if (txtNick.getText().length() > 8 || txtNick.getText().length() == 0) {
 
 							JOptionPane.showMessageDialog(null, "Los nicknames con menos de 8 caracteres", "Warming",
 									JOptionPane.WARNING_MESSAGE);
+							
+							
 
 						} else {
 
-							if (f >= 6 && c >= 7 && f<=18 && c<=35) {
-								
-								Tablero.getMiTablero().generarTablero(f, c);
+							Tablero.getMiTablero().generarTablero(6, 9);
+//							if (f >= 6 && c >= 7 && f<=18 && c<=35) {
+//								
+//								Tablero.getMiTablero().generarTablero(f, c);
 
 								if (rdbtnDificil.isSelected() || rdbtnFacil.isSelected()) {
 
@@ -298,12 +301,11 @@ public class Iu_Menu1J extends JFrame {
 											"Warming", JOptionPane.WARNING_MESSAGE);
 								}
 
-							} else {
-								JOptionPane.showMessageDialog(null,
-										"Valores erroneos, por favor comprueba los valores de nuevo", "Error",
-										JOptionPane.ERROR_MESSAGE);
-
-							}
+//							} else {
+//								JOptionPane.showMessageDialog(null,
+//										"Valores erroneos, por favor comprueba los valores de nuevo", "Error",
+//										JOptionPane.ERROR_MESSAGE);
+//							}
 						}
 						
 					} catch (NumberFormatException excepcion) {
@@ -390,11 +392,11 @@ public class Iu_Menu1J extends JFrame {
 			panel_5 = new JPanel();
 			panel_5.setBackground(Color.DARK_GRAY);
 			panel_5.setLayout(null);
-			panel_5.add(getLblFilas());
-			panel_5.add(getLblColumnas());
-			panel_5.add(getTextField_2_1());
-			panel_5.add(getLblX());
-			panel_5.add(getTextField_1());
+//			panel_5.add(getLblFilas());
+//			panel_5.add(getLblColumnas());
+//			panel_5.add(getTextField_2_1());
+//			panel_5.add(getLblX());
+//			panel_5.add(getTextField_1());
 		}
 		return panel_5;
 	}
@@ -443,7 +445,7 @@ public class Iu_Menu1J extends JFrame {
 			textField_2 = new JTextField();
 			textField_2.setFont(new Font("Tahoma", Font.PLAIN, 25));
 			textField_2.setHorizontalAlignment(SwingConstants.CENTER);
-			textField_2.setText("7");
+			textField_2.setText("9");
 			textField_2.setForeground(Color.WHITE);
 			textField_2.setBackground(Color.DARK_GRAY);
 			textField_2.setBounds(454, 9, 46, 35);

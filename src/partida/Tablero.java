@@ -74,6 +74,7 @@ public class Tablero extends Observable {
 	public void generarInterfaz(int x, int y) {
 		
 		interfaz.crearTablero(x, y);
+		interfaz.setLocationRelativeTo(null); 	//Para centrar la ventana en el medio
 		interfaz.setNombreJugador1(jugador1);
 		interfaz.setNombreJugador2(jugador2);
 		interfaz.setPuntuacionJugador2(puntj2);
