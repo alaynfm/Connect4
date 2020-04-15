@@ -459,7 +459,7 @@ public class Tablero extends Observable {
 	public Iu_Partida getInterfaz() {
 		return interfaz;
 	}
-
+	
 	public void setForma(boolean f) {
 		forma = f;
 	}
@@ -475,5 +475,7 @@ public class Tablero extends Observable {
 	public void setj2(String f) {
 		jugador2 = f;
 	}
+	
+
 
 }

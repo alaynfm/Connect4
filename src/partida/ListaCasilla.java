@@ -11,8 +11,6 @@ public class ListaCasilla {
 		lista = new HashMap<String,Integer >();
 	}
 	
-	/* Para las casillas normales utilizaremos como clave cod = c + fila + columna
-	   para las bombas utilizaremos como clave cod = b + fila + columna; */
 	
 	public void anadirCasilla(String cod, int columna) {
 		lista.put(cod, columna);
