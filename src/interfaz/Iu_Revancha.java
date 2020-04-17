@@ -33,6 +33,7 @@ public class Iu_Revancha extends JFrame {
 	private JPanel panel_6;
 	private JPanel panel_7;
 	private JPanel panel_8;
+	Iu_gif gif;
 
 	/**
 	 * Launch the application.
@@ -68,9 +69,10 @@ public class Iu_Revancha extends JFrame {
 		contentPane.add(getPanel_7(), BorderLayout.WEST);
 		contentPane.add(getPanel_8(), BorderLayout.EAST);
 		this.setUndecorated(true);
-		setLocation(700,100);
-		Iu_gif gif = new Iu_gif("ganar");
+		setLocation(750,50);
+		gif = new Iu_gif("ganar");
 		gif.setVisible(true);
+		gif.setLocation(750,400);
 
 	}
 
@@ -144,6 +146,7 @@ public class Iu_Revancha extends JFrame {
 				
 
 					setVisible(false);
+					gif.setVisible(false);
 
 //					if (Tablero.getMiTablero().getForma()) {
 //						Iu_Menu1J.miPartida().setVisible(true);
@@ -181,11 +184,13 @@ public class Iu_Revancha extends JFrame {
 					j1.setLocation(1100, 150);
 					j1.setVisible(true);
 					setVisible(false);
+					gif.setVisible(false);
 
 				}
 			});
 			btnNo.setBackground(new Color(153, 0, 0));
 			btnNo.setForeground(new Color(255, 255, 255));
+			
 		}
 		return btnNo;
 	}
