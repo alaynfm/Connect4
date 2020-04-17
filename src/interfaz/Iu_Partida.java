@@ -12,6 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
@@ -19,10 +22,14 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.GridLayout;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 public class Iu_Partida extends JFrame {
 
@@ -36,16 +43,22 @@ public class Iu_Partida extends JFrame {
 	private JPanel panel_6;
 	private JPanel panel_7;
 	private JLabel lblNick;
-	private JLabel label;
-	private JLabel lblVs;
 	private JLabel lblNick_1;
-	private JLabel label_1;
 	private JPanel panel_10;
+	private static int cont = 0;
+	private Timer timer;
 	private JButton[][] tablero;
-	private int tamanoX = 50;
-	private int tamanoY = 50;
+	private int tamanoX = 70;
+	private int tamanoY = 70;
 	private int x = -1;
 	private int turno; // Para saber si le toca al azul o al rojo
+	private JLabel lblTimepoc;
+	private JLabel lblTiempod;
+	private JLabel lblTiempou;
+	private JPanel panel_8;
+	private JPanel panel_9;
+	private JPanel panel_11;
+	private JButton btnNewButton;
 
 	/*
 	 * Los numeros impares corresponden al jugador 1, los numeros pares al jugador 2
@@ -77,16 +90,18 @@ public class Iu_Partida extends JFrame {
 		setBounds(100, 100, 870, 413);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.GRAY, Color.GRAY, Color.GRAY, Color.GRAY));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.add(getPanel_7(), BorderLayout.SOUTH);
 		contentPane.add(getPanel(), BorderLayout.NORTH);
 		contentPane.add(getPanel_1(), BorderLayout.WEST);
 		contentPane.add(getPanel_2(), BorderLayout.EAST);
-		contentPane.add(getPanel_3(), BorderLayout.SOUTH);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		turno = 0;
 		setLocationRelativeTo(null);
+		contadorTimer();
+		setUndecorated(true);
 
 		/*
 		 * Si lo ponemos a true Jugador vs Jose Murillo Si ponemos a false Jugador1 vs
@@ -104,57 +119,68 @@ public class Iu_Partida extends JFrame {
 
 		// programa para la creacion del tablero con los correspondientes botones
 
-		panel_6.setSize(((col) * (tamanoX)), ((fila + 2) * tamanoY));
-		setSize(panel_7.getWidth() + panel_6.getWidth() + 40, panel_7.getHeight() + panel_6.getHeight() + 40);
-		tablero = new JButton[fila][col]; // generamos el tablero de botones
+		panel_6.setSize(((col) * (tamanoX)), ((fila + 3) * tamanoY));
+		setSize(panel_7.getWidth() + panel_6.getWidth() + 40, panel_7.getHeight() + panel_6.getHeight() );
+		tablero = new JButton[fila + 1][col]; // generamos el tablero de botones
 
 		int x = 0;
 		int y = 6;
 
-		for (int a = 0; a < fila; a++) {
+		for (int a = 0; a < fila + 1; a++) {
 			for (int e = 0; e < col; e++) {
 				JButton jb = new JButton();
 				jb.setBackground(null);
 				jb.setBorderPainted(true);
+
+				
+
 				tablero[a][e] = jb;
 				tablero[a][e].setBounds(x, y, tamanoX, tamanoY);
-				jb.setBorder(new LineBorder(Color.GRAY));
 				jb.setIcon(null);
 
-				tablero[a][e].addMouseListener(new MouseAdapter() {
+				if (a != 0) {
+					jb.setBorder(new LineBorder(Color.GRAY));
+					
+				} else {
+					jb.setBorder(new LineBorder(Color.WHITE));
 
-					public void mouseEntered(MouseEvent evento) {
+					tablero[a][e].addMouseListener(new MouseAdapter() {
 
-						// Si pasamos por encima con el raton, mostramos la donde se colocaria la ficha
-						int j = (int) (jb.getX() / (tablero[0][1]).getX());
-						setCambio(j);
-						caidaFichas();
-					}
+						public void mouseEntered(MouseEvent evento) {
 
-					public void mouseExited(MouseEvent evento) {
-
-						if (!Tablero.getMiTablero().hayGanador()) {
-							// Cuando quitamos el cursor del raton volvemos a ponerlo normal
+							// Si pasamos por encima con el raton, mostramos la donde se colocaria la ficha
 							int j = (int) (jb.getX() / (tablero[0][1]).getX());
 							setCambio(j);
-							retomarFichas();
+							caidaFichas();
 						}
-					}
 
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
+						public void mouseExited(MouseEvent evento) {
 
-						// Cuando hacemos click
-						int j = (int) (jb.getX() / (tablero[0][1]).getX());
-
-						if (arg0.getButton() == 1) {
-							// Cuando hacemos click izq
-
-							Tablero.getMiTablero().jugarPartida(j);
-
+							if (!Tablero.getMiTablero().hayGanador()) {
+								// Cuando quitamos el cursor del raton volvemos a ponerlo normal
+								int j = (int) (jb.getX() / (tablero[0][1]).getX());
+								setCambio(j);
+								retomarFichas();
+							}
 						}
-					}
-				});
+
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+
+							// Cuando hacemos click
+							int j = (int) (jb.getX() / (tablero[0][1]).getX());
+							if (timer == null)
+								iniciarTimer();
+
+							if (arg0.getButton() == 1) {
+								// Cuando hacemos click izq
+
+								Tablero.getMiTablero().jugarPartida(j);
+
+							}
+						}
+					});
+				}
 
 				getPanel_6().add(jb);
 				x = x + tamanoX;
@@ -172,13 +198,19 @@ public class Iu_Partida extends JFrame {
 
 		// metodo para pintar donde caeria la ficha al pasar por encima de la columna
 		if (x >= 0) {
-			for (int i = 0; i < tablero.length; i++) {
+			
+			ImageIcon img = new ImageIcon("img/f.png");
+			java.awt.Image conversion = img.getImage();
+			java.awt.Image tamano = conversion.getScaledInstance(60,60,	0);
+			ImageIcon fin = new ImageIcon(tamano);
+			tablero[0][x].setIcon(fin);
+			for (int i = 1; i < tablero.length; i++) {
 
-				if (!Tablero.getMiTablero().getPosicion(i, x).equals("-")) {
+				if (!Tablero.getMiTablero().getPosicion(i-1, x).equals("-")) {
 
-				} else if (i + 1 < tablero.length) {
+				} else if (i +1< tablero.length) {
 
-					if (!Tablero.getMiTablero().getPosicion(i + 1, x).equals("-")) {
+					if (!Tablero.getMiTablero().getPosicion(i, x).equals("-")) {
 
 						// tablero[i][x].setBackground(Color.GRAY);
 						if (turno % 2 == 0)
@@ -194,6 +226,8 @@ public class Iu_Partida extends JFrame {
 						tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
 					else
 						tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+					
+					break;
 				}
 			}
 		}
@@ -207,12 +241,13 @@ public class Iu_Partida extends JFrame {
 	private void retomarFichas() {
 
 		// metodo para volver a colocar todo normal
-		for (int i = tablero.length - 1; i >= 0; i--) {
+		for (int i = tablero.length - 1; i >= 1; i--) {
 			tablero[i][x].setBackground(Color.DARK_GRAY);
 			tablero[i][x].setBorder(new LineBorder(Color.GRAY));
 			repaint();
 
 		}
+		tablero[0][x].setIcon(null);
 
 	}
 
@@ -272,15 +307,15 @@ public class Iu_Partida extends JFrame {
 
 		ImageIcon imagen;
 
-		for (int i = 0; i < tablero.length; i++) {
+		for (int i = 1; i < tablero.length; i++) {
 			for (int c = 0; c < tablero[0].length; c++) {
-				String color = Tablero.getMiTablero().getPosicion(i, c);
+				String color = Tablero.getMiTablero().getPosicion(i - 1, c);
 				imagen = new ImageIcon("img/" + color + ".png");
 				java.awt.Image conversion = imagen.getImage();
 				java.awt.Image tamano = conversion.getScaledInstance(tablero[0][0].getWidth() - 6,
 						tablero[0][0].getWidth() - 6, 0);
 				ImageIcon fin = new ImageIcon(tamano);
-				tablero[i][c].setIcon(fin);
+				tablero[i - 1][c].setIcon(fin);
 
 			}
 		}
@@ -308,11 +343,11 @@ public class Iu_Partida extends JFrame {
 			int columna = Integer.parseInt(c);
 
 			if (color.equals("a"))
-				tablero[fila][columna].setBackground(Color.BLUE);
+				tablero[fila + 1][columna].setBackground(Color.BLUE);
 			else
-				tablero[fila][columna].setBackground(Color.RED);
+				tablero[fila + 1][columna].setBackground(Color.RED);
 
-			tablero[fila][columna].setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.GRAY));
+			tablero[fila+1][columna].setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.GRAY));
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -324,6 +359,55 @@ public class Iu_Partida extends JFrame {
 
 		// Metodo que utilizamos para decir que vamos a añadir una ficha en esa columna
 		x = j;
+	}
+
+	private Timer iniciarTimer() {
+		// Inicia el contador del timer
+
+		if (timer == null) {
+			timer = new Timer(1000, new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					cont++;
+					contadorTimer();
+				}
+			});
+			timer.start();
+		}
+		return timer;
+	}
+
+	private void contadorTimer() {
+
+		int centenas = cont / 100;
+		int decenas = (cont - (centenas * 100)) / 10;
+		int unidades = cont - (centenas * 100 + decenas * 10);
+
+		ImageIcon imgD = new ImageIcon("img/r" + decenas + ".png");
+		ImageIcon imgU = new ImageIcon("img/r" + unidades + ".png");
+		ImageIcon imgC = new ImageIcon("img/r" + centenas + ".png");
+
+		java.awt.Image timerC = imgC.getImage();
+		java.awt.Image sizeC = timerC.getScaledInstance(25, 30, 0);
+		ImageIcon centena = new ImageIcon(sizeC);
+
+		java.awt.Image timerD = imgD.getImage();
+		java.awt.Image sizeD = timerD.getScaledInstance(25, 30, 0);
+		ImageIcon decena = new ImageIcon(sizeD);
+
+		java.awt.Image timerU = imgU.getImage();
+		java.awt.Image sizeU = timerU.getScaledInstance(25, 30, 0);
+		ImageIcon unidad = new ImageIcon(sizeU);
+
+		getLblTimepoC().setIcon(centena);
+		getLblTiempoD().setIcon(decena);
+		getLblTiempoU().setIcon(unidad);
+
+	}
+
+	public void pararTimer() {
+		timer.stop();
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -341,16 +425,6 @@ public class Iu_Partida extends JFrame {
 	public void setNombreJugador2(String nombre) {
 		// Para cambiar el nombre del jugador dos o de la IA
 		lblNick_1.setText(nombre);
-	}
-
-	public void setPuntuacionJugador2(int punt) {
-		// Para cambiar la puntuacion del jugador1
-		label.setText(punt + "");
-	}
-
-	public void setPunatuacionJugador1(int punt) {
-		// Para cambiar la puntuacion del jugador2 o de la IA
-		label_1.setText(punt + "");
 	}
 
 	public String getNombreJugador1() {
@@ -407,6 +481,10 @@ public class Iu_Partida extends JFrame {
 		if (panel_3 == null) {
 			panel_3 = new JPanel();
 			panel_3.setBackground(Color.DARK_GRAY);
+			panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			panel_3.add(getLblTimepoC());
+			panel_3.add(getLblTiempoD());
+			panel_3.add(getLblTiempoU());
 		}
 		return panel_3;
 	}
@@ -428,7 +506,7 @@ public class Iu_Partida extends JFrame {
 			panel_5 = new JPanel();
 			panel_5.setBackground(Color.DARK_GRAY);
 			panel_5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			panel_5.add(getPanel_7());
+			panel_5.add(getPanel_3());
 		}
 		return panel_5;
 	}
@@ -449,14 +527,11 @@ public class Iu_Partida extends JFrame {
 	private JPanel getPanel_7() {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
-			FlowLayout flowLayout = (FlowLayout) panel_7.getLayout();
-			flowLayout.setHgap(15);
 			panel_7.setBackground(Color.DARK_GRAY);
-			panel_7.add(getLblNick());
-			panel_7.add(getLabel());
-			panel_7.add(getLblVs());
-			panel_7.add(getLabel_1());
-			panel_7.add(getLblNick_1());
+			panel_7.setLayout(new GridLayout(0, 3, 0, 0));
+			panel_7.add(getPanel_8());
+			panel_7.add(getPanel_9());
+			panel_7.add(getPanel_11());
 		}
 		return panel_7;
 	}
@@ -464,6 +539,7 @@ public class Iu_Partida extends JFrame {
 	private JLabel getLblNick() {
 		if (lblNick == null) {
 			lblNick = new JLabel("Nick1");
+			lblNick.setBackground(Color.DARK_GRAY);
 			lblNick.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNick.setFont(new Font("Arial Black", Font.PLAIN, 25));
 			lblNick.setForeground(new Color(51, 153, 255));
@@ -471,41 +547,14 @@ public class Iu_Partida extends JFrame {
 		return lblNick;
 	}
 
-	private JLabel getLabel() {
-		if (label == null) {
-			label = new JLabel(" 1 ");
-			label.setHorizontalAlignment(SwingConstants.CENTER);
-			label.setFont(new Font("Arial", Font.BOLD, 32));
-			label.setForeground(Color.WHITE);
-		}
-		return label;
-	}
-
-	private JLabel getLblVs() {
-		if (lblVs == null) {
-			lblVs = new JLabel("Vs");
-			lblVs.setForeground(Color.WHITE);
-			lblVs.setFont(new Font("Segoe Print", Font.PLAIN, 28));
-		}
-		return lblVs;
-	}
-
 	private JLabel getLblNick_1() {
 		if (lblNick_1 == null) {
 			lblNick_1 = new JLabel("Nick2");
+			lblNick_1.setBackground(Color.DARK_GRAY);
 			lblNick_1.setFont(new Font("Arial Black", Font.PLAIN, 25));
 			lblNick_1.setForeground(new Color(153, 0, 0));
 		}
 		return lblNick_1;
-	}
-
-	private JLabel getLabel_1() {
-		if (label_1 == null) {
-			label_1 = new JLabel(" 1 ");
-			label_1.setFont(new Font("Arial", Font.BOLD, 32));
-			label_1.setForeground(Color.WHITE);
-		}
-		return label_1;
 	}
 
 	private JPanel getPanel_10() {
@@ -516,4 +565,67 @@ public class Iu_Partida extends JFrame {
 		return panel_10;
 	}
 
+	private JLabel getLblTimepoC() {
+		if (lblTimepoc == null) {
+			lblTimepoc = new JLabel("");
+		}
+		return lblTimepoc;
+	}
+
+	private JLabel getLblTiempoD() {
+		if (lblTiempod == null) {
+			lblTiempod = new JLabel("");
+		}
+		return lblTiempod;
+	}
+
+	private JLabel getLblTiempoU() {
+		if (lblTiempou == null) {
+			lblTiempou = new JLabel("");
+		}
+		return lblTiempou;
+	}
+
+	private JPanel getPanel_8() {
+		if (panel_8 == null) {
+			panel_8 = new JPanel();
+			panel_8.setBackground(Color.DARK_GRAY);
+			panel_8.add(getLblNick());
+		}
+		return panel_8;
+	}
+
+	private JPanel getPanel_9() {
+		if (panel_9 == null) {
+			panel_9 = new JPanel();
+			panel_9.setBackground(Color.DARK_GRAY);
+			panel_9.add(getBtnNewButton());
+		}
+		return panel_9;
+	}
+
+	private JPanel getPanel_11() {
+		if (panel_11 == null) {
+			panel_11 = new JPanel();
+			panel_11.setBackground(Color.DARK_GRAY);
+			panel_11.add(getLblNick_1());
+		}
+		return panel_11;
+	}
+
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("Rendirse");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					Iu_Inicio.miInicio().setVisible(true);
+				}
+			});
+			btnNewButton.setForeground(Color.WHITE);
+			btnNewButton.setBackground(Color.DARK_GRAY);
+			btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 23));
+		}
+		return btnNewButton;
+	}
 }

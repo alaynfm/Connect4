@@ -8,6 +8,8 @@ import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
+import interfaz.Iu_Finpartida;
+import interfaz.Iu_Inicio;
 import interfaz.Iu_Partida;
 import interfaz.Iu_Revancha;
 
@@ -77,8 +79,6 @@ public class Tablero extends Observable {
 		interfaz.setLocationRelativeTo(null); 	//Para centrar la ventana en el medio
 		interfaz.setNombreJugador1(jugador1);
 		interfaz.setNombreJugador2(jugador2);
-		interfaz.setPuntuacionJugador2(puntj2);
-		interfaz.setPunatuacionJugador1(puntj1);
 		interfaz.setVisible(true);
 		interfaz.setEnabled(true);
 		interfaz.pintarTablero();
@@ -146,9 +146,9 @@ public class Tablero extends Observable {
 			if (tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
 				if (turno % 2 == 0)
-					interfaz.pintarPosicion(i, c, "a"); // Pintamos la columna en la que la ponemos
+					interfaz.pintarPosicion(i+1, c, "a"); // Pintamos la columna en la que la ponemos
 				else
-					interfaz.pintarPosicion(i, c, "r");
+					interfaz.pintarPosicion(i+1, c, "r");
 				buscarGanador(i, c, color);
 				listaCasillasLibres.eliminarCasillla("" + i + "" + c + "");
 				break;
@@ -168,16 +168,29 @@ public class Tablero extends Observable {
 				interfaz.pintarGanadores(v1[0], v1[1], ganador);
 			}
 
-			if(turno % 2 == 0) puntj1++;
-			else puntj2++;
-			Iu_Revancha r = new Iu_Revancha();
-			r.setVisible(true);
+	
+			//hacemos que la interfaz no funcione, la partida se ha terminado
 			interfaz.setEnabled(false);
+			
+			interfaz.pararTimer();
+			
+			if(forma) {
+				(new Iu_Finpartida()).setVisible(true);
+				
+			}else {
+				//hacer la Iu Revancha por si quieren jugar otra
+				(new Iu_Revancha()).setVisible(true);
+				
+			}
+			
 
 		}
 
 	}
 
+	public void cerrarInterfaz() {
+		interfaz.dispose();
+	}
 	private void buscarGanador(int i, int x, String color) {
 		if (buscarGanadorJuego(i, x)) {
 			if (color == "r") {

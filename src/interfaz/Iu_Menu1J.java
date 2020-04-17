@@ -16,12 +16,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Shape;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -58,7 +60,7 @@ public class Iu_Menu1J extends JFrame {
 	private JButton btnNormas;
 	private JButton btnAtras;
 	private JLabel lblVs;
-	private JLabel lblJoseMurillo;
+	private JTextField lblJoseMurillo;
 	private JPanel panel_5;
 	private JLabel lblFilas;
 	private JLabel lblColumnas;
@@ -67,6 +69,7 @@ public class Iu_Menu1J extends JFrame {
 	private JLabel lblX;
 	private ButtonGroup group = new ButtonGroup();
 	private JTextField txtNick;
+	private JRadioButton rdbtnvs;
 
 	/**
 	 * Launch the application.
@@ -104,8 +107,10 @@ public class Iu_Menu1J extends JFrame {
 		setResizable(false);
 		group.add(rdbtnDificil);
 		group.add(rdbtnFacil);
-		setLocation(500, 200);
-
+		group.add(getRdbtnvs());
+		getRdbtnvs().setSelected(true);
+		setLocationRelativeTo(null);
+		setUndecorated(true);
 
 	}
 
@@ -209,6 +214,7 @@ public class Iu_Menu1J extends JFrame {
 			panel_4.setLayout(null);
 			panel_4.add(getRdbtnFacil());
 			panel_4.add(getRdbtnDificil());
+			panel_4.add(getRdbtnvs());
 		}
 		return panel_4;
 	}
@@ -226,10 +232,10 @@ public class Iu_Menu1J extends JFrame {
 	private JRadioButton getRdbtnFacil() {
 		if (rdbtnFacil == null) {
 			rdbtnFacil = new JRadioButton("Facil");
-			rdbtnFacil.setForeground(new Color(153, 0, 0));
-			rdbtnFacil.setBounds(308, 0, 100, 49);
+			rdbtnFacil.setForeground(Color.WHITE);
+			rdbtnFacil.setBounds(242, 0, 100, 49);
 			rdbtnFacil.setBackground(Color.DARK_GRAY);
-			rdbtnFacil.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			rdbtnFacil.setFont(new Font("Tahoma", Font.PLAIN, 25));
 			rdbtnFacil.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return rdbtnFacil;
@@ -238,10 +244,10 @@ public class Iu_Menu1J extends JFrame {
 	private JRadioButton getRdbtnDificil() {
 		if (rdbtnDificil == null) {
 			rdbtnDificil = new JRadioButton("Dificil");
-			rdbtnDificil.setForeground(new Color(0, 153, 255));
-			rdbtnDificil.setBounds(421, 0, 92, 49);
+			rdbtnDificil.setForeground(Color.WHITE);
+			rdbtnDificil.setBounds(363, 0, 92, 49);
 			rdbtnDificil.setBackground(Color.DARK_GRAY);
-			rdbtnDificil.setFont(new Font("Tahoma", Font.PLAIN, 19));
+			rdbtnDificil.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		}
 		return rdbtnDificil;
 	}
@@ -267,60 +273,39 @@ public class Iu_Menu1J extends JFrame {
 					Tablero.getMiTablero().setj1(txtNick.getText());
 					Tablero.getMiTablero().setj2("Murillo");
 
-					try {
 
-//						int f = Integer.parseInt(textField_1.getText());
-//						int c = Integer.parseInt(textField_2.getText());
+					if (txtNick.getText().length() > 8 || txtNick.getText().length() == 0 || lblJoseMurillo.getText().length() > 8 || lblJoseMurillo.getText().length() == 0) {
 
-						if (txtNick.getText().length() > 8 || txtNick.getText().length() == 0) {
+						JOptionPane.showMessageDialog(null, "Los nicknames con menos de 8 caracteres", "Warming",
+								JOptionPane.WARNING_MESSAGE);
 
-							JOptionPane.showMessageDialog(null, "Los nicknames con menos de 8 caracteres", "Warming",
-									JOptionPane.WARNING_MESSAGE);
-							
-							
+					} else {
+
+						Tablero.getMiTablero().generarTablero(6, 9);
+
+						if (rdbtnDificil.isSelected() || rdbtnFacil.isSelected() || rdbtnvs.isSelected()) {
+
+							setVisible(false);
+
+							if (rdbtnFacil.isSelected()) {
+								Tablero.getMiTablero().setForma(true);
+								Tablero.getMiTablero().setIa(true);
+							} else if (rdbtnDificil.isSelected()) {
+								Tablero.getMiTablero().setForma(true);
+								Tablero.getMiTablero().setIa(false);
+							} else {
+								Tablero.getMiTablero().setForma(false);
+							}
 
 						} else {
-
-							Tablero.getMiTablero().generarTablero(6, 9);
-//							if (f >= 6 && c >= 7 && f<=18 && c<=35) {
-//								
-//								Tablero.getMiTablero().generarTablero(f, c);
-
-								if (rdbtnDificil.isSelected() || rdbtnFacil.isSelected()) {
-
-									setVisible(false);
-
-									if (rdbtnFacil.isSelected())
-										Tablero.getMiTablero().setForma(true);
-									else
-										Tablero.getMiTablero().setForma(false);
-
-									
-								} else {
-									JOptionPane.showMessageDialog(null, "Por favor seleccione una dificultad",
-											"Warming", JOptionPane.WARNING_MESSAGE);
-								}
-
-//							} else {
-//								JOptionPane.showMessageDialog(null,
-//										"Valores erroneos, por favor comprueba los valores de nuevo", "Error",
-//										JOptionPane.ERROR_MESSAGE);
-//							}
+							JOptionPane.showMessageDialog(null, "Por favor seleccione una dificultad", "Warming",
+									JOptionPane.WARNING_MESSAGE);
 						}
-						
-					} catch (NumberFormatException excepcion) {
-						// System.out.println("Por favor introduce numeros");
-						JOptionPane.showMessageDialog(null, "Por favor introduce n�meros", "Error",
-								JOptionPane.ERROR_MESSAGE);
 					}
-
-					// Hay que mirar que las filas y las columnas son numeros
-
-					// hay que difinir el tipo de Ia que se va a jugar
 				}
 			});
-			btnEmpezar.setForeground(Color.GRAY);
-			btnEmpezar.setBackground(Color.DARK_GRAY);
+			btnEmpezar.setForeground(Color.DARK_GRAY);
+			btnEmpezar.setBackground(Color.LIGHT_GRAY);
 			btnEmpezar.setBounds(331, 0, 144, 49);
 
 		}
@@ -369,19 +354,27 @@ public class Iu_Menu1J extends JFrame {
 			lblVs = new JLabel("Vs");
 			lblVs.setForeground(Color.WHITE);
 			lblVs.setFont(new Font("Tahoma", Font.PLAIN, 36));
-			lblVs.setBounds(388, -9, 46, 57);
+			lblVs.setBounds(379, -5, 46, 57);
 		}
 		return lblVs;
 	}
 
-	private JLabel getLblJoseMurillo() {
+	private JTextField getLblJoseMurillo() {
 		if (lblJoseMurillo == null) {
-			lblJoseMurillo = new JLabel("Jose Murillo");
+			lblJoseMurillo = new JTextField("Jugador2");
 			lblJoseMurillo.setHorizontalAlignment(SwingConstants.CENTER);
 			lblJoseMurillo.setBounds(453, 0, 197, 49);
-			lblJoseMurillo.setForeground(new Color(204, 0, 0));
+			lblJoseMurillo.setForeground(Color.WHITE);
 			lblJoseMurillo.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 			lblJoseMurillo.setFont(new Font("Tahoma", Font.PLAIN, 33));
+
+			lblJoseMurillo.setBackground(new Color(153, 0, 0));
+			lblJoseMurillo.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+			lblJoseMurillo.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					lblJoseMurillo.setText("");
+				}
+			});
 
 		}
 		return lblJoseMurillo;
@@ -474,11 +467,11 @@ public class Iu_Menu1J extends JFrame {
 			txtNick = new JTextField();
 			txtNick.setHorizontalAlignment(SwingConstants.CENTER);
 			txtNick.setFont(new Font("Tahoma", Font.PLAIN, 33));
-			txtNick.setForeground(new Color(0, 153, 255));
-			txtNick.setBackground(Color.DARK_GRAY);
-			txtNick.setBounds(165, 0, 197, 48);
+			txtNick.setForeground(Color.WHITE);
+			txtNick.setBackground(new Color(0, 153, 255));
+			txtNick.setBounds(142, 0, 197, 48);
 			txtNick.setColumns(10);
-			txtNick.setText("Nick1");
+			txtNick.setText("Jugador1");
 			txtNick.setBorder(null);
 			txtNick.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 			txtNick.addMouseListener(new MouseAdapter() {
@@ -488,5 +481,21 @@ public class Iu_Menu1J extends JFrame {
 			});
 		}
 		return txtNick;
+	}
+
+	private JRadioButton getRdbtnvs() {
+		if (rdbtnvs == null) {
+			rdbtnvs = new JRadioButton("1vs1");
+			rdbtnvs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					lblJoseMurillo.setText("Murillo");
+				}
+			});
+			rdbtnvs.setForeground(Color.WHITE);
+			rdbtnvs.setFont(new Font("Tahoma", Font.PLAIN, 25));
+			rdbtnvs.setBackground(Color.DARK_GRAY);
+			rdbtnvs.setBounds(483, 0, 92, 49);
+		}
+		return rdbtnvs;
 	}
 }

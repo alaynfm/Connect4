@@ -7,7 +7,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -19,6 +22,9 @@ import java.awt.Insets;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import java.awt.FlowLayout;
 
 public class Iu_Inicio extends JFrame {
 
@@ -31,12 +37,18 @@ public class Iu_Inicio extends JFrame {
 	private JPanel panel_4;
 	private JLabel lblConecta;
 	private JButton btnUnJugador;
-	private JButton btnMultijugador;
 	private JButton btnTop;
 	private JLabel lblXabico;
 	private JButton btnRegistrarse;
 	
 	private static Iu_Inicio miinicio = new Iu_Inicio();
+	private JPanel panel_5;
+	private JPanel panel_6;
+	private JPanel panel_7;
+	private JPanel panel_8;
+	private JPanel panel_9;
+	private JPanel panel_10;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -62,7 +74,7 @@ public class Iu_Inicio extends JFrame {
 		setBounds(100, 100, 873, 470);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.GRAY, Color.GRAY, Color.GRAY, Color.GRAY));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanel(), BorderLayout.NORTH);
@@ -70,7 +82,8 @@ public class Iu_Inicio extends JFrame {
 		contentPane.add(getPanel_2(), BorderLayout.WEST);
 		contentPane.add(getPanel_3(), BorderLayout.EAST);
 		contentPane.add(getCenter(), BorderLayout.CENTER);
-		setLocation(500, 200);
+		setLocationRelativeTo(null);
+		setUndecorated(true);
 
 	}
 
@@ -81,6 +94,9 @@ public class Iu_Inicio extends JFrame {
 		if (panel == null) {
 			panel = new JPanel();
 			panel.setBackground(Color.DARK_GRAY);
+			panel.setLayout(new GridLayout(0, 2, 0, 0));
+			panel.add(getPanel_5());
+			panel.add(getPanel_6());
 		}
 		return panel;
 	}
@@ -135,14 +151,8 @@ public class Iu_Inicio extends JFrame {
 			gbc_btnUnJugador.fill = GridBagConstraints.BOTH;
 			gbc_btnUnJugador.insets = new Insets(0, 0, 5, 5);
 			gbc_btnUnJugador.gridx = 0;
-			gbc_btnUnJugador.gridy = 1;
+			gbc_btnUnJugador.gridy = 2;
 			panel_4.add(getBtnUnJugador(), gbc_btnUnJugador);
-			GridBagConstraints gbc_btnMultijugador = new GridBagConstraints();
-			gbc_btnMultijugador.fill = GridBagConstraints.BOTH;
-			gbc_btnMultijugador.insets = new Insets(0, 0, 5, 5);
-			gbc_btnMultijugador.gridx = 0;
-			gbc_btnMultijugador.gridy = 2;
-			panel_4.add(getBtnMultijugador(), gbc_btnMultijugador);
 			GridBagConstraints gbc_btnTop = new GridBagConstraints();
 			gbc_btnTop.insets = new Insets(0, 0, 5, 5);
 			gbc_btnTop.fill = GridBagConstraints.BOTH;
@@ -160,7 +170,7 @@ public class Iu_Inicio extends JFrame {
 	}
 	private JLabel getLblConecta() {
 		if (lblConecta == null) {
-			lblConecta = new JLabel("Connect4");
+			lblConecta = new JLabel("Conecta4");
 			lblConecta.setFont(new Font("Georgia", Font.BOLD, 64));
 			lblConecta.setForeground(Color.WHITE);
 			lblConecta.setHorizontalAlignment(SwingConstants.CENTER);
@@ -169,7 +179,7 @@ public class Iu_Inicio extends JFrame {
 	}
 	private JButton getBtnUnJugador() {
 		if (btnUnJugador == null) {
-			btnUnJugador = new JButton("Un Jugador");
+			btnUnJugador = new JButton("Jugar Partida");
 			btnUnJugador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);
@@ -177,28 +187,13 @@ public class Iu_Inicio extends JFrame {
 				}
 			});
 			btnUnJugador.setFont(new Font("Tahoma", Font.PLAIN, 19));
-			btnUnJugador.setBackground(new Color(135, 206, 250));
+			btnUnJugador.setBackground(new Color(0, 153, 255));
 		}
 		return btnUnJugador;
 	}
-	private JButton getBtnMultijugador() {
-		if (btnMultijugador == null) {
-			btnMultijugador = new JButton("Multijugador");
-			btnMultijugador.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					setVisible(false);
-					Iu_Menu2J.miPartida().setVisible(true);
-				}
-			});
-			btnMultijugador.setForeground(new Color(255, 255, 255));
-			btnMultijugador.setFont(new Font("Tahoma", Font.PLAIN, 19));
-			btnMultijugador.setBackground(new Color(204, 0, 51));
-		}
-		return btnMultijugador;
-	}
 	private JButton getBtnTop() {
 		if (btnTop == null) {
-			btnTop = new JButton("Top 10");
+			btnTop = new JButton("Mejores Puntuaciones");
 			btnTop.setBackground(new Color(255, 255, 255));
 			btnTop.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		}
@@ -213,10 +208,81 @@ public class Iu_Inicio extends JFrame {
 	}
 	private JButton getBtnRegistrarse() {
 		if (btnRegistrarse == null) {
-			btnRegistrarse = new JButton("Registrarse");
+			btnRegistrarse = new JButton("Normas");
 			btnRegistrarse.setForeground(Color.WHITE);
 			btnRegistrarse.setBackground(Color.DARK_GRAY);
 		}
 		return btnRegistrarse;
+	}
+	private JPanel getPanel_5() {
+		if (panel_5 == null) {
+			panel_5 = new JPanel();
+			panel_5.setBackground(Color.DARK_GRAY);
+			panel_5.setLayout(null);
+		}
+		return panel_5;
+	}
+	private JPanel getPanel_6() {
+		if (panel_6 == null) {
+			panel_6 = new JPanel();
+			panel_6.setBackground(Color.DARK_GRAY);
+			panel_6.setLayout(new GridLayout(1, 1, 0, 0));
+			panel_6.add(getPanel_7());
+			panel_6.add(getPanel_8());
+		}
+		return panel_6;
+	}
+	private JPanel getPanel_7() {
+		if (panel_7 == null) {
+			panel_7 = new JPanel();
+			panel_7.setBackground(Color.DARK_GRAY);
+		}
+		return panel_7;
+	}
+	private JPanel getPanel_8() {
+		if (panel_8 == null) {
+			panel_8 = new JPanel();
+			panel_8.setBackground(Color.DARK_GRAY);
+			panel_8.setLayout(new GridLayout(1, 0, 0, 0));
+			panel_8.add(getPanel_9());
+			panel_8.add(getPanel_10());
+		}
+		return panel_8;
+	}
+	private JPanel getPanel_9() {
+		if (panel_9 == null) {
+			panel_9 = new JPanel();
+			panel_9.setBackground(Color.DARK_GRAY);
+		}
+		return panel_9;
+	}
+	private JPanel getPanel_10() {
+		if (panel_10 == null) {
+			panel_10 = new JPanel();
+			panel_10.setBackground(Color.DARK_GRAY);
+			panel_10.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+			panel_10.add(getBtnNewButton());
+		}
+		return panel_10;
+	}
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("");
+			ImageIcon img = new ImageIcon("img/x.png");;
+			java.awt.Image conversion = img.getImage();
+			java.awt.Image tamano = conversion.getScaledInstance(20,20,0);
+			ImageIcon fin = new ImageIcon(tamano);
+			btnNewButton.setIcon(fin);
+			btnNewButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					setVisible(false);
+					dispose();
+					System.exit(0);	//Para cerrar toda ejecucion que pueda existir
+				}
+			});
+			btnNewButton.setBackground(Color.DARK_GRAY);
+		}
+		return btnNewButton;
 	}
 }

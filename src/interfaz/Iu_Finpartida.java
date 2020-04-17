@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import partida.Tablero;
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -19,6 +22,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 public class Iu_Finpartida extends JFrame {
 
@@ -35,6 +41,10 @@ public class Iu_Finpartida extends JFrame {
 	private JButton btnNewButton;
 	private JTextField txtNickJugador;
 	private JTextField txtPuntuacion;
+	private JButton btnNo;
+	private JLabel lblquieresGuardarTu;
+	private JPanel panel_9;
+	private JPanel panel_10;
 
 	/**
 	 * Launch the application.
@@ -59,7 +69,7 @@ public class Iu_Finpartida extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 576, 300);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanel(), BorderLayout.NORTH);
@@ -73,12 +83,12 @@ public class Iu_Finpartida extends JFrame {
 	
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
-			btnNewButton = new JButton("ok");
+			btnNewButton = new JButton("Si");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					//Guardar el high score en la base de datos (top 10)
-					//Actualizar el high Scores (top 10)
-					dispose();
+					//ir a la base de datos
+					//guardar los datos
+					//activar la interfaz HighScores
 				}
 			});
 			btnNewButton.setForeground(Color.WHITE);
@@ -128,10 +138,12 @@ public class Iu_Finpartida extends JFrame {
 			panel_4 = new JPanel();
 			panel_4.setBackground(Color.DARK_GRAY);
 			panel_4.setLayout(new GridLayout(0, 1, 0, 0));
-			panel_4.add(getPanel_5());
+			panel_4.add(getPanel_9());
 			panel_4.add(getPanel_6());
 			panel_4.add(getPanel_7());
+			panel_4.add(getPanel_5());
 			panel_4.add(getPanel_8());
+			panel_4.add(getPanel_10());
 		}
 		return panel_4;
 	}
@@ -139,6 +151,8 @@ public class Iu_Finpartida extends JFrame {
 		if (panel_5 == null) {
 			panel_5 = new JPanel();
 			panel_5.setBackground(Color.DARK_GRAY);
+			panel_5.setLayout(new GridLayout(0, 1, 0, 0));
+			panel_5.add(getLblquieresGuardarTu());
 		}
 		return panel_5;
 	}
@@ -146,6 +160,7 @@ public class Iu_Finpartida extends JFrame {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
 			panel_6.setBackground(Color.DARK_GRAY);
+			panel_6.setLayout(null);
 			panel_6.add(getTxtNickJugador());
 		}
 		return panel_6;
@@ -154,6 +169,7 @@ public class Iu_Finpartida extends JFrame {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
 			panel_7.setBackground(Color.DARK_GRAY);
+			panel_7.setLayout(null);
 			panel_7.add(getTxtPuntuacion());
 		}
 		return panel_7;
@@ -161,8 +177,11 @@ public class Iu_Finpartida extends JFrame {
 	private JPanel getPanel_8() {
 		if (panel_8 == null) {
 			panel_8 = new JPanel();
+			FlowLayout flowLayout = (FlowLayout) panel_8.getLayout();
+			flowLayout.setHgap(20);
 			panel_8.setBackground(Color.DARK_GRAY);
 			panel_8.add(getBtnNewButton());
+			panel_8.add(getBtnNo());
 		}
 		return panel_8;
 	}
@@ -170,8 +189,9 @@ public class Iu_Finpartida extends JFrame {
 	private JTextField getTxtNickJugador() {
 		if (txtNickJugador == null) {
 			txtNickJugador = new JTextField();
+			txtNickJugador.setBounds(154, 0, 242, 37);
 			txtNickJugador.setForeground(Color.WHITE);
-			txtNickJugador.setBackground(Color.DARK_GRAY);
+			txtNickJugador.setBackground(new Color(0, 153, 255));
 			txtNickJugador.setHorizontalAlignment(SwingConstants.CENTER);
 			txtNickJugador.setFont(new Font("Tahoma", Font.PLAIN, 29));
 			txtNickJugador.setText("Nick Jugador");
@@ -188,6 +208,7 @@ public class Iu_Finpartida extends JFrame {
 	private JTextField getTxtPuntuacion() {
 		if (txtPuntuacion == null) {
 			txtPuntuacion = new JTextField();
+			txtPuntuacion.setBounds(180, 11, 182, 29);
 			txtPuntuacion.setBackground(Color.DARK_GRAY);
 			txtPuntuacion.setForeground(Color.WHITE);
 			txtPuntuacion.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -197,5 +218,44 @@ public class Iu_Finpartida extends JFrame {
 			txtPuntuacion.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		}
 		return txtPuntuacion;
+	}
+	private JButton getBtnNo() {
+		if (btnNo == null) {
+			btnNo = new JButton("No");
+			btnNo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//Volvemos a la pantalla de inicio
+					Iu_Inicio.miInicio().setVisible(true);
+					setVisible(false);
+					Tablero.getMiTablero().cerrarInterfaz();
+				}
+			});
+			btnNo.setBackground(new Color(153, 0, 0));
+			btnNo.setForeground(Color.WHITE);
+		}
+		return btnNo;
+	}
+	private JLabel getLblquieresGuardarTu() {
+		if (lblquieresGuardarTu == null) {
+			lblquieresGuardarTu = new JLabel("\u00BFQuieres guardar tu puntuaci\u00F3n?");
+			lblquieresGuardarTu.setForeground(Color.WHITE);
+			lblquieresGuardarTu.setHorizontalAlignment(SwingConstants.CENTER);
+			lblquieresGuardarTu.setFont(new Font("Tahoma", Font.PLAIN, 27));
+		}
+		return lblquieresGuardarTu;
+	}
+	private JPanel getPanel_9() {
+		if (panel_9 == null) {
+			panel_9 = new JPanel();
+			panel_9.setBackground(Color.DARK_GRAY);
+		}
+		return panel_9;
+	}
+	private JPanel getPanel_10() {
+		if (panel_10 == null) {
+			panel_10 = new JPanel();
+			panel_10.setBackground(Color.DARK_GRAY);
+		}
+		return panel_10;
 	}
 }

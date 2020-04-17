@@ -147,16 +147,11 @@ public class Iu_Revancha extends JFrame {
 
 					setVisible(false);
 					gif.setVisible(false);
+					Iu_Menu1J.miPartida().setVisible(true);
+					Tablero.getMiTablero().cerrarInterfaz();
+					dispose();
 
-//					if (Tablero.getMiTablero().getForma()) {
-//						Iu_Menu1J.miPartida().setVisible(true);
-//						// Hay que hacer que no se pueda cambiar el nombre solo cambiar el numero de
-//						// filas
-//					} else {
-//						Iu_Menu2J.miPartida().setVisible(true);
-//						// Hay que hacer que no se pueda cambiar el nombre solo cambiar el numero de
-//						// filas
-//					}
+
 				}
 			});
 			btnS.setForeground(new Color(255, 255, 255));
@@ -171,21 +166,9 @@ public class Iu_Revancha extends JFrame {
 			btnNo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
-					Tablero.getMiTablero().eliminarInterfaz();
-					Iu_highScores hs = new Iu_highScores();
-					hs.setVisible(true);
-					Iu_Finpartida j1 = new Iu_Finpartida(); // Para el jugador azul
-					if (!Tablero.getMiTablero().getForma()) {
-						Iu_Finpartida j2 = new Iu_Finpartida(); // Para el jugador dos o la IA
-						j2.setLocation(1100, 500);
-						j2.setVisible(true);
-					}
-
-					j1.setLocation(1100, 150);
-					j1.setVisible(true);
-					setVisible(false);
-					gif.setVisible(false);
-
+					Iu_Inicio.miInicio().setVisible(true);
+					Tablero.getMiTablero().cerrarInterfaz();
+					dispose();
 				}
 			});
 			btnNo.setBackground(new Color(153, 0, 0));
