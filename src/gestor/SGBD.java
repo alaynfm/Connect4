@@ -8,7 +8,14 @@ public class SGBD {
 	private static SGBD mSGBD;
 	private Connection conn;
 	
-	private SGBD() {}
+	private SGBD() {
+		try {
+			this.realizarConexion();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public static SGBD getSGBD() {
 		if (mSGBD == null) {
@@ -18,7 +25,7 @@ public class SGBD {
 	}
 	
 	public Connection realizarConexion() throws SQLException{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306", "sql7323314", "5sgebAHRDr");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/connect4", "root", "");
 		this.conn = conn;
 		return conn;
 	}

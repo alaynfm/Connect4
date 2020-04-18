@@ -20,11 +20,12 @@ public class GestorUsuarios {
 	
 	public void iniciarSesion(String usuario, String contrasena) {
 		try {
-			String consulta = "SELECT contrasena FROM usuarios WHERE usuario = " + usuario;
+			String consulta = "SELECT contrasena FROM usuarios WHERE usuario = '" + usuario+"'";
 			ResultSet rs = SGBD.getSGBD().realizarConsulta(consulta);
+			rs.next();
 			String contrasenaPosible = rs.getString(1);
 			
-			if (contrasenaPosible == contrasena) {
+			if (contrasenaPosible.equals(contrasena)) {
 				System.out.println("Sesion iniciada");
 				this.jugador = new Jugador(usuario, "rojo");
 			} else {
@@ -38,9 +39,9 @@ public class GestorUsuarios {
 	
 	public void registrarse(String usuario, String contrasena) {
 		try {
-			String update = "INSERT INTO usuarios (usuario, contrasena) VALUES (" + usuario + ", " + contrasena + ")";
+			String update = "INSERT INTO usuarios (usuario, contrasena) VALUES ('" + usuario + "', '" + contrasena + "')";
 			SGBD.getSGBD().realizarUpdate(update);
-			update = "INSERT INTO ranking (usuario, puntuacion, numpartidas) VALUES (" + usuario + ", 0, 0)";
+			update = "INSERT INTO ranking (usuario, puntuacion, numpartidas) VALUES ('" + usuario + "', 0, 0)";
 			SGBD.getSGBD().realizarUpdate(update);
 		} catch (SQLException e) {
 			System.out.println("Error al registrarte");
@@ -50,15 +51,16 @@ public class GestorUsuarios {
 	
 	public void partidaGanada(int puntuacion, String usuario) {
 		try {
-			String consulta = "SELECT puntuacion, numpartidas FROM ranking WHERE usuario = " + usuario;
+			String consulta = "SELECT puntuacion, numpartidas FROM ranking WHERE usuario = '" + usuario+"'";
 			ResultSet rs = SGBD.getSGBD().realizarConsulta(consulta);
+			rs.next();
 			int mejorPuntuacion = rs.getInt("puntuacion");
-			int numPartidas = rs.getInt("numpartidos");
+			int numPartidas = rs.getInt("numpartidas");
 			numPartidas++;
 			if (puntuacion > mejorPuntuacion) {
-				consulta = "UPDATE ranking SET puntuacion = " + puntuacion + ", numpartidas = " + numPartidas + " WHERE usuario = " + usuario;
+				consulta = "UPDATE ranking SET puntuacion = " + puntuacion + ", numpartidas = " + numPartidas + " WHERE usuario = '" + usuario+"'";
 			} else {
-				consulta = "UPDATE ranking SET numpartidas = " + numPartidas + " WHERE usuario = " + usuario;
+				consulta = "UPDATE ranking SET numpartidas = " + numPartidas + " WHERE usuario = '" + usuario+"'";
 			}
 			SGBD.getSGBD().realizarUpdate(consulta);
 			
