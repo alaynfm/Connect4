@@ -185,8 +185,6 @@ public class Tablero extends Observable {
 				(new Iu_Revancha()).setVisible(true);
 				
 			}
-			Iu_gig_ganar gif = new Iu_gig_ganar();
-			gif.setVisible(true);
 			
 
 		}

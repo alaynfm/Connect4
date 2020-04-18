@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import partida.AudioFilePlayer;
 import partida.Tablero;
 
 import java.awt.Color;
@@ -70,6 +71,7 @@ public class Iu_Revancha extends JFrame {
 		contentPane.add(getPanel_8(), BorderLayout.EAST);
 		this.setUndecorated(true);
 		setLocation(750,50);
+		
 	}
 
 	private JPanel getPanel() {
@@ -146,6 +148,7 @@ public class Iu_Revancha extends JFrame {
 					Iu_Menu1J.miPartida().setVisible(true);
 					Tablero.getMiTablero().cerrarInterfaz();
 					dispose();
+					AudioFilePlayer.myaudio().reproducirAudio("lose");
 
 
 				}

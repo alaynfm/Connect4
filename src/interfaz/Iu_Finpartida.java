@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import partida.AudioFilePlayer;
 import partida.Tablero;
 
 import java.awt.GridLayout;
@@ -78,6 +79,7 @@ public class Iu_Finpartida extends JFrame {
 		contentPane.add(getPanel_3(), BorderLayout.EAST);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		this.setUndecorated(true);
+		AudioFilePlayer.myaudio().reproducirAudio("lose");
 		
 	}
 	
