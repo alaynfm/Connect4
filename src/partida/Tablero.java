@@ -12,6 +12,7 @@ import interfaz.Iu_Finpartida;
 import interfaz.Iu_Inicio;
 import interfaz.Iu_Partida;
 import interfaz.Iu_Revancha;
+import interfaz.Iu_gig_ganar;
 
 public class Tablero extends Observable {
 
@@ -174,6 +175,8 @@ public class Tablero extends Observable {
 			
 			interfaz.pararTimer();
 			
+			
+			
 			if(forma) {
 				(new Iu_Finpartida()).setVisible(true);
 				
@@ -182,6 +185,8 @@ public class Tablero extends Observable {
 				(new Iu_Revancha()).setVisible(true);
 				
 			}
+			Iu_gig_ganar gif = new Iu_gig_ganar();
+			gif.setVisible(true);
 			
 
 		}

@@ -33,7 +33,7 @@ public class Iu_Revancha extends JFrame {
 	private JPanel panel_6;
 	private JPanel panel_7;
 	private JPanel panel_8;
-	Iu_gif gif;
+	Iu_gig_ganar gif;
 
 	/**
 	 * Launch the application.
@@ -70,10 +70,6 @@ public class Iu_Revancha extends JFrame {
 		contentPane.add(getPanel_8(), BorderLayout.EAST);
 		this.setUndecorated(true);
 		setLocation(750,50);
-		gif = new Iu_gif("ganar");
-		gif.setVisible(true);
-		gif.setLocation(750,400);
-
 	}
 
 	private JPanel getPanel() {

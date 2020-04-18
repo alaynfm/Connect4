@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 
-public class Iu_gif extends JFrame {
+public class Iu_gig_ganar extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -24,7 +24,7 @@ public class Iu_gif extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Iu_gif frame = new Iu_gif("ganar");
+					Iu_gig_ganar frame = new Iu_gig_ganar();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,7 +36,7 @@ public class Iu_gif extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Iu_gif(String imagen) {
+	public Iu_gig_ganar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 309);
 		contentPane = new JPanel();
@@ -47,7 +47,7 @@ public class Iu_gif extends JFrame {
 		setUndecorated(true);//Decoraciones Deshabilitadas
 		setBackground(new Color(0,0,0,10));//Transparencia
 		
-		ImageIcon imageIcon = new ImageIcon("img/" + imagen + ".gif");
+		ImageIcon imageIcon = new ImageIcon("img/gif.gif");
 		java.awt.Image conversion = imageIcon.getImage();
 		java.awt.Image tamano = conversion.getScaledInstance(300, 300, 0);
 		ImageIcon fin = new ImageIcon(tamano);
