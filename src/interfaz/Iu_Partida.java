@@ -9,6 +9,7 @@ import javax.swing.border.LineBorder;
 import partida.Tablero;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.sound.sampled.ReverbType;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -45,7 +46,7 @@ public class Iu_Partida extends JFrame {
 	private JLabel lblNick;
 	private JLabel lblNick_1;
 	private JPanel panel_10;
-	private static int cont = 0;
+	private int cont = 0;
 	private Timer timer;
 	private JButton[][] tablero;
 	private int tamanoX = 70;
@@ -176,6 +177,7 @@ public class Iu_Partida extends JFrame {
 								// Cuando hacemos click izq
 
 								Tablero.getMiTablero().jugarPartida(j);
+								retomarFichas();
 
 							}
 						}
