@@ -133,8 +133,8 @@ public class Tablero {
 			color = "a";
 		else // Jugador2 o IA
 			color = "r";
-
-		for (int i = tablero.length - 1; i >= 0; i--) {
+		int i;
+		for (i = tablero.length - 1; i >= 0; i--) {
 			if (tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
 				if (turno % 2 == 0)
@@ -146,10 +146,10 @@ public class Tablero {
 				break;
 			}
 		}
-
-		turno++;
-		interfaz.seturno(turno);
-
+		if (i!=-1) { //Si i=-1 la columna esta llena
+			turno++;
+			interfaz.seturno(turno);
+		}
 		if (hayGanador()) { // Terminamos la partida y pintamos con las fichas que se ha ganado
 
 			ArrayList<String> lista = ganadores;
