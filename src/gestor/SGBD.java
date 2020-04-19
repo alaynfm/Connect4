@@ -25,7 +25,7 @@ public class SGBD {
 	}
 	
 	public Connection realizarConexion() throws SQLException{
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/connect4", "root", "");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/connecta4", "xabiandcogp", "gestiondeproyectos");
 		this.conn = conn;
 		return conn;
 	}
