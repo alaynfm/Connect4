@@ -1,5 +1,7 @@
 package interfaz;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -22,6 +24,8 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Observable;
 import java.util.Observer;
 import java.awt.event.ActionEvent;
@@ -48,7 +52,7 @@ public class Iu_Finpartida extends JFrame {
 	private JLabel lblquieresGuardarTu;
 	private JPanel panel_9;
 	private JPanel panel_10;
-
+	AudioClip clip;
 	/**
 	 * Launch the application.
 	 */
@@ -80,14 +84,26 @@ public class Iu_Finpartida extends JFrame {
 		contentPane.add(getPanel_2(), BorderLayout.WEST);
 		contentPane.add(getPanel_3(), BorderLayout.EAST);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
-		this.setUndecorated(true);		
+		this.setUndecorated(true);
+		this.reproducirMusica();
 	}
-	
+	private void reproducirMusica() {
+		
+		try {
+			clip = Applet.newAudioClip(new File("music/finalfantasy.wav").toURI().toURL());
+			clip.loop();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Si");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					clip.stop(); //para la musica
 					//ir a la base de datos
 					//guardar los datos
 					//activar la interfaz HighScores
@@ -227,6 +243,7 @@ public class Iu_Finpartida extends JFrame {
 			btnNo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//Volvemos a la pantalla de inicio
+					clip.stop(); //paramos la musica
 					Iu_Inicio.miInicio().setVisible(true);
 					setVisible(false);
 					Tablero.getMiTablero().cerrarInterfaz();
