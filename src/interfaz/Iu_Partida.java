@@ -106,7 +106,6 @@ public class Iu_Partida extends JFrame {
 		iniciarTimer();
 		cont = 0;
 		timer.restart();
-		
 
 		/*
 		 * Si lo ponemos a true Jugador vs Jose Murillo Si ponemos a false Jugador1 vs
@@ -125,7 +124,7 @@ public class Iu_Partida extends JFrame {
 		// programa para la creacion del tablero con los correspondientes botones
 
 		panel_6.setSize(((col) * (tamanoX)), ((fila + 3) * tamanoY));
-		setSize(panel_7.getWidth() + panel_6.getWidth() + 40, panel_7.getHeight() + panel_6.getHeight() );
+		setSize(panel_7.getWidth() + panel_6.getWidth() + 40, panel_7.getHeight() + panel_6.getHeight());
 		tablero = new JButton[fila + 1][col]; // generamos el tablero de botones
 
 		int x = 0;
@@ -143,7 +142,7 @@ public class Iu_Partida extends JFrame {
 
 				if (a != 0) {
 					jb.setBorder(new LineBorder(Color.GRAY));
-					
+
 				} else {
 					jb.setBorder(new LineBorder(Color.WHITE));
 
@@ -159,7 +158,7 @@ public class Iu_Partida extends JFrame {
 
 						public void mouseExited(MouseEvent evento) {
 
-							if 	(!Tablero.getMiTablero().hayGanador()) {
+							if (!Tablero.getMiTablero().hayGanador()) {
 								// Cuando quitamos el cursor del raton volvemos a ponerlo normal
 								int j = (int) (jb.getX() / (tablero[0][1]).getX());
 								setCambio(j);
@@ -172,12 +171,15 @@ public class Iu_Partida extends JFrame {
 
 							// Cuando hacemos click
 							int j = (int) (jb.getX() / (tablero[0][1]).getX());
-			
+
 							if (arg0.getButton() == 1) {
 								// Cuando hacemos click izq
 
 								Tablero.getMiTablero().jugarPartida(j);
-								retomarFichas();
+								if (!Tablero.getMiTablero().hayGanador()) {
+									retomarFichas();
+									caidaFichas();
+								}
 
 							}
 						}
@@ -200,17 +202,17 @@ public class Iu_Partida extends JFrame {
 
 		// metodo para pintar donde caeria la ficha al pasar por encima de la columna
 		if (x >= 0) {
-			
+
 			ImageIcon img = new ImageIcon("img/f.png");
 			java.awt.Image conversion = img.getImage();
-			java.awt.Image tamano = conversion.getScaledInstance(60,60,	0);
+			java.awt.Image tamano = conversion.getScaledInstance(60, 60, 0);
 			ImageIcon fin = new ImageIcon(tamano);
 			tablero[0][x].setIcon(fin);
 			for (int i = 1; i < tablero.length; i++) {
 
-				if (!Tablero.getMiTablero().getPosicion(i-1, x).equals("-")) {
+				if (!Tablero.getMiTablero().getPosicion(i - 1, x).equals("-")) {
 
-				} else if (i +1< tablero.length) {
+				} else if (i + 1 < tablero.length) {
 
 					if (!Tablero.getMiTablero().getPosicion(i, x).equals("-")) {
 
@@ -228,7 +230,7 @@ public class Iu_Partida extends JFrame {
 						tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.BLUE));
 					else
 						tablero[i][x].setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
-					
+
 					break;
 				}
 			}
@@ -349,7 +351,7 @@ public class Iu_Partida extends JFrame {
 			else
 				tablero[fila + 1][columna].setBackground(Color.RED);
 
-			tablero[fila+1][columna].setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.GRAY));
+			tablero[fila + 1][columna].setBorder(BorderFactory.createMatteBorder(1, 2, 1, 2, Color.GRAY));
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -366,16 +368,16 @@ public class Iu_Partida extends JFrame {
 	private Timer iniciarTimer() {
 		// Inicia el contador del timer
 
-			cont = 0;
-			timer = new Timer(1000, new ActionListener() {
+		cont = 0;
+		timer = new Timer(1000, new ActionListener() {
 
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					cont +=1;
-					contadorTimer();
-				}
-			});
-			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cont += 1;
+				contadorTimer();
+			}
+		});
+
 		timer.start();
 		return timer;
 	}
@@ -625,7 +627,7 @@ public class Iu_Partida extends JFrame {
 					cont = 0;
 					dispose();
 					Iu_Inicio.miInicio().setVisible(true);
-					
+
 				}
 			});
 			btnNewButton.setForeground(Color.WHITE);
