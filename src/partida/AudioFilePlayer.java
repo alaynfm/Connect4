@@ -6,16 +6,10 @@ import java.io.IOException;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
-public class AudioFilePlayer {
+public class AudioFilePlayer extends Thread{
 
-
-	
-	private static AudioFilePlayer audio = new AudioFilePlayer(); 
-	private AudioFilePlayer() {
-	}
-
-	public static AudioFilePlayer myaudio() {
-		return audio;
+ 
+	public AudioFilePlayer() {
 	}
 
 	public void reproducirAudio(String audio) {

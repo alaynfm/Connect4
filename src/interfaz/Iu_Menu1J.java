@@ -237,6 +237,11 @@ public class Iu_Menu1J extends JFrame {
 			rdbtnFacil.setBackground(Color.DARK_GRAY);
 			rdbtnFacil.setFont(new Font("Tahoma", Font.PLAIN, 25));
 			rdbtnFacil.setHorizontalAlignment(SwingConstants.CENTER);
+			rdbtnFacil.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					lblJoseMurillo.setText("Murillo");
+				}
+			});
 		}
 		return rdbtnFacil;
 	}
@@ -248,6 +253,11 @@ public class Iu_Menu1J extends JFrame {
 			rdbtnDificil.setBounds(363, 0, 92, 49);
 			rdbtnDificil.setBackground(Color.DARK_GRAY);
 			rdbtnDificil.setFont(new Font("Tahoma", Font.PLAIN, 25));
+			rdbtnDificil.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					lblJoseMurillo.setText("Murillo");
+				}
+			});
 		}
 		return rdbtnDificil;
 	}
@@ -385,11 +395,6 @@ public class Iu_Menu1J extends JFrame {
 			panel_5 = new JPanel();
 			panel_5.setBackground(Color.DARK_GRAY);
 			panel_5.setLayout(null);
-//			panel_5.add(getLblFilas());
-//			panel_5.add(getLblColumnas());
-//			panel_5.add(getTextField_2_1());
-//			panel_5.add(getLblX());
-//			panel_5.add(getTextField_1());
 		}
 		return panel_5;
 	}
@@ -486,15 +491,16 @@ public class Iu_Menu1J extends JFrame {
 	private JRadioButton getRdbtnvs() {
 		if (rdbtnvs == null) {
 			rdbtnvs = new JRadioButton("1vs1");
-			rdbtnvs.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					lblJoseMurillo.setText("Murillo");
-				}
-			});
+		
 			rdbtnvs.setForeground(Color.WHITE);
 			rdbtnvs.setFont(new Font("Tahoma", Font.PLAIN, 25));
 			rdbtnvs.setBackground(Color.DARK_GRAY);
 			rdbtnvs.setBounds(483, 0, 92, 49);
+			rdbtnvs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					lblJoseMurillo.setText("Jugador2");
+				}
+			});
 		}
 		return rdbtnvs;
 	}

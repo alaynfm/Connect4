@@ -102,6 +102,9 @@ public class Iu_Partida extends JFrame {
 		setLocationRelativeTo(null);
 		contadorTimer();
 		setUndecorated(true);
+		iniciarTimer();
+		cont = 0;
+		
 
 		/*
 		 * Si lo ponemos a true Jugador vs Jose Murillo Si ponemos a false Jugador1 vs
@@ -132,8 +135,6 @@ public class Iu_Partida extends JFrame {
 				jb.setBackground(null);
 				jb.setBorderPainted(true);
 
-				
-
 				tablero[a][e] = jb;
 				tablero[a][e].setBounds(x, y, tamanoX, tamanoY);
 				jb.setIcon(null);
@@ -156,7 +157,7 @@ public class Iu_Partida extends JFrame {
 
 						public void mouseExited(MouseEvent evento) {
 
-							if (!Tablero.getMiTablero().hayGanador()) {
+							if 	(!Tablero.getMiTablero().hayGanador()) {
 								// Cuando quitamos el cursor del raton volvemos a ponerlo normal
 								int j = (int) (jb.getX() / (tablero[0][1]).getX());
 								setCambio(j);
@@ -169,9 +170,7 @@ public class Iu_Partida extends JFrame {
 
 							// Cuando hacemos click
 							int j = (int) (jb.getX() / (tablero[0][1]).getX());
-							if (timer == null)
-								iniciarTimer();
-
+			
 							if (arg0.getButton() == 1) {
 								// Cuando hacemos click izq
 
@@ -364,17 +363,17 @@ public class Iu_Partida extends JFrame {
 	private Timer iniciarTimer() {
 		// Inicia el contador del timer
 
-		if (timer == null) {
+			cont = 0;
 			timer = new Timer(1000, new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					cont++;
+					cont = cont + 1;
 					contadorTimer();
 				}
 			});
-			timer.start();
-		}
+			
+		timer.start();
 		return timer;
 	}
 
@@ -618,8 +617,12 @@ public class Iu_Partida extends JFrame {
 			btnNewButton = new JButton("Rendirse");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+
+					timer.stop();
+					cont = 0;
 					dispose();
 					Iu_Inicio.miInicio().setVisible(true);
+					
 				}
 			});
 			btnNewButton.setForeground(Color.WHITE);

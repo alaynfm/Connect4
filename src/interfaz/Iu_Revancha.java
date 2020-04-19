@@ -148,7 +148,6 @@ public class Iu_Revancha extends JFrame {
 					Iu_Menu1J.miPartida().setVisible(true);
 					Tablero.getMiTablero().cerrarInterfaz();
 					dispose();
-					AudioFilePlayer.myaudio().reproducirAudio("lose");
 
 
 				}

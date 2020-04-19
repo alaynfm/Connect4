@@ -22,6 +22,8 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import javax.swing.border.SoftBevelBorder;
@@ -78,9 +80,7 @@ public class Iu_Finpartida extends JFrame {
 		contentPane.add(getPanel_2(), BorderLayout.WEST);
 		contentPane.add(getPanel_3(), BorderLayout.EAST);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
-		this.setUndecorated(true);
-		AudioFilePlayer.myaudio().reproducirAudio("lose");
-		
+		this.setUndecorated(true);		
 	}
 	
 	private JButton getBtnNewButton() {
@@ -259,5 +259,12 @@ public class Iu_Finpartida extends JFrame {
 			panel_10.setBackground(Color.DARK_GRAY);
 		}
 		return panel_10;
+	}
+	
+	public void iniciarSonido() {
+		AudioFilePlayer au = new AudioFilePlayer();
+		au.setPriority(Thread.NORM_PRIORITY);
+		au.start();
+		au.reproducirAudio("finalfantasy");
 	}
 }

@@ -14,7 +14,7 @@ import interfaz.Iu_Partida;
 import interfaz.Iu_Revancha;
 import interfaz.Iu_gig_ganar;
 
-public class Tablero extends Observable {
+public class Tablero {
 
 	private String[][] tablero;
 	/*
@@ -26,8 +26,6 @@ public class Tablero extends Observable {
 	private boolean forma; // true si es 1 vs IA
 	private String jugador1;
 	private String jugador2;
-	private int puntj1;
-	private int puntj2;
 
 	private static Tablero miTablero = new Tablero();
 	private ListaCasilla listaCasillasLibres;
@@ -39,16 +37,13 @@ public class Tablero extends Observable {
 		return miTablero;
 	}
 	
+	
 	private Tablero() {
 		setIa(true);
 		listaCasillasLibres = new ListaCasilla();
 		ganadores = new ArrayList<String>();
 		turno = 0;
-		
-		//Inicializamos los marcadores a 0
-		puntj1 = 0;
-		puntj2 = 0;
-		
+
 		interfaz = new Iu_Partida();
 
 	}
@@ -68,8 +63,6 @@ public class Tablero extends Observable {
 		// Creamos la interfaz con los datos correspondientes
 		interfaz = new Iu_Partida();
 		generarInterfaz(x, y);
-		puntj1 = 0;
-		puntj2 = 0;
 		turno = 0;
 	
 	}
@@ -172,11 +165,8 @@ public class Tablero extends Observable {
 	
 			//hacemos que la interfaz no funcione, la partida se ha terminado
 			interfaz.setEnabled(false);
-			
 			interfaz.pararTimer();
-			
-			
-			
+		
 			if(forma) {
 				(new Iu_Finpartida()).setVisible(true);
 				
@@ -185,8 +175,6 @@ public class Tablero extends Observable {
 				(new Iu_Revancha()).setVisible(true);
 				
 			}
-			
-
 		}
 
 	}
@@ -491,7 +479,5 @@ public class Tablero extends Observable {
 	public void setj2(String f) {
 		jugador2 = f;
 	}
-	
-
-
 }
+
