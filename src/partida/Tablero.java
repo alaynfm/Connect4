@@ -32,12 +32,10 @@ public class Tablero {
 	private ArrayList<String> ganadores;
 	private Iu_Partida interfaz;
 
-	
 	public static Tablero getMiTablero() {
 		return miTablero;
 	}
-	
-	
+
 	private Tablero() {
 		setIa(true);
 		listaCasillasLibres = new ListaCasilla();
@@ -64,13 +62,13 @@ public class Tablero {
 		interfaz = new Iu_Partida();
 		generarInterfaz(x, y);
 		turno = 0;
-	
+
 	}
-	
+
 	public void generarInterfaz(int x, int y) {
-		
+
 		interfaz.crearTablero(x, y);
-		interfaz.setLocationRelativeTo(null); 	//Para centrar la ventana en el medio
+		interfaz.setLocationRelativeTo(null); // Para centrar la ventana en el medio
 		interfaz.setNombreJugador1(jugador1);
 		interfaz.setNombreJugador2(jugador2);
 		interfaz.setVisible(true);
@@ -99,7 +97,7 @@ public class Tablero {
 	}
 
 	public void setIa(boolean nivel) {
-		
+
 		// true Ia facil
 		// False ia dificil
 		if (nivel)
@@ -140,9 +138,9 @@ public class Tablero {
 			if (tablero[i][c].equals("-")) {
 				tablero[i][c] = color;
 				if (turno % 2 == 0)
-					interfaz.pintarPosicion(i+1, c, "a"); // Pintamos la columna en la que la ponemos
+					interfaz.pintarPosicion(i + 1, c, "a"); // Pintamos la columna en la que la ponemos
 				else
-					interfaz.pintarPosicion(i+1, c, "r");
+					interfaz.pintarPosicion(i + 1, c, "r");
 				buscarGanador(i, c, color);
 				listaCasillasLibres.eliminarCasillla("" + i + "" + c + "");
 				break;
@@ -162,18 +160,22 @@ public class Tablero {
 				interfaz.pintarGanadores(v1[0], v1[1], ganador);
 			}
 
-	
-			//hacemos que la interfaz no funcione, la partida se ha terminado
+			// hacemos que la interfaz no funcione, la partida se ha terminado
 			interfaz.setEnabled(false);
 			interfaz.pararTimer();
-		
-			if(forma) {
-				(new Iu_Finpartida()).setVisible(true);
-				
-			}else {
-				//hacer la Iu Revancha por si quieren jugar otra
+
+			if (forma) {
+
+				if (ganador.equals("a")) {	//ha ganado el jugador
+					(new Iu_Finpartida()).setVisible(true);
+				}else {	//ha ganado la maquina
+					
+				}
+
+			} else {
+				// hacer la Iu Revancha por si quieren jugar otra
 				(new Iu_Revancha()).setVisible(true);
-				
+
 			}
 		}
 
@@ -182,6 +184,7 @@ public class Tablero {
 	public void cerrarInterfaz() {
 		interfaz.dispose();
 	}
+
 	private void buscarGanador(int i, int x, String color) {
 		if (buscarGanadorJuego(i, x)) {
 			if (color == "r") {
@@ -463,11 +466,11 @@ public class Tablero {
 	public Iu_Partida getInterfaz() {
 		return interfaz;
 	}
-	
+
 	public void setForma(boolean f) {
 		forma = f;
 	}
-	
+
 	public boolean getForma() {
 		return forma;
 	}
@@ -480,4 +483,3 @@ public class Tablero {
 		jugador2 = f;
 	}
 }
-

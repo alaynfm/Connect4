@@ -104,6 +104,7 @@ public class Iu_Partida extends JFrame {
 		setUndecorated(true);
 		iniciarTimer();
 		cont = 0;
+		timer.restart();
 		
 
 		/*
@@ -368,7 +369,7 @@ public class Iu_Partida extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					cont = cont + 1;
+					cont +=1;
 					contadorTimer();
 				}
 			});
