@@ -91,7 +91,7 @@ public class Iu_Finpartida extends JFrame {
 		
 		try {
 			clip = Applet.newAudioClip(new File("music/finalfantasy.wav").toURI().toURL());
-			clip.play();
+			clip.loop();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
