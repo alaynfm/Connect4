@@ -13,6 +13,7 @@ import partida.Tablero;
 import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -71,6 +72,8 @@ public class Iu_Revancha extends JFrame {
 		contentPane.add(getPanel_8(), BorderLayout.EAST);
 		this.setUndecorated(true);
 		setLocation(750,50);
+		ImageIcon imagen = new ImageIcon("img/logo.jpg");
+		this.setIconImage(imagen.getImage());
 		
 	}
 

@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -86,6 +87,8 @@ public class Iu_Finpartida extends JFrame {
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		this.setUndecorated(true);
 		this.reproducirMusica();
+		ImageIcon imagen = new ImageIcon("img/logo.jpg");
+		this.setIconImage(imagen.getImage());
 	}
 	private void reproducirMusica() {
 		

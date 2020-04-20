@@ -106,6 +106,8 @@ public class Iu_Partida extends JFrame {
 		iniciarTimer();
 		cont = 0;
 		timer.restart();
+		ImageIcon imagen = new ImageIcon("img/logo.jpg");
+		this.setIconImage(imagen.getImage());
 
 		/*
 		 * Si lo ponemos a true Jugador vs Jose Murillo Si ponemos a false Jugador1 vs

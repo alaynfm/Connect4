@@ -20,6 +20,7 @@ import java.awt.Shape;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -111,6 +112,8 @@ public class Iu_Menu1J extends JFrame {
 		getRdbtnvs().setSelected(true);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
+		ImageIcon imagen = new ImageIcon("img/logo.jpg");
+		this.setIconImage(imagen.getImage());
 
 	}
 
