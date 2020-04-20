@@ -13,6 +13,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JTable;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
@@ -21,6 +22,9 @@ import gestor.GestorUsuarios;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Component;
 
 public class Iu_highScores extends JFrame {
 
@@ -122,6 +126,7 @@ public class Iu_highScores extends JFrame {
 	private JScrollPane getPanel_5() {
 		if (panel_5 == null) {
 			panel_5 = new JScrollPane();
+			panel_5.setBorder(null);
 			panel_5.setViewportBorder(null);
 			panel_5.getViewport().setBackground(Color.DARK_GRAY);
 			panel_5.setBounds(10, 108, 555, 569);
@@ -164,8 +169,14 @@ public class Iu_highScores extends JFrame {
 	private JTable getTable_puntuaciones() {
 		if (table_puntuaciones == null) {
 			table_puntuaciones = new JTable(this.obtenerTabla(GestorUsuarios.getGestorUsuarios().obtener10Mejores("Facil")));
+			table_puntuaciones.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			table_puntuaciones.setForeground(Color.WHITE);
 			table_puntuaciones.setBackground(Color.DARK_GRAY);
+			table_puntuaciones.setForeground(Color.WHITE);
+			table_puntuaciones.setFont(new Font("Tahoma", Font.BOLD, 35));
+			table_puntuaciones.setAlignmentY(CENTER_ALIGNMENT);
+			table_puntuaciones.setRowHeight(53);
+			table_puntuaciones.setBorder(new LineBorder(Color.DARK_GRAY));
 		}
 		return table_puntuaciones;
 	}
