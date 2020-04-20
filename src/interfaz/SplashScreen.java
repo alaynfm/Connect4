@@ -6,8 +6,11 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.*;
+
+import gestor.SGBDLoader;
 
 public class SplashScreen extends JFrame {
 
@@ -19,7 +22,7 @@ public class SplashScreen extends JFrame {
 	private JLabel lblNewLabel;
 	private String[] txt = new String[5];
 	private String[] txt2 = new String[50];
-
+	private static int syncronize=0;
 	public SplashScreen() {
 		setUndecorated(true);
 		setBackground(Color.DARK_GRAY);
@@ -44,7 +47,7 @@ public class SplashScreen extends JFrame {
 		txt[0] = "Programador del juego Alain";
 		txt[1] = "Alvaro encargado de pruebas";
 		txt[2] = "Programador del juego Asier";
-		txt[3] = "Encargado del diseño Nico";
+		txt[3] = "Encargado del diseï¿½o Nico";
 		txt[4] = "Xabier, jefe de proyecto";
 
 		int c = 0;
@@ -68,7 +71,8 @@ public class SplashScreen extends JFrame {
 			}
 		}
 		txt2[47] = "Iniciando Juego";
-
+		SGBDLoader cargaBD= new SGBDLoader();
+		new Thread(cargaBD).start();  //cargamos la base de datos
 	}
 
 	private void loadProgressBar() {
@@ -79,7 +83,19 @@ public class SplashScreen extends JFrame {
 				lblNewLabel.setText(txt2[count]);
 				progressBar.setValue(count);
 				count++;
-
+				if (count ==41) { //sincronizamos la carga de la base de datos
+						int syncronizevalue=getSyncronize();
+						while (syncronizevalue==0) {
+							try {
+								Thread.sleep(ThreadLocalRandom.current().nextInt(1,11));
+								syncronizevalue=getSyncronize();
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						}
+					}
 				if (count == 49) {
 					lblNewLabel.setText(txt2[47]);
 					try {
@@ -113,5 +129,11 @@ public class SplashScreen extends JFrame {
 			lblNewLabel.setBounds(153, 327, 526, 14);
 		}
 		return lblNewLabel;
+	}
+	public static void setToSyncronized() {
+		syncronize=1;
+	}
+	private int getSyncronize() {
+		return syncronize;
 	}
 };

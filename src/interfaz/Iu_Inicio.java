@@ -84,8 +84,6 @@ public class Iu_Inicio extends JFrame {
 		contentPane.add(getCenter(), BorderLayout.CENTER);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
-		ImageIcon imagen = new ImageIcon("img/logo.jpg");
-		this.setIconImage(imagen.getImage());
 
 	}
 
@@ -198,7 +196,8 @@ public class Iu_Inicio extends JFrame {
 			btnTop = new JButton("Mejores Puntuaciones");
 			btnTop.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					new Iu_highScores();
+					//Iu_highScores.miPanel().actualizarPanel();
+					Iu_highScores.miPanel().setVisible(true);
 					setVisible(false);
 				}
 			});

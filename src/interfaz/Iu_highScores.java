@@ -35,10 +35,10 @@ public class Iu_highScores extends JFrame {
 	private JPanel panel_3;
 	private JPanel panel_4;
 	private JLabel lblHigh;
+	private static Iu_highScores miinterfaz = new Iu_highScores();
 	private JScrollPane panel_5;
 	private JButton btnSalir;
 	private JTable table_puntuaciones;
-
 	/**
 	 * Launch the application.
 	 */
@@ -58,7 +58,7 @@ public class Iu_highScores extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Iu_highScores() {
+	private Iu_highScores() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 621, 807);
 		contentPane = new JPanel();
@@ -72,7 +72,9 @@ public class Iu_highScores extends JFrame {
 		contentPane.add(getPanel_3(), BorderLayout.EAST);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		setLocation(400,100);
-		this.setVisible(true);
+	}
+	public static Iu_highScores miPanel() {
+		return miinterfaz;
 	}
 	private JPanel getPanel() {
 		if (panel == null) {
@@ -185,5 +187,9 @@ public class Iu_highScores extends JFrame {
 			table_puntuaciones.setAlignmentX(CENTER_ALIGNMENT);
 		}
 		return table_puntuaciones;
+	}
+	public void actualizarPanel() {
+		miinterfaz=new Iu_highScores();
+		miinterfaz.setVisible(false);
 	}
 }
