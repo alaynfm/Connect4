@@ -84,6 +84,8 @@ public class Iu_Inicio extends JFrame {
 		contentPane.add(getCenter(), BorderLayout.CENTER);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
+		ImageIcon imagen = new ImageIcon("img/logo.jpg");
+		this.setIconImage(imagen.getImage());
 
 	}
 

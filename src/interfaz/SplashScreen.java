@@ -73,6 +73,8 @@ public class SplashScreen extends JFrame {
 		txt2[47] = "Iniciando Juego";
 		SGBDLoader cargaBD= new SGBDLoader();
 		new Thread(cargaBD).start();  //cargamos la base de datos
+		ImageIcon imagen = new ImageIcon("img/logo.jpg");
+		this.setIconImage(imagen.getImage());
 	}
 
 	private void loadProgressBar() {
