@@ -194,6 +194,12 @@ public class Iu_Inicio extends JFrame {
 	private JButton getBtnTop() {
 		if (btnTop == null) {
 			btnTop = new JButton("Mejores Puntuaciones");
+			btnTop.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new Iu_highScores();
+					setVisible(false);
+				}
+			});
 			btnTop.setBackground(new Color(255, 255, 255));
 			btnTop.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		}

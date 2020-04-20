@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -15,6 +16,12 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
+import gestor.CustomTableModel;
+import gestor.GestorUsuarios;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class Iu_highScores extends JFrame {
 
 	private JPanel contentPane;
@@ -24,9 +31,9 @@ public class Iu_highScores extends JFrame {
 	private JPanel panel_3;
 	private JPanel panel_4;
 	private JLabel lblHigh;
-	private JPanel panel_5;
-	private JTable table;
+	private JScrollPane panel_5;
 	private JButton btnSalir;
+	private JTable table_puntuaciones;
 
 	/**
 	 * Launch the application.
@@ -61,6 +68,7 @@ public class Iu_highScores extends JFrame {
 		contentPane.add(getPanel_3(), BorderLayout.EAST);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
 		setLocation(400,100);
+		this.setVisible(true);
 	}
 	private JPanel getPanel() {
 		if (panel == null) {
@@ -111,25 +119,25 @@ public class Iu_highScores extends JFrame {
 		}
 		return lblHigh;
 	}
-	private JPanel getPanel_5() {
+	private JScrollPane getPanel_5() {
 		if (panel_5 == null) {
-			panel_5 = new JPanel();
-			panel_5.setBackground(Color.DARK_GRAY);
+			panel_5 = new JScrollPane();
+			panel_5.setViewportBorder(null);
+			panel_5.getViewport().setBackground(Color.DARK_GRAY);
 			panel_5.setBounds(10, 108, 555, 569);
-			panel_5.add(getTable());
+			panel_5.setViewportView(getTable_puntuaciones());
 		}
 		return panel_5;
-	}
-	private JTable getTable() {
-		if (table == null) {
-			table = new JTable();
-			table.setForeground(Color.WHITE);
-		}
-		return table;
 	}
 	private JButton getBtnSalir() {
 		if (btnSalir == null) {
 			btnSalir = new JButton("Salir");
+			btnSalir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					Iu_Inicio.miInicio().setVisible(true);
+				}
+			});
 			btnSalir.setBorder(new LineBorder(Color.DARK_GRAY, 3));
 			btnSalir.setFont(new Font("Tahoma", Font.BOLD, 25));
 			btnSalir.setForeground(Color.WHITE);
@@ -137,5 +145,28 @@ public class Iu_highScores extends JFrame {
 			btnSalir.setBounds(245, 688, 102, 37);
 		}
 		return btnSalir;
+	}
+
+	private CustomTableModel obtenerTabla(String[][] tabla) {
+		CustomTableModel nm= new CustomTableModel();
+		nm.addColumn("Nombre");
+		nm.addColumn("Tiempo");
+		for (int i=0;i<tabla[0].length;i++) {
+			String nombre= tabla[0][i];
+			String tiempo= tabla[1][i];
+			if (nombre!=null) { //caso menos de 10 entradas
+				String[] row= {nombre,tiempo};
+				nm.addRow(row);
+			}
+		}
+		return nm;
+	}
+	private JTable getTable_puntuaciones() {
+		if (table_puntuaciones == null) {
+			table_puntuaciones = new JTable(this.obtenerTabla(GestorUsuarios.getGestorUsuarios().obtener10Mejores("Facil")));
+			table_puntuaciones.setForeground(Color.WHITE);
+			table_puntuaciones.setBackground(Color.DARK_GRAY);
+		}
+		return table_puntuaciones;
 	}
 }
