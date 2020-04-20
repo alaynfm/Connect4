@@ -81,8 +81,10 @@ public class Tablero {
 
 		if (forma) {
 			// 1 vs IA
+			int turnoini=turno;
 			colocarFicha2(j);
-			if (!hayGanador()) {
+			boolean correcto= (turnoini!=turno);//comprobacion de que el turno ha pasado
+			if (!hayGanador() && correcto) {
 				joseMurillo.jugar();
 			}
 		} else {
@@ -127,7 +129,7 @@ public class Tablero {
 
 		// Si la colocamos y ha ganado terminamos la partida
 		// Si no seguimos jugando
-
+		
 		String color;
 		if (turno % 2 == 0) // jugador1
 			color = "a";
