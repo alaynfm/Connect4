@@ -169,6 +169,10 @@ public class Iu_highScores extends JFrame {
 	private JTable getTable_puntuaciones() {
 		if (table_puntuaciones == null) {
 			table_puntuaciones = new JTable(this.obtenerTabla(GestorUsuarios.getGestorUsuarios().obtener10Mejores("Facil")));
+			table_puntuaciones.setGridColor(Color.DARK_GRAY);
+			table_puntuaciones.setShowGrid(false);
+			table_puntuaciones.setShowVerticalLines(false);
+			table_puntuaciones.setShowHorizontalLines(false);
 			table_puntuaciones.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			table_puntuaciones.setForeground(Color.WHITE);
 			table_puntuaciones.setBackground(Color.DARK_GRAY);
@@ -176,7 +180,9 @@ public class Iu_highScores extends JFrame {
 			table_puntuaciones.setFont(new Font("Tahoma", Font.BOLD, 35));
 			table_puntuaciones.setAlignmentY(CENTER_ALIGNMENT);
 			table_puntuaciones.setRowHeight(53);
-			table_puntuaciones.setBorder(new LineBorder(Color.DARK_GRAY));
+			table_puntuaciones.setBorder(null);
+			table_puntuaciones.setAlignmentY(CENTER_ALIGNMENT);
+			table_puntuaciones.setAlignmentX(CENTER_ALIGNMENT);
 		}
 		return table_puntuaciones;
 	}
