@@ -49,8 +49,8 @@ public class Iu_Partida extends JFrame {
 	private int cont = 0;
 	private Timer timer;
 	private JButton[][] tablero;
-	private int tamanoX = 70;
-	private int tamanoY = 70;
+	private int tamanoX = 55;
+	private int tamanoY = 55;
 	private int x = -1;
 	private int turno; // Para saber si le toca al azul o al rojo
 	private JLabel lblTimepoc;
