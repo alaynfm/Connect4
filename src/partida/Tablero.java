@@ -31,7 +31,8 @@ public class Tablero {
 	private ListaCasilla listaCasillasLibres;
 	private ArrayList<String> ganadores;
 	private Iu_Partida interfaz;
-
+	
+	private String dificultad;
 	public static Tablero getMiTablero() {
 		return miTablero;
 	}
@@ -102,10 +103,14 @@ public class Tablero {
 
 		// true Ia facil
 		// False ia dificil
-		if (nivel)
+		if (nivel) {
 			joseMurillo = new IAFacil();
-		else
+			this.dificultad= "Facil";
+		}
+		else {
 			joseMurillo = new IADificil();
+			this.dificultad="Dificil";
+		}
 	}
 
 	public String getPosicion(int x, int y) {
@@ -483,5 +488,14 @@ public class Tablero {
 
 	public void setj2(String f) {
 		jugador2 = f;
+	}
+	public String getNombreUsuario() {
+		return this.interfaz.getNombreJugador1();
+	}
+	public int getTiempoUsuario() {
+		return this.interfaz.getPuntuacionJugador1();
+	}
+	public String getDificultad() {
+		return this.dificultad;
 	}
 }
