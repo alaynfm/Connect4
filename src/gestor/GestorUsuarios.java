@@ -67,14 +67,22 @@ public class GestorUsuarios {
 				}
 			}
 			else { //nunca ha jugado
-				String sentencia = "INSERT INTO ranking"+dificultad+" (nombre, tiempo) VALUES ('" + usuario + "',"+tiempo+")";
-				SGBD.getSGBD().realizarUpdate(sentencia);
+				guardarPartida(usuario,tiempo,dificultad);
 			}
 		} catch (SQLException e) {
 			System.out.println("Error al buscar o actualizar datos");
 			e.printStackTrace();
 		}
 		
+	}
+	public void guardarPartida(String usuario, int tiempo, String dificultad) { //Guarda la partida en la base de datos (no comprueba nada)
+		String sentencia = "INSERT INTO ranking"+dificultad+" (nombre, tiempo) VALUES ('" + usuario + "',"+tiempo+")";
+		try {
+			SGBD.getSGBD().realizarUpdate(sentencia);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public String[][] obtener10Mejores(String dificultad) { //dificultad tiene que ser exactamente Facil o Dificil
 		//Obtiene una matriz con los 10 mejores en funcion de la dificultad
