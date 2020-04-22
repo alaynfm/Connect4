@@ -32,6 +32,9 @@ import java.util.Observer;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import javax.swing.border.SoftBevelBorder;
+
+import gestor.GestorUsuarios;
+
 import javax.swing.border.BevelBorder;
 
 public class Iu_Finpartida extends JFrame {
@@ -108,6 +111,14 @@ public class Iu_Finpartida extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					clip.stop(); //para la musica
 					//ir a la base de datos
+					String nombre=Tablero.getMiTablero().getNombreUsuario();
+					int tiempo=Tablero.getMiTablero().getTiempoUsuario();
+					String dificultad=Tablero.getMiTablero().getDificultad();
+					GestorUsuarios.getGestorUsuarios().partidaGanada(nombre, tiempo, dificultad); //guardamos los datos
+					Iu_highScores.miPanel().actualizarPanel(); //actualizamos el ranking
+					new Iu_ScorePartida(nombre,tiempo);
+					setVisible(false);
+					Tablero.getMiTablero().cerrarInterfaz();
 					//guardar los datos
 					//activar la interfaz HighScores
 				}

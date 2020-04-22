@@ -443,8 +443,9 @@ public class Iu_Partida extends JFrame {
 		return lblNick_1.getText();
 	}
 
-	public void getPuntuacionJugador1() {
+	public int getPuntuacionJugador1() {
 		// Para obtener la puntuacion del jugador1 que hemos obtenido
+		return this.cont;
 	}
 
 	public void getPunatuacionJugador2() {
