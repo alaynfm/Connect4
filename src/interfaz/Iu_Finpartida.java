@@ -114,9 +114,10 @@ public class Iu_Finpartida extends JFrame {
 					String nombre=Tablero.getMiTablero().getNombreUsuario();
 					int tiempo=Tablero.getMiTablero().getTiempoUsuario();
 					String dificultad=Tablero.getMiTablero().getDificultad();
+					int posRel=GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(tiempo);
 					GestorUsuarios.getGestorUsuarios().partidaGanada(nombre, tiempo, dificultad); //guardamos los datos
 					Iu_highScores.miPanel().actualizarPanel(); //actualizamos el ranking
-					new Iu_ScorePartida(nombre,tiempo);
+					new Iu_ScorePartida(nombre,posRel);
 					setVisible(false);
 					Tablero.getMiTablero().cerrarInterfaz();
 					//guardar los datos

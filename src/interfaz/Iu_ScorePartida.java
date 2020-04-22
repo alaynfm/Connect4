@@ -45,8 +45,8 @@ public class Iu_ScorePartida extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Iu_ScorePartida(String nombre,int tiempo) {
-		int posicionRelativa= GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(tiempo);
+	public Iu_ScorePartida(String nombre,int posRel) {
+		int posicionRelativa=posRel;
 		int posicionRanking=GestorUsuarios.getGestorUsuarios().obtenerTuPosicion(nombre);
 		if (posicionRanking<posicionRelativa) { //no ha superado su record
 			this.posicion=posicionRelativa;
