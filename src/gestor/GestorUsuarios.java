@@ -97,4 +97,26 @@ public class GestorUsuarios {
 		}
 		return tabla;
 	}
+	public int obtenerTuPosicionRelativa(int tiempo) {
+		String consulta = "SELECT numero FROM rankingTotal WHERE tiempo>"+tiempo+" LIMIT 1";
+		try {
+		ResultSet rs = SGBD.getSGBD().realizarConsulta(consulta);
+		rs.next();
+		return rs.getInt("numero");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	public int obtenerTuPosicion(String nombre) {
+		String consulta = "SELECT numero FROM rankingTotal WHERE nombre='"+nombre+"' LIMIT 1";
+		try {
+		ResultSet rs = SGBD.getSGBD().realizarConsulta(consulta);
+		rs.next();
+		return rs.getInt("numero");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
 }
