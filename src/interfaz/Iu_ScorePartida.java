@@ -18,14 +18,18 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.GridLayout;
 
 public class Iu_ScorePartida extends JFrame {
 
 	private JPanel contentPane;
-	private JLabel lblPosicion;
 	private JLabel lblNewLabel_2;
 	private JButton btnNewButton;
 	private int posicion;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel panel_2;
 	/**
 	 * Launch the application.
 	 */
@@ -46,57 +50,69 @@ public class Iu_ScorePartida extends JFrame {
 	 * Create the frame.
 	 */
 	public Iu_ScorePartida(String nombre,int posRel) {
-		int posicionRelativa=posRel;
-		int posicionRanking=GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(posRel);
-		if (posicionRanking<posicionRelativa) { //no ha superado su record
-			this.posicion=posicionRelativa;
-		}
-		else {
-			this.posicion=posicionRanking;
-		}
+		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 340, 140);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
-		contentPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY));
+		contentPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.GRAY, Color.GRAY, Color.GRAY, Color.GRAY));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		contentPane.add(getLblPosicion());
+		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
+		contentPane.add(getPanel_1());
 		contentPane.add(getLblNewLabel_2());
-		contentPane.add(getBtnNewButton());
+		contentPane.add(getPanel());
+		contentPane.add(getPanel_2());
 		//this.setUndecorated(true);
 		ImageIcon imagen = new ImageIcon("img/logo.jpg");
 		this.setIconImage(imagen.getImage());
 		this.setVisible(true);
-	}
-	private JLabel getLblPosicion() {
-		if (lblPosicion == null) {
-			lblPosicion = new JLabel("Has quedado "+this.posicion+"º!!!");
-			lblPosicion.setForeground(Color.WHITE);
-			lblPosicion.setBounds(109, 36, 112, 14);
-		}
-		return lblPosicion;
+		setLocationRelativeTo(null);;
+		
 	}
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("DATOS GUARDADOS CORRECTAMENTE....");
+			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel_2.setForeground(Color.WHITE);
 			lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			lblNewLabel_2.setBounds(20, 11, 303, 14);
 		}
 		return lblNewLabel_2;
 	}
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("OK");
+			btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnNewButton.setForeground(Color.WHITE);
+			btnNewButton.setBackground(Color.GRAY);
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
 					Iu_Inicio.miInicio().setVisible(true);
 				}
 			});
-			btnNewButton.setBounds(102, 62, 89, 23);
 		}
 		return btnNewButton;
+	}
+	private JPanel getPanel() {
+		if (panel == null) {
+			panel = new JPanel();
+			panel.setBackground(Color.DARK_GRAY);
+			panel.add(getBtnNewButton());
+		}
+		return panel;
+	}
+	private JPanel getPanel_1() {
+		if (panel_1 == null) {
+			panel_1 = new JPanel();
+			panel_1.setBackground(Color.DARK_GRAY);
+		}
+		return panel_1;
+	}
+	private JPanel getPanel_2() {
+		if (panel_2 == null) {
+			panel_2 = new JPanel();
+			panel_2.setBackground(Color.DARK_GRAY);
+		}
+		return panel_2;
 	}
 }
