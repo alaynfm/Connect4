@@ -105,8 +105,8 @@ public class GestorUsuarios {
 		}
 		return tabla;
 	}
-	public int obtenerTuPosicionRelativa(int tiempo) {
-		String consulta = "SELECT numero FROM rankingTotal WHERE tiempo>"+tiempo+" LIMIT 1";
+	public int obtenerTuPosicionRelativa(int tiempo, String dificultad) {
+		String consulta = "SELECT numero FROM rankingTotal"+dificultad+" WHERE tiempo>"+tiempo+" LIMIT 1";
 		try {
 		ResultSet rs = SGBD.getSGBD().realizarConsulta(consulta);
 		rs.next();
