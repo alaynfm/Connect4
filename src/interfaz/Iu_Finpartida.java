@@ -57,6 +57,7 @@ public class Iu_Finpartida extends JFrame {
 	private JPanel panel_9;
 	private JPanel panel_10;
 	AudioClip clip;
+	private JLabel lblPosicionBaseDe;
 	/**
 	 * Launch the application.
 	 */
@@ -92,6 +93,8 @@ public class Iu_Finpartida extends JFrame {
 		this.reproducirMusica();
 		ImageIcon imagen = new ImageIcon("img/logo.jpg");
 		this.setIconImage(imagen.getImage());
+		int posicionRanking=GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(Tablero.getMiTablero().getTiempoUsuario());
+		lblPosicionBaseDe.setText("Has quedado " + posicionRanking + " " );
 	}
 	private void reproducirMusica() {
 		
@@ -111,7 +114,7 @@ public class Iu_Finpartida extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					clip.stop(); //para la musica
 					//ir a la base de datos
-					String nombre=Tablero.getMiTablero().getNombreUsuario();
+					String nombre=txtNickJugador.getText();
 					int tiempo=Tablero.getMiTablero().getTiempoUsuario();
 					String dificultad=Tablero.getMiTablero().getDificultad();
 					int posRel=GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(tiempo);
@@ -174,9 +177,9 @@ public class Iu_Finpartida extends JFrame {
 			panel_4.add(getPanel_9());
 			panel_4.add(getPanel_6());
 			panel_4.add(getPanel_7());
+			panel_4.add(getPanel_10());
 			panel_4.add(getPanel_5());
 			panel_4.add(getPanel_8());
-			panel_4.add(getPanel_10());
 		}
 		return panel_4;
 	}
@@ -230,6 +233,7 @@ public class Iu_Finpartida extends JFrame {
 			txtNickJugador.setText("Nick Jugador");
 			txtNickJugador.setColumns(10);
 			txtNickJugador.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+			txtNickJugador.setText(Tablero.getMiTablero().getJugador1());
 			txtNickJugador.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					txtNickJugador.setText("");
@@ -249,6 +253,7 @@ public class Iu_Finpartida extends JFrame {
 			txtPuntuacion.setText("Puntuacion");
 			txtPuntuacion.setColumns(10);
 			txtPuntuacion.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+			txtPuntuacion.setText("Puntuación: " + Tablero.getMiTablero().getTiempoUsuario() + "");
 		}
 		return txtPuntuacion;
 	}
@@ -289,6 +294,7 @@ public class Iu_Finpartida extends JFrame {
 		if (panel_10 == null) {
 			panel_10 = new JPanel();
 			panel_10.setBackground(Color.DARK_GRAY);
+			panel_10.add(getLblPosicionBaseDe());
 		}
 		return panel_10;
 	}
@@ -298,5 +304,13 @@ public class Iu_Finpartida extends JFrame {
 		au.setPriority(Thread.NORM_PRIORITY);
 		au.start();
 		au.reproducirAudio("finalfantasy");
+	}
+	private JLabel getLblPosicionBaseDe() {
+		if (lblPosicionBaseDe == null) {
+			lblPosicionBaseDe = new JLabel("posicion base de datos");
+			lblPosicionBaseDe.setFont(new Font("Tahoma", Font.PLAIN, 22));
+			lblPosicionBaseDe.setForeground(Color.WHITE);
+		}
+		return lblPosicionBaseDe;
 	}
 }

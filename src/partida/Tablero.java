@@ -498,4 +498,9 @@ public class Tablero {
 	public String getDificultad() {
 		return this.dificultad;
 	}
+
+	public String getJugador1() {
+		// TODO Auto-generated method stub
+		return jugador1;
+	}
 }
