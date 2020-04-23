@@ -58,6 +58,8 @@ public class Iu_Finpartida extends JFrame {
 	private JPanel panel_10;
 	AudioClip clip;
 	private JLabel lblPosicionBaseDe;
+	private int posRelativa;
+	private String nombre;
 	/**
 	 * Launch the application.
 	 */
@@ -93,8 +95,9 @@ public class Iu_Finpartida extends JFrame {
 		this.reproducirMusica();
 		ImageIcon imagen = new ImageIcon("img/logo.jpg");
 		this.setIconImage(imagen.getImage());
-		int posicionRanking=GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(Tablero.getMiTablero().getTiempoUsuario());
-		lblPosicionBaseDe.setText("Has quedado " + posicionRanking + " " );
+		nombre = Tablero.getMiTablero().getJugador1();
+		posRelativa =GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(Tablero.getMiTablero().getTiempoUsuario());
+		lblPosicionBaseDe.setText("Has quedado en la posición " + posRelativa + " " );
 	}
 	private void reproducirMusica() {
 		
@@ -117,10 +120,9 @@ public class Iu_Finpartida extends JFrame {
 					String nombre=txtNickJugador.getText();
 					int tiempo=Tablero.getMiTablero().getTiempoUsuario();
 					String dificultad=Tablero.getMiTablero().getDificultad();
-					int posRel=GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(tiempo);
 					GestorUsuarios.getGestorUsuarios().partidaGanada(nombre, tiempo, dificultad); //guardamos los datos
 					Iu_highScores.miPanel().actualizarPanel(); //actualizamos el ranking
-					new Iu_ScorePartida(nombre,posRel);
+					new Iu_ScorePartida();
 					setVisible(false);
 					Tablero.getMiTablero().cerrarInterfaz();
 					//guardar los datos

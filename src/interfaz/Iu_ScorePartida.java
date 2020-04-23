@@ -37,7 +37,7 @@ public class Iu_ScorePartida extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Iu_ScorePartida frame = new Iu_ScorePartida("null",0);
+					Iu_ScorePartida frame = new Iu_ScorePartida();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +49,7 @@ public class Iu_ScorePartida extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Iu_ScorePartida(String nombre,int posRel) {
+	public Iu_ScorePartida() {
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 340, 140);
