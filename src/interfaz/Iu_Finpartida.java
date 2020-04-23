@@ -96,8 +96,8 @@ public class Iu_Finpartida extends JFrame {
 		ImageIcon imagen = new ImageIcon("img/logo.jpg");
 		this.setIconImage(imagen.getImage());
 		nombre = Tablero.getMiTablero().getJugador1();
-		posRelativa =GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(Tablero.getMiTablero().getTiempoUsuario());
-		lblPosicionBaseDe.setText("Has quedado en la posición " + posRelativa + " " );
+		posRelativa =GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(Tablero.getMiTablero().getTiempoUsuario(),Tablero.getMiTablero().getDificultad());
+		lblPosicionBaseDe.setText("Has quedado en la posicion " + posRelativa + " " );
 	}
 	private void reproducirMusica() {
 		
@@ -255,7 +255,7 @@ public class Iu_Finpartida extends JFrame {
 			txtPuntuacion.setText("Puntuacion");
 			txtPuntuacion.setColumns(10);
 			txtPuntuacion.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-			txtPuntuacion.setText("Puntuación: " + Tablero.getMiTablero().getTiempoUsuario() + "");
+			txtPuntuacion.setText("Puntuacion: " + Tablero.getMiTablero().getTiempoUsuario() + "");
 		}
 		return txtPuntuacion;
 	}
