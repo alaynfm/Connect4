@@ -178,7 +178,6 @@ public class Normas extends JFrame {
 			btnNewButton_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					Iu_Inicio.miInicio().setVisible(true);
 				}
 			});
 			btnNewButton_2.setBackground(Color.LIGHT_GRAY);

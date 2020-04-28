@@ -332,6 +332,7 @@ public class Iu_Menu1J extends JFrame {
 			btnNormas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// hacer que se habra las normas
+					(new Normas()).setVisible(true);
 				}
 			});
 			btnNormas.setFont(new Font("Tahoma", Font.BOLD, 18));

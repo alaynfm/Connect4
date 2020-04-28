@@ -220,7 +220,6 @@ public class Iu_Inicio extends JFrame {
 			btnRegistrarse = new JButton("Normas");
 			btnRegistrarse.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					dispose();
 					(new Normas()).setVisible(true);
 				}
 			});
