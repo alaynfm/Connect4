@@ -159,8 +159,9 @@ public class Iu_highScores extends JFrame {
 
 	private CustomTableModel obtenerTabla(String[][] tabla) {
 		CustomTableModel nm= new CustomTableModel();
+		nm.addColumn("Nivel");
 		nm.addColumn("Nombre");
-		nm.addColumn("Tiempo");
+		nm.addColumn("Puntuacion");
 		for (int i=0;i<tabla[0].length;i++) {
 			String nombre= tabla[0][i];
 			String tiempo= tabla[1][i];

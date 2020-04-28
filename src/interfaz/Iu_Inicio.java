@@ -218,6 +218,12 @@ public class Iu_Inicio extends JFrame {
 	private JButton getBtnRegistrarse() {
 		if (btnRegistrarse == null) {
 			btnRegistrarse = new JButton("Normas");
+			btnRegistrarse.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					(new Normas()).setVisible(true);
+				}
+			});
 			btnRegistrarse.setForeground(Color.WHITE);
 			btnRegistrarse.setBackground(Color.DARK_GRAY);
 		}
