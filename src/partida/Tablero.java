@@ -607,16 +607,4 @@ public class Tablero {
 		// TODO Auto-generated method stub
 		return jugador1;
 	}
-	
-	private void reproducirMusica() {
-		AudioClip clip;
-		try {
-			clip = Applet.newAudioClip(new File("music/perder.waw").toURI().toURL());
-			clip.play();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 }
