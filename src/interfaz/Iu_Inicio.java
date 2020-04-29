@@ -221,6 +221,7 @@ public class Iu_Inicio extends JFrame {
 			btnRegistrarse.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					(new Normas()).setVisible(true);
+					setVisible(false);
 				}
 			});
 			btnRegistrarse.setForeground(Color.WHITE);

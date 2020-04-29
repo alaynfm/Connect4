@@ -71,6 +71,7 @@ public class Iu_Menu1J extends JFrame {
 	private ButtonGroup group = new ButtonGroup();
 	private JTextField txtNick;
 	private JRadioButton rdbtnvs;
+	private JLabel label;
 
 	/**
 	 * Launch the application.
@@ -133,6 +134,7 @@ public class Iu_Menu1J extends JFrame {
 		if (sur1 == null) {
 			sur1 = new JPanel();
 			sur1.setBackground(Color.DARK_GRAY);
+			sur1.add(getLabel());
 		}
 		return sur1;
 	}
@@ -332,7 +334,11 @@ public class Iu_Menu1J extends JFrame {
 			btnNormas.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// hacer que se habra las normas
-					(new Normas()).setVisible(true);
+					Normas normas = new Normas();
+					normas.setAnterior(1);
+					normas.setVisible(true);
+					setVisible(false);
+					
 				}
 			});
 			btnNormas.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -507,5 +513,12 @@ public class Iu_Menu1J extends JFrame {
 			});
 		}
 		return rdbtnvs;
+	}
+	private JLabel getLabel() {
+		if (label == null) {
+			label = new JLabel("Xabi&Co");
+			label.setForeground(new Color(204, 204, 204));
+		}
+		return label;
 	}
 }

@@ -32,6 +32,8 @@ public class Normas extends JFrame {
 	private int img = 1;
 	private JPanel panel_4;
 	private JButton btnNewButton_2;
+	
+	private int anterior;
 
 	/**
 	 * Launch the application.
@@ -65,6 +67,7 @@ public class Normas extends JFrame {
 		img = 1;
 		setUndecorated(true);
 		setLocationRelativeTo(null);
+		anterior = 0;
 		
 	}
 	private JPanel getPanel() {
@@ -178,10 +181,16 @@ public class Normas extends JFrame {
 			btnNewButton_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
+					if(anterior == 0) Iu_Inicio.miInicio().setVisible(true);
+					else Iu_Menu1J.miPartida().setVisible(true);
 				}
 			});
 			btnNewButton_2.setBackground(Color.LIGHT_GRAY);
 		}
 		return btnNewButton_2;
+	}
+	
+	public void setAnterior(int ant) {
+		anterior = ant;
 	}
 }

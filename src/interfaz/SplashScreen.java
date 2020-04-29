@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 
 import gestor.SGBDLoader;
 
@@ -23,7 +25,10 @@ public class SplashScreen extends JFrame {
 	private String[] txt = new String[5];
 	private String[] txt2 = new String[50];
 	private static int syncronize=0;
+	private JLabel lblTexto;
+	private JLabel lblXabico;
 	public SplashScreen() {
+		getContentPane().setFont(new Font("Georgia", Font.PLAIN, 11));
 		setUndecorated(true);
 		setBackground(Color.DARK_GRAY);
 		getContentPane().setBackground(Color.DARK_GRAY);
@@ -35,12 +40,14 @@ public class SplashScreen extends JFrame {
 		progressBar.setBackground(Color.GRAY);
 		progressBar.setForeground(new Color(153, 0, 0));
 		progressBar.setMaximum(45);
-		progressBar.setBounds(52, 350, 743, 14);
+		progressBar.setBounds(49, 381, 743, 14);
 		container.add(progressBar);
 		getContentPane().add(getLblNewLabel());
+		getContentPane().add(getLblTexto());
+		getContentPane().add(getLblXabico());
 		loadProgressBar();
 
-		setLocation(500, 200);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	
 
@@ -125,10 +132,11 @@ public class SplashScreen extends JFrame {
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Texto para poner mientras carga");
+			lblNewLabel.setFont(new Font("Georgia", Font.PLAIN, 11));
 			lblNewLabel.setBackground(Color.DARK_GRAY);
 			lblNewLabel.setForeground(Color.LIGHT_GRAY);
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setBounds(153, 327, 526, 14);
+			lblNewLabel.setBounds(49, 356, 743, 14);
 		}
 		return lblNewLabel;
 	}
@@ -137,5 +145,25 @@ public class SplashScreen extends JFrame {
 	}
 	private int getSyncronize() {
 		return syncronize;
+	}
+	private JLabel getLblTexto() {
+		if (lblTexto == null) {
+			lblTexto = new JLabel("Conecta4");
+			lblTexto.setForeground(Color.WHITE);
+			lblTexto.setFont(new Font("Georgia", Font.BOLD, 52));
+			lblTexto.setHorizontalAlignment(SwingConstants.CENTER);
+			lblTexto.setBounds(49, 126, 743, 114);
+		}
+		return lblTexto;
+	}
+	private JLabel getLblXabico() {
+		if (lblXabico == null) {
+			lblXabico = new JLabel("Xabi&Co");
+			lblXabico.setHorizontalAlignment(SwingConstants.CENTER);
+			lblXabico.setForeground(Color.LIGHT_GRAY);
+			lblXabico.setFont(new Font("Georgia", Font.BOLD, 34));
+			lblXabico.setBounds(49, 224, 743, 50);
+		}
+		return lblXabico;
 	}
 };
