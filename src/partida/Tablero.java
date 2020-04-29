@@ -12,6 +12,7 @@ import java.util.Stack;
 
 import javax.swing.JOptionPane;
 
+import interfaz.Iu_Fin1vs1;
 import interfaz.Iu_Finpartida;
 import interfaz.Iu_Inicio;
 import interfaz.Iu_Partida;
@@ -35,12 +36,11 @@ public class Tablero {
 	private ListaCasilla listaCasillasLibres;
 	private ArrayList<String> ganadores;
 	private Iu_Partida interfaz;
-	
+	private String nombreGanador;
 	private String dificultad;
 	public static Tablero getMiTablero() {
 		return miTablero;
 	}
-
 	private Tablero() {
 		setIa(true);
 		listaCasillasLibres = new ListaCasilla();
@@ -188,7 +188,8 @@ public class Tablero {
 
 			} else {
 				// hacer la Iu Revancha por si quieren jugar otra
-				(new Iu_Revancha()).setVisible(true);
+				(
+						new Iu_Fin1vs1()).setGanador(nombreGanador);;
 
 			}
 		}
@@ -196,7 +197,12 @@ public class Tablero {
 			//paramos la interfaz
 			interfaz.setEnabled(false);
 			interfaz.pararTimer();
-			new Iu_Revancha().setVisible(true); //mostramos el empate
+			if (forma) {
+				new Iu_Revancha().setVisible(true); //mostramos el empate
+			}
+			else {
+				new Iu_Fin1vs1().setEmpate();
+			}
 		}
 
 	}
@@ -207,10 +213,12 @@ public class Tablero {
 
 	private void buscarGanador(int i, int x, String color) {
 		if (buscarGanadorJuego(i, x)) {
-			if (color == "r") {
+			if (color == "r") { //gana rojo
 				ganador = "r";
-			} else {
+				nombreGanador=this.jugador2;
+			} else { //gana azul
 				ganador = "a";
+				nombreGanador=this.jugador1;
 			}
 		}
 	}
