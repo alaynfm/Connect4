@@ -192,6 +192,12 @@ public class Tablero {
 
 			}
 		}
+		if (this.listaCasillasLibres.size()==0) { //lista vacia, por tanto hay empate
+			//paramos la interfaz
+			interfaz.setEnabled(false);
+			interfaz.pararTimer();
+			new Iu_Revancha().setVisible(true); //mostramos el empate
+		}
 
 	}
 
