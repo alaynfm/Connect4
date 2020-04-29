@@ -421,6 +421,103 @@ public class Tablero {
 		}
 		return existe;
 	}
+	
+	public int valorCasillaIA(int pCol) 
+	{
+		int puntuacion = 0;
+		int fila = 0;
+		boolean salir = false;
+		while (fila < tablero.length && !salir) 
+		{
+			if (tablero[fila][pCol].equals("-")) 
+			{
+				fila++;
+			}
+			else 
+			{
+				salir = true;
+			}
+		}
+		puntuacion+= recorrerDireccionValor(fila-1, pCol,  1,  0);//Recorre la vertical hacia abajo
+		puntuacion+= recorrerDireccionValor(fila-1, pCol,  0,  1);//Recorre la Horizontal hacia la derecha
+		puntuacion+= recorrerDireccionValor(fila-1, pCol,  0, -1);//Recorre la Horizontal hacia la izquierda
+		puntuacion+= recorrerDireccionValor(fila-1, pCol,  1,  1);//Recorre la Diagonal abajo derecha
+		puntuacion+= recorrerDireccionValor(fila-1, pCol,  1, -1);//Recorre la Diagonal abajo izquierda
+		puntuacion+= recorrerDireccionValor(fila-1, pCol, -1,  1);//Recorre la Diagonal arriba derecha
+		puntuacion+= recorrerDireccionValor(fila-1, pCol, -1, -1);//Recorre la Diagonal arriba izquierda
+		return puntuacion;
+	} 
+	
+	private int recorrerDireccionValor(int pFila, int pCol, int pDirFila, int pDirCol) 
+	{
+		//En funcion de los valores de pDirFila y pDirColumna recorrera una direccion diferente
+		//Los valores de las puntuaciones de los movimientos se pueden modificar si nos conviene
+		int puntGanar = 10000;
+		int puntEvitarVictoria = 9000;
+		int puntTresEnLinea = 10;
+		int puntDosEnLinea = 5;		
+		//Terminan los valores de puntuacion
+		
+		int valor = 0;
+		int filaAux = pFila+pDirFila;
+		int columnaAux = pCol+pDirCol;
+		int i = 0;
+		String jugador="";
+		boolean salir = false;
+		while (posCorrecta(filaAux, columnaAux) && i < 3 && !salir)
+		{	
+			if (i == 0 && !tablero[filaAux][columnaAux].equals("-")) 
+			{	
+				jugador = tablero[filaAux][columnaAux];
+				
+			}			
+			if (posCorrecta(filaAux,columnaAux)&&!jugador.equals(tablero[filaAux][columnaAux]))
+			{
+				salir = true;
+			}
+			
+			if(!salir)
+			{
+				i++;
+			}
+			filaAux = filaAux+pDirFila;
+			columnaAux = columnaAux+pDirCol;
+		}
+		
+		if (jugador.equals("r")) 
+		{
+			if (i == 1) 
+			{
+				valor += puntDosEnLinea*1.25;
+			}
+			else if (i==2) 
+			{
+				valor += puntTresEnLinea*1.25;
+			}
+			else if (i == 3) 
+			{
+				valor += puntGanar;
+			}
+		}
+		else if (jugador.equals("a")) 
+		{
+			if (i == 1) 
+			{
+				valor += puntDosEnLinea;
+			}
+			else if (i==2) 
+			{
+				valor += puntTresEnLinea;
+			}
+			else if (i == 3) 
+			{
+				valor += puntEvitarVictoria;
+			}
+		}
+		System.out.println("Columna = "+ pCol + " Contiunas = "+ Integer.toString(i)+ " Jugador = "+ jugador + " Puntuacion = " +Integer.toString(valor));
+		return valor;
+	}
+	
 
 	public boolean buscarGanadorVertical(int fila, int columna) {
 
