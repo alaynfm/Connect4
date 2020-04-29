@@ -39,7 +39,10 @@ public class Iu_highScores extends JFrame {
 	private static Iu_highScores miinterfaz = new Iu_highScores();
 	private JScrollPane panel_5;
 	private JButton btnSalir;
-	private JTable table_puntuaciones;
+	private JTable table_puntuacionesF;
+	private JTable table_puntuacionesD;
+	private JButton btnNewButton;
+	private String dificultadRanking="Facil";
 	/**
 	 * Launch the application.
 	 */
@@ -115,12 +118,13 @@ public class Iu_highScores extends JFrame {
 			panel_4.add(getLblHigh());
 			panel_4.add(getPanel_5());
 			panel_4.add(getBtnSalir());
+			panel_4.add(getBtnNewButton());
 		}
 		return panel_4;
 	}
 	private JLabel getLblHigh() {
 		if (lblHigh == null) {
-			lblHigh = new JLabel("Mejores Jugadores F\u00E1cil");
+			lblHigh = new JLabel("Mejores Jugadores "+dificultadRanking);
 			lblHigh.setForeground(new Color(0, 153, 255));
 			lblHigh.setFont(new Font("Tahoma", Font.BOLD, 36));
 			lblHigh.setHorizontalAlignment(SwingConstants.CENTER);
@@ -135,7 +139,7 @@ public class Iu_highScores extends JFrame {
 			panel_5.setViewportBorder(null);
 			panel_5.getViewport().setBackground(Color.DARK_GRAY);
 			panel_5.setBounds(10, 108, 555, 569);
-			panel_5.setViewportView(getTable_puntuaciones());
+			panel_5.setViewportView(getTable_puntuacionesF());
 		}
 		return panel_5;
 	}
@@ -159,7 +163,6 @@ public class Iu_highScores extends JFrame {
 
 	private CustomTableModel obtenerTabla(String[][] tabla) {
 		CustomTableModel nm= new CustomTableModel();
-		nm.addColumn("Nivel");
 		nm.addColumn("Nombre");
 		nm.addColumn("Puntuacion");
 		for (int i=0;i<tabla[0].length;i++) {
@@ -172,28 +175,72 @@ public class Iu_highScores extends JFrame {
 		}
 		return nm;
 	}
-	private JTable getTable_puntuaciones() {
-		if (table_puntuaciones == null) {
-			table_puntuaciones = new JTable(this.obtenerTabla(GestorUsuarios.getGestorUsuarios().obtener10Mejores("Facil")));
-			table_puntuaciones.setGridColor(Color.DARK_GRAY);
-			table_puntuaciones.setShowGrid(false);
-			table_puntuaciones.setShowVerticalLines(false);
-			table_puntuaciones.setShowHorizontalLines(false);
-			table_puntuaciones.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-			table_puntuaciones.setForeground(Color.WHITE);
-			table_puntuaciones.setBackground(Color.DARK_GRAY);
-			table_puntuaciones.setForeground(Color.WHITE);
-			table_puntuaciones.setFont(new Font("Tahoma", Font.BOLD, 35));
-			table_puntuaciones.setAlignmentY(CENTER_ALIGNMENT);
-			table_puntuaciones.setRowHeight(53);
-			table_puntuaciones.setBorder(null);
-			table_puntuaciones.setAlignmentY(CENTER_ALIGNMENT);
-			table_puntuaciones.setAlignmentX(CENTER_ALIGNMENT);
+	private JTable getTable_puntuacionesF() {
+		if (table_puntuacionesF == null) {
+			table_puntuacionesF = new JTable(this.obtenerTabla(GestorUsuarios.getGestorUsuarios().obtener10Mejores("Facil")));
+			table_puntuacionesF.setGridColor(Color.DARK_GRAY);
+			table_puntuacionesF.setShowGrid(false);
+			table_puntuacionesF.setShowVerticalLines(false);
+			table_puntuacionesF.setShowHorizontalLines(false);
+			table_puntuacionesF.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+			table_puntuacionesF.setForeground(Color.WHITE);
+			table_puntuacionesF.setBackground(Color.DARK_GRAY);
+			table_puntuacionesF.setForeground(Color.WHITE);
+			table_puntuacionesF.setFont(new Font("Tahoma", Font.BOLD, 35));
+			table_puntuacionesF.setAlignmentY(CENTER_ALIGNMENT);
+			table_puntuacionesF.setRowHeight(53);
+			table_puntuacionesF.setBorder(null);
+			table_puntuacionesF.setAlignmentY(CENTER_ALIGNMENT);
+			table_puntuacionesF.setAlignmentX(CENTER_ALIGNMENT);
 		}
-		return table_puntuaciones;
+		return table_puntuacionesF;
+	}
+	private JTable getTable_puntuacionesD() {
+		if (table_puntuacionesD == null) {
+			table_puntuacionesD = new JTable(this.obtenerTabla(GestorUsuarios.getGestorUsuarios().obtener10Mejores("Dificil")));
+			table_puntuacionesD.setGridColor(Color.DARK_GRAY);
+			table_puntuacionesD.setShowGrid(false);
+			table_puntuacionesD.setShowVerticalLines(false);
+			table_puntuacionesD.setShowHorizontalLines(false);
+			table_puntuacionesD.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+			table_puntuacionesD.setForeground(Color.WHITE);
+			table_puntuacionesD.setBackground(Color.DARK_GRAY);
+			table_puntuacionesD.setForeground(Color.WHITE);
+			table_puntuacionesD.setFont(new Font("Tahoma", Font.BOLD, 35));
+			table_puntuacionesD.setAlignmentY(CENTER_ALIGNMENT);
+			table_puntuacionesD.setRowHeight(53);
+			table_puntuacionesD.setBorder(null);
+			table_puntuacionesD.setAlignmentY(CENTER_ALIGNMENT);
+			table_puntuacionesD.setAlignmentX(CENTER_ALIGNMENT);
+		}
+		return table_puntuacionesD;
 	}
 	public void actualizarPanel() {
 		miinterfaz=new Iu_highScores();
 		miinterfaz.setVisible(false);
+	}
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("C");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					cambiarDificultadRanking();
+				}
+			});
+			btnNewButton.setBounds(10, 74, 24, 23);
+		}
+		return btnNewButton;
+	}
+	public void cambiarDificultadRanking() {
+		if (dificultadRanking.equals("Facil")) {
+			panel_5.setViewportView(getTable_puntuacionesD());
+			dificultadRanking="Dificil";
+			lblHigh.setText("Mejores Jugadores "+dificultadRanking);
+		}
+		else if (dificultadRanking.equals("Dificil")) {
+			panel_5.setViewportView(getTable_puntuacionesF());
+			dificultadRanking="Facil";
+			lblHigh.setText("Mejores Jugadores "+dificultadRanking);
+		}
 	}
 }
