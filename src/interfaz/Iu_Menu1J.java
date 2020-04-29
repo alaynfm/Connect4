@@ -286,9 +286,8 @@ public class Iu_Menu1J extends JFrame {
 
 					// El normbre nos da igual, aceptamos cuqlquiera
 					Tablero.getMiTablero().setj1(txtNick.getText());
-					Tablero.getMiTablero().setj2("Murillo");
-
-
+					Tablero.getMiTablero().setj2(lblJoseMurillo.getText());
+					
 					if (txtNick.getText().length() > 8 || txtNick.getText().length() == 0 || lblJoseMurillo.getText().length() > 8 || lblJoseMurillo.getText().length() == 0) {
 
 						JOptionPane.showMessageDialog(null, "Los nicknames con menos de 8 caracteres", "Warming",
@@ -309,7 +308,9 @@ public class Iu_Menu1J extends JFrame {
 								Tablero.getMiTablero().setForma(true);
 								Tablero.getMiTablero().setIa(false);
 							} else {
+								
 								Tablero.getMiTablero().setForma(false);
+								
 							}
 
 						} else {
