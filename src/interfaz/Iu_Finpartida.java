@@ -60,6 +60,7 @@ public class Iu_Finpartida extends JFrame {
 	private JLabel lblPosicionBaseDe;
 	private int posRelativa;
 	private String nombre;
+
 	/**
 	 * Launch the application.
 	 */
@@ -83,7 +84,8 @@ public class Iu_Finpartida extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 576, 300);
 		contentPane = new JPanel();
-		contentPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY));
+		contentPane.setBorder(new SoftBevelBorder(BevelBorder.RAISED, Color.DARK_GRAY, Color.DARK_GRAY, Color.DARK_GRAY,
+				Color.DARK_GRAY));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanel(), BorderLayout.NORTH);
@@ -96,11 +98,13 @@ public class Iu_Finpartida extends JFrame {
 		ImageIcon imagen = new ImageIcon("img/logo.jpg");
 		this.setIconImage(imagen.getImage());
 		nombre = Tablero.getMiTablero().getJugador1();
-		posRelativa =GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(Tablero.getMiTablero().getTiempoUsuario(),Tablero.getMiTablero().getDificultad());
-		lblPosicionBaseDe.setText("Has quedado en la posicion " + posRelativa + " " );
+		posRelativa = GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(
+				Tablero.getMiTablero().getTiempoUsuario(), Tablero.getMiTablero().getDificultad());
+		lblPosicionBaseDe.setText("Has quedado en la posicion " + posRelativa + " ");
 	}
+
 	private void reproducirMusica() {
-		
+
 		try {
 			clip = Applet.newAudioClip(new File("music/finalfantasy.wav").toURI().toURL());
 			clip.play();
@@ -108,25 +112,26 @@ public class Iu_Finpartida extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
+
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Si");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					clip.stop(); //para la musica
-					//ir a la base de datos
-					String nombre=txtNickJugador.getText();
-					int tiempo=Tablero.getMiTablero().getTiempoUsuario();
-					String dificultad=Tablero.getMiTablero().getDificultad();
-					GestorUsuarios.getGestorUsuarios().partidaGanada(nombre, tiempo, dificultad); //guardamos los datos
-					Iu_highScores.miPanel().actualizarPanel(); //actualizamos el ranking
+					clip.stop(); // para la musica
+					// ir a la base de datos
+					String nombre = txtNickJugador.getText();
+					int tiempo = Tablero.getMiTablero().getTiempoUsuario();
+					String dificultad = Tablero.getMiTablero().getDificultad();
+					GestorUsuarios.getGestorUsuarios().partidaGanada(nombre, tiempo, dificultad); // guardamos los datos
+					Iu_highScores.miPanel().actualizarPanel(); // actualizamos el ranking
 					new Iu_ScorePartida();
 					setVisible(false);
 					Tablero.getMiTablero().cerrarInterfaz();
-					//guardar los datos
-					//activar la interfaz HighScores
+					// guardar los datos
+					// activar la interfaz HighScores
 				}
 			});
 			btnNewButton.setForeground(Color.WHITE);
@@ -134,11 +139,11 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return btnNewButton;
 	}
-	
+
 	public void setJugador(String nombre) {
 		txtNickJugador.setText(nombre);
 	}
-	
+
 	public void setPuntuacion(String puntuacion) {
 		txtPuntuacion.setText(puntuacion);
 	}
@@ -150,6 +155,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return panel;
 	}
+
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
@@ -157,6 +163,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return panel_1;
 	}
+
 	private JPanel getPanel_2() {
 		if (panel_2 == null) {
 			panel_2 = new JPanel();
@@ -164,6 +171,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return panel_2;
 	}
+
 	private JPanel getPanel_3() {
 		if (panel_3 == null) {
 			panel_3 = new JPanel();
@@ -171,6 +179,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return panel_3;
 	}
+
 	private JPanel getPanel_4() {
 		if (panel_4 == null) {
 			panel_4 = new JPanel();
@@ -185,6 +194,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return panel_4;
 	}
+
 	private JPanel getPanel_5() {
 		if (panel_5 == null) {
 			panel_5 = new JPanel();
@@ -194,6 +204,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return panel_5;
 	}
+
 	private JPanel getPanel_6() {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
@@ -203,6 +214,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return panel_6;
 	}
+
 	private JPanel getPanel_7() {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
@@ -212,6 +224,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return panel_7;
 	}
+
 	private JPanel getPanel_8() {
 		if (panel_8 == null) {
 			panel_8 = new JPanel();
@@ -244,6 +257,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return txtNickJugador;
 	}
+
 	private JTextField getTxtPuntuacion() {
 		if (txtPuntuacion == null) {
 			txtPuntuacion = new JTextField();
@@ -259,13 +273,14 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return txtPuntuacion;
 	}
+
 	private JButton getBtnNo() {
 		if (btnNo == null) {
 			btnNo = new JButton("No");
 			btnNo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//Volvemos a la pantalla de inicio
-					clip.stop(); //paramos la musica
+					// Volvemos a la pantalla de inicio
+					clip.stop(); // paramos la musica
 					Iu_Inicio.miInicio().setVisible(true);
 					setVisible(false);
 					Tablero.getMiTablero().cerrarInterfaz();
@@ -276,6 +291,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return btnNo;
 	}
+
 	private JLabel getLblquieresGuardarTu() {
 		if (lblquieresGuardarTu == null) {
 			lblquieresGuardarTu = new JLabel("\u00BFQuieres guardar tu puntuaci\u00F3n?");
@@ -285,6 +301,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return lblquieresGuardarTu;
 	}
+
 	private JPanel getPanel_9() {
 		if (panel_9 == null) {
 			panel_9 = new JPanel();
@@ -292,6 +309,7 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return panel_9;
 	}
+
 	private JPanel getPanel_10() {
 		if (panel_10 == null) {
 			panel_10 = new JPanel();
@@ -300,13 +318,14 @@ public class Iu_Finpartida extends JFrame {
 		}
 		return panel_10;
 	}
-	
+
 	public void iniciarSonido() {
 		AudioFilePlayer au = new AudioFilePlayer();
 		au.setPriority(Thread.NORM_PRIORITY);
 		au.start();
 		au.reproducirAudio("finalfantasy");
 	}
+
 	private JLabel getLblPosicionBaseDe() {
 		if (lblPosicionBaseDe == null) {
 			lblPosicionBaseDe = new JLabel("posicion base de datos");
