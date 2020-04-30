@@ -75,7 +75,7 @@ public class Iu_highScores extends JFrame {
 		contentPane.add(getPanel_2(), BorderLayout.WEST);
 		contentPane.add(getPanel_3(), BorderLayout.EAST);
 		contentPane.add(getPanel_4(), BorderLayout.CENTER);
-		setLocation(400,100);
+		setLocationRelativeTo(null);
 		ImageIcon imagen = new ImageIcon("img/logo.jpg");
 		this.setIconImage(imagen.getImage());
 	}
@@ -128,7 +128,7 @@ public class Iu_highScores extends JFrame {
 			lblHigh.setForeground(new Color(0, 153, 255));
 			lblHigh.setFont(new Font("Tahoma", Font.BOLD, 36));
 			lblHigh.setHorizontalAlignment(SwingConstants.CENTER);
-			lblHigh.setBounds(10, 11, 555, 71);
+			lblHigh.setBounds(10, 0, 555, 71);
 		}
 		return lblHigh;
 	}
@@ -156,7 +156,7 @@ public class Iu_highScores extends JFrame {
 			btnSalir.setFont(new Font("Tahoma", Font.BOLD, 25));
 			btnSalir.setForeground(Color.WHITE);
 			btnSalir.setBackground(Color.DARK_GRAY);
-			btnSalir.setBounds(245, 688, 102, 37);
+			btnSalir.setBounds(10, 688, 555, 37);
 		}
 		return btnSalir;
 	}
@@ -221,13 +221,15 @@ public class Iu_highScores extends JFrame {
 	}
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
-			btnNewButton = new JButton("C");
+			btnNewButton = new JButton("Cambiar Dificultad");
+			btnNewButton.setForeground(Color.BLACK);
+			btnNewButton.setBackground(Color.LIGHT_GRAY);
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					cambiarDificultadRanking();
 				}
 			});
-			btnNewButton.setBounds(10, 74, 24, 23);
+			btnNewButton.setBounds(218, 74, 144, 23);
 		}
 		return btnNewButton;
 	}

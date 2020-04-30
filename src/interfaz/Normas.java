@@ -68,6 +68,8 @@ public class Normas extends JFrame {
 		setUndecorated(true);
 		setLocationRelativeTo(null);
 		anterior = 0;
+		ImageIcon imagen = new ImageIcon("img/logo.jpg");
+		this.setIconImage(imagen.getImage());
 		
 	}
 	private JPanel getPanel() {
@@ -178,6 +180,7 @@ public class Normas extends JFrame {
 	private JButton getBtnNewButton_2() {
 		if (btnNewButton_2 == null) {
 			btnNewButton_2 = new JButton("salir");
+			btnNewButton_2.setFont(new Font("Georgia", Font.PLAIN, 11));
 			btnNewButton_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();

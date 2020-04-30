@@ -1,6 +1,5 @@
 package partida;
 
-import java.io.ObjectOutputStream.PutField;
 import java.util.Random;
 
 public class IADificil extends IA {
@@ -18,7 +17,7 @@ public class IADificil extends IA {
 		for(int i = 0; i < Tablero.getMiTablero().getColumnas(); i++) 
 		{
 			int nuevoValor = Tablero.getMiTablero().valorCasillaIA(i);
-			if (maxValor<nuevoValor) 
+			if (nuevoValor!= -1 && maxValor<nuevoValor) 
 			{
 				maxValor = nuevoValor;
 				col = i;

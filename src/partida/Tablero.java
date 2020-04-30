@@ -154,12 +154,13 @@ public class Tablero {
 					interfaz.pintarPosicion(i + 1, c, "r");
 				buscarGanador(i, c, color);
 				listaCasillasLibres.eliminarCasillla("" + i + "" + c + "");
+				turno++;
+				interfaz.seturno(turno);
 				break;
 			}
 		}
 		if (i!=-1) { //Si i=-1 la columna esta llena
-			turno++;
-			interfaz.seturno(turno);
+			
 		}
 		if (hayGanador()) { // Terminamos la partida y pintamos con las fichas que se ha ganado
 
@@ -459,13 +460,20 @@ public class Tablero {
 				salir = true;
 			}
 		}
-		puntuacion+= recorrerDireccionValor(fila-1, pCol,  1,  0);//Recorre la vertical hacia abajo
-		puntuacion+= recorrerDireccionValor(fila-1, pCol,  0,  1);//Recorre la Horizontal hacia la derecha
-		puntuacion+= recorrerDireccionValor(fila-1, pCol,  0, -1);//Recorre la Horizontal hacia la izquierda
-		puntuacion+= recorrerDireccionValor(fila-1, pCol,  1,  1);//Recorre la Diagonal abajo derecha
-		puntuacion+= recorrerDireccionValor(fila-1, pCol,  1, -1);//Recorre la Diagonal abajo izquierda
-		puntuacion+= recorrerDireccionValor(fila-1, pCol, -1,  1);//Recorre la Diagonal arriba derecha
-		puntuacion+= recorrerDireccionValor(fila-1, pCol, -1, -1);//Recorre la Diagonal arriba izquierda
+		if (fila != 0) 
+		{
+			puntuacion+= recorrerDireccionValor(fila-1, pCol,  1,  0);//Recorre la vertical hacia abajo
+			puntuacion+= recorrerDireccionValor(fila-1, pCol,  0,  1);//Recorre la Horizontal hacia la derecha
+			puntuacion+= recorrerDireccionValor(fila-1, pCol,  0, -1);//Recorre la Horizontal hacia la izquierda
+			puntuacion+= recorrerDireccionValor(fila-1, pCol,  1,  1);//Recorre la Diagonal abajo derecha
+			puntuacion+= recorrerDireccionValor(fila-1, pCol,  1, -1);//Recorre la Diagonal abajo izquierda
+			puntuacion+= recorrerDireccionValor(fila-1, pCol, -1,  1);//Recorre la Diagonal arriba derecha
+			puntuacion+= recorrerDireccionValor(fila-1, pCol, -1, -1);//Recorre la Diagonal arriba izquierda
+		}
+		else
+		{
+			puntuacion = -1;
+		}
 		return puntuacion;
 	} 
 	
@@ -538,7 +546,6 @@ public class Tablero {
 		System.out.println("Columna = "+ pCol + " Contiunas = "+ Integer.toString(i)+ " Jugador = "+ jugador + " Puntuacion = " +Integer.toString(valor));
 		return valor;
 	}
-	
 
 	public boolean buscarGanadorVertical(int fila, int columna) {
 
