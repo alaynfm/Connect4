@@ -8,8 +8,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import partida.AudioFilePlayer;
 import partida.Tablero;
 
 import java.awt.GridLayout;
@@ -60,6 +58,7 @@ public class Iu_Finpartida extends JFrame {
 	private JLabel lblPosicionBaseDe;
 	private int posRelativa;
 	private String nombre;
+	Iu_gig_ganar gif = new Iu_gig_ganar();
 
 	/**
 	 * Launch the application.
@@ -101,6 +100,8 @@ public class Iu_Finpartida extends JFrame {
 		posRelativa = GestorUsuarios.getGestorUsuarios().obtenerTuPosicionRelativa(
 				Tablero.getMiTablero().getTiempoUsuario(), Tablero.getMiTablero().getDificultad());
 		lblPosicionBaseDe.setText("Has quedado en la posicion " + posRelativa + " ");
+		
+		gif.setVisible(true);
 	}
 
 	private void reproducirMusica() {
@@ -130,6 +131,7 @@ public class Iu_Finpartida extends JFrame {
 					new Iu_ScorePartida();
 					setVisible(false);
 					Tablero.getMiTablero().cerrarInterfaz();
+					gif.dispose();
 					// guardar los datos
 					// activar la interfaz HighScores
 				}
@@ -284,6 +286,7 @@ public class Iu_Finpartida extends JFrame {
 					Iu_Inicio.miInicio().setVisible(true);
 					setVisible(false);
 					Tablero.getMiTablero().cerrarInterfaz();
+					gif.dispose();
 				}
 			});
 			btnNo.setBackground(new Color(153, 0, 0));
@@ -317,13 +320,6 @@ public class Iu_Finpartida extends JFrame {
 			panel_10.add(getLblPosicionBaseDe());
 		}
 		return panel_10;
-	}
-
-	public void iniciarSonido() {
-		AudioFilePlayer au = new AudioFilePlayer();
-		au.setPriority(Thread.NORM_PRIORITY);
-		au.start();
-		au.reproducirAudio("finalfantasy");
 	}
 
 	private JLabel getLblPosicionBaseDe() {

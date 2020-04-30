@@ -38,7 +38,7 @@ public class Iu_gig_ganar extends JFrame {
 	 */
 	public Iu_gig_ganar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 309);
+		setBounds(100, 100, 687, 678);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -47,9 +47,9 @@ public class Iu_gig_ganar extends JFrame {
 		setUndecorated(true);//Decoraciones Deshabilitadas
 		setBackground(new Color(0,0,0,10));//Transparencia
 		
-		ImageIcon imageIcon = new ImageIcon("img/gif.gif");
+		ImageIcon imageIcon = new ImageIcon("img/ganar2.gif");
 		java.awt.Image conversion = imageIcon.getImage();
-		java.awt.Image tamano = conversion.getScaledInstance(300, 300, 0);
+		java.awt.Image tamano = conversion.getScaledInstance(1000, 800, 0);
 		ImageIcon fin = new ImageIcon(tamano);
 		lblNewLabel.setIcon(fin);
 		imageIcon.setImageObserver(lblNewLabel);
@@ -63,7 +63,7 @@ public class Iu_gig_ganar extends JFrame {
 			lblNewLabel = new JLabel("");
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setBounds(5, 5, 440, 290);
+			lblNewLabel.setBounds(77, 97, 546, 570);
 		}
 		return lblNewLabel;
 	}

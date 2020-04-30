@@ -1,23 +1,13 @@
 package partida;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.io.File;
-import java.io.ObjectOutputStream.PutField;
-import java.net.MalformedURLException;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Observable;
-import java.util.Stack;
-
-import javax.swing.JOptionPane;
-
 import interfaz.Iu_Fin1vs1;
 import interfaz.Iu_Finpartida;
-import interfaz.Iu_Inicio;
 import interfaz.Iu_Partida;
 import interfaz.Iu_Revancha;
 import interfaz.Iu_gig_ganar;
+
 
 public class Tablero {
 
@@ -174,7 +164,9 @@ public class Tablero {
 
 			// hacemos que la interfaz no funcione, la partida se ha terminado
 			interfaz.setEnabled(false);
+			
 			interfaz.pararTimer();
+			
 
 			if (forma) {
 
