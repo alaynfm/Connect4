@@ -11,7 +11,6 @@ import partida.*;
 public class GestorUsuarios {
 
 	private static GestorUsuarios mGestorUsuarios;
-	private Jugador jugador;
 	
 	private GestorUsuarios() {}
 	
@@ -21,39 +20,6 @@ public class GestorUsuarios {
 		}
 		return mGestorUsuarios;
 	}
-	/* no sirve en principio (BORRAR SI FINALMENTE NO SIRVE)
-	public void iniciarSesion(String usuario, String contrasena) {
-		try {
-			String consulta = "SELECT contrasena FROM usuarios WHERE usuario = '" + usuario+"'";
-			ResultSet rs = SGBD.getSGBD().realizarConsulta(consulta);
-			rs.next();
-			String contrasenaPosible = rs.getString(1);
-			
-			if (contrasenaPosible.equals(contrasena)) {
-				System.out.println("Sesion iniciada");
-				this.jugador = new Jugador(usuario, "rojo");
-			} else {
-				System.out.println("Contrasena incorrecta");
-			}
-		} catch (SQLException e) {
-			System.out.println("Error al iniciar la sesion");
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	public void registrarse(String usuario, String contrasena) {
-		try {
-			String update = "INSERT INTO usuarios (usuario, contrasena) VALUES ('" + usuario + "', '" + contrasena + "')";
-			SGBD.getSGBD().realizarUpdate(update);
-			update = "INSERT INTO ranking (usuario, puntuacion, numpartidas) VALUES ('" + usuario + "', 0, 0)";
-			SGBD.getSGBD().realizarUpdate(update);
-		} catch (SQLException e) {
-			System.out.println("Error al registrarte");
-			System.out.println(e.getMessage());
-		}
-	}
-	
-	*/
 	public void partidaGanada(String usuario, int tiempo, String dificultad) { //dificultad tiene que ser exactamente Facil o Dificil
 		//Guarda una partida en el highscore (se comprueba en este metodo si es su mejor partida o no)
 		try {
