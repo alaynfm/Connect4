@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import gestor.GestorUsuarios;
+import partida.Tablero;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -94,6 +95,7 @@ public class Iu_Revancha extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
 					Iu_Inicio.miInicio().setVisible(true);
+					Tablero.getMiTablero().eliminarInterfaz();
 				}
 			});
 		}

@@ -190,6 +190,7 @@ public class Tablero {
 			//paramos la interfaz
 			interfaz.setEnabled(false);
 			interfaz.pararTimer();
+			
 			if (forma) {
 				new Iu_Revancha().setVisible(true); //mostramos el empate
 			}
